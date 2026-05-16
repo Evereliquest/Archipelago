@@ -4,7 +4,7 @@ from worlds.LauncherComponents import Component, components, launch as launch_co
 
 
 def launch_client():
-    from .client.TeardownClient import launch
+    from .client.teardownclient import launch
     launch_component(launch, name="TeardownClient")
 
 components.append(Component(
