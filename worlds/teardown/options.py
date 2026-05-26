@@ -9,36 +9,44 @@ class MissionAmount(Range):
     display_name = "Mission Amount"
 
     range_start = 1
-    range_end = 40
-    default = 30
+    range_end = 39
+    default = 20
 
 
-class StartingTool(Toggle):
+class RandomizeStartingTools(Toggle):
     """
     If enabled, the starting tools will be randomized.
     """
     display_name = "Randomize Starting Tools"
 
 
-class StartingLevel(DefaultOnToggle):
+class RandomizeStartingLevel(DefaultOnToggle):
     """
     If enabled, the starting level is randomized, if not it is Old Building Problem.
     """
     display_name = "Randomize Starting Level"
 
 
-# class ValuableSanity(Toggle):
-#    """
-#    Enables Valuable Sanity
-#    """
-#    display_name = "Valuable Sanity"
+class ToolUpgrades(DefaultOnToggle):
+   """
+   Enables Tool Upgrades
+   """
+   display_name = "Tool Upgrades"
+
+
+class ValuableSanity(Toggle):
+   """
+   Enables Valuable Sanity
+   """
+   display_name = "Valuable Sanity"
 
 
 
 @dataclass
 class TeardownOptions(PerGameCommonOptions):
     MissionAmount: MissionAmount
-    StartingTool: StartingTool
-    StartingLevel: StartingLevel
-    #ValuableSanity: ValuableSanity
+    StartingTool: RandomizeStartingTools
+    StartingLevel: RandomizeStartingLevel
+    ToolUpgrades: ToolUpgrades
+    ValuableSanity: ValuableSanity
 
