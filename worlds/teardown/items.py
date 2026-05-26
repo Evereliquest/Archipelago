@@ -114,6 +114,15 @@ ITEM_NAME_TO_ID = {
     "BlueTide Bottles Upgrade": 201,
     "BlueTide Duration Upgrade": 202,
 
+    "Cash Bundle 20": 251,
+    "Cash Bundle 50": 252,
+    "Cash Bundle 100": 253,
+    "Cash Bundle 250": 254,
+    "Cash Bundle 500": 255,
+    "Cash Bundle 750": 256,
+    "Cash Bundle 1000": 257,
+    "Cash Bundle 3000": 258,
+
     "Extra Nothing": 300,
 
 }
@@ -222,7 +231,15 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "BlueTide Bottles Upgrade": ItemClassification.progression| ItemClassification.useful,
     "BlueTide Duration Upgrade": ItemClassification.progression| ItemClassification.useful,
 
-    "Extra Nothing": ItemClassification.filler,
+
+    "Cash Bundle 20": ItemClassification.filler,
+    "Cash Bundle 50": ItemClassification.filler,
+    "Cash Bundle 100": ItemClassification.filler,
+    "Cash Bundle 250": ItemClassification.filler,
+    "Cash Bundle 500": ItemClassification.useful,
+    "Cash Bundle 750": ItemClassification.useful,
+    "Cash Bundle 1000": ItemClassification.useful,
+    "Cash Bundle 3000": ItemClassification.useful,
 }
 
 item_name_groups = {
@@ -267,6 +284,144 @@ item_name_groups = {
         "Handle With Care Unlock",
         "Droid Dismount Unlock",
     ],
+
+    "nonlevels": [
+        "Old Building Problem Unlock",
+        "Lee Computers Unlock",
+        "Login Devices Unlock",
+        "Making Space Unlock",
+        "Classic Cars Unlock",
+        "The GPS Devices Unlock",
+        "The Car Wash Unlock",
+        "The Tower Unlock",
+        "Fine Arts Unlock",
+        "Covert Chaos Unlock",
+        "The Chase Unlock",
+        "Roborazzi Unlock",
+        "The Alarm System Unlock",
+        "Moving The Goods Unlock",
+        "Havoc In Paradise Unlock",
+        "Elena's Revenge Unlock",
+    ],
+
+    "tools": [
+        "Sledge Hammer Unlock",
+        "Spraycan Unlock",
+        "Extinguisher Unlock",
+        "Blowtorch Unlock",
+        "Shotgun Unlock",
+        "Plank Unlock",
+        "Pipe Bomb Unlock",
+        "Gun Unlock",
+        "Bomb Unlock",
+        "Rocket Launcher Unlock",
+        "Rocket Booster Unlock",
+        "Leaf Blower Unlock",
+        "Cable Unlock",
+        "Vehicle Thruster Unlock",
+        "Nitroglycerin Unlock",
+        "Hunting Rifle Unlock",
+        "BlueTide Unlock",
+
+    ],
+
+    "Lee Chemicals": [
+        "Lee Computers Unlock",
+        "Login Devices Unlock",
+        "Heavy Lifting Unlock",
+        "The Tower Unlock",
+        "Power Outage Unlock",
+        "Flooding Unlock",
+        "Malice In Woonderland Unlock",
+    ],
+
+    "West Point Marina": [
+        "Making Space Unlock",
+        "Classic Cars Unlock",
+        "The GPS Devices Unlock",
+        "Tool Up Unlock",
+        "Art Return Unlock",
+    ],
+
+    "Villa Gordon": [
+        "Classic Cars Unlock",
+        "Fine Arts Unlock",
+        "Insurance Fraud Unlock",
+        "The Speed Deal Unlock",
+        "A Wet Affair Unlock",
+    ],
+
+    "Hollowrock Island": [
+        "The BlueTide Computers Unlock",
+        "Motivational Reminder Unlock",
+        "An Assortment Of Dishes Unlock",
+        "The Secret Ingredients Unlock",
+        "Droid Dismount Unlock",
+    ],
+
+    "Evertides Mall": [
+        "Covert Chaos Unlock",
+        "The Shipping Logs Unlock",
+        "Ornament Ordeal Unlock",
+        "Connecting The Dots Unlock",
+    ],
+
+    "Frustrum": [
+        "The Chase Unlock",
+        "The BlueTide Shortage Unlock",
+        "Truckload Of Trouble Unlock",
+        "The Pawn Shop Unlock",
+    ],
+
+    "Quilez Security": [
+        "Roborazzi Unlock",
+        "The Quilez Tools Unlock",
+        "The Droid Abduction Unlock",
+        "Handle With Care Unlock",
+    ],
+
+    "Isla Estocastica": [
+        "The Alarm System Unlock",
+        "Moving The Goods Unlock",
+        "Havoc In Paradise Unlock",
+        "Elena's Revenge Unlock",
+    ],
+
+    "Door": [
+        "Blowtorch Unlock",
+        "Shotgun Unlock",
+        "Gun Unlock",
+        "Pipe Bomb Unlock",
+        "Hunting Rifle Unlock",
+    ],
+
+    "Wall/Opening": [
+        "Shotgun Unlock",
+        "Pipe Bomb Unlock",
+        "Bomb Unlock",
+        "Rocket Launcher Unlock",
+    ],
+
+    "Destruction": [
+        "Shotgun Unlock",
+        "Pipe Bomb Unlock",
+        "Bomb Unlock",
+        "Rocket Launcher Unlock",
+        "Nitroglycerin Unlock",
+    ],
+
+    "Guns": [
+        "Gun Unlock",
+        "Rocket Launcher Unlock",
+        "Hunting Rifle Unlock",
+
+    ],
+
+    "Plank/Cable": [
+        "Plank Unlock",
+        "Cable Unlock",
+    ],
+
 }
 
 
@@ -275,7 +430,7 @@ class TeardownItem(Item):
 
 
 def get_random_filler_item_name(world: TeardownWorld) -> str:
-    return "Extra Nothing"
+    return "Cash Bundle 20"
 
 def create_item_with_correct_classification(world: TeardownWorld, name: str) -> TeardownItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
@@ -288,161 +443,135 @@ def create_item_with_correct_classification(world: TeardownWorld, name: str) -> 
 def create_all_items(world: TeardownWorld) -> None:
     itempool: list[Item] = [
 
-        world.create_item("Blowtorch Unlock"),
-        world.create_item("Shotgun Unlock"),
-        world.create_item("Plank Unlock"),
-        world.create_item("Pipe Bomb Unlock"),
-        world.create_item("Gun Unlock"),
-        world.create_item("Bomb Unlock"),
-        world.create_item("Rocket Launcher Unlock"),
-        world.create_item("Rocket Booster Unlock"),
-        world.create_item("Leaf Blower Unlock"),
-        world.create_item("Cable Unlock"),
-        world.create_item("Vehicle Thruster Unlock"),
-        world.create_item("Nitroglycerin Unlock"),
-        world.create_item("Hunting Rifle Unlock"),
-        world.create_item("BlueTide Unlock"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
+        world.create_item("Cash Bundle 50"),
 
-        world.create_item("Blowtorch Fuel Upgrade"),
-        world.create_item("Blowtorch Fuel Upgrade"),
-        world.create_item("Blowtorch Fuel Upgrade"),
-        world.create_item("Blowtorch Fuel Upgrade"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
+        world.create_item("Cash Bundle 100"),
 
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
-        world.create_item("Shotgun Rounds Upgrade"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
+        world.create_item("Cash Bundle 250"),
 
-        world.create_item("Shotgun Range Upgrade"),
-        world.create_item("Shotgun Range Upgrade"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
+        world.create_item("Cash Bundle 500"),
 
-        world.create_item("Shotgun Damage Upgrade"),
-        world.create_item("Shotgun Damage Upgrade"),
+        world.create_item("Cash Bundle 750"),
+        world.create_item("Cash Bundle 750"),
+        world.create_item("Cash Bundle 750"),
+        world.create_item("Cash Bundle 750"),
+        world.create_item("Cash Bundle 750"),
 
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
-        world.create_item("Plank Amount Upgrade"),
+        world.create_item("Cash Bundle 1000"),
+        world.create_item("Cash Bundle 1000"),
+        world.create_item("Cash Bundle 1000"),
 
-        world.create_item("Plank Width Upgrade"),
-        world.create_item("Plank Width Upgrade"),
-
-        world.create_item("Plank Max Length Upgrade"),
-        world.create_item("Plank Max Length Upgrade"),
-        world.create_item("Plank Max Length Upgrade"),
-
-        world.create_item("Pipe Bomb Rounds Upgrade"),
-        world.create_item("Pipe Bomb Rounds Upgrade"),
-        world.create_item("Pipe Bomb Rounds Upgrade"),
-        world.create_item("Pipe Bomb Rounds Upgrade"),
-        world.create_item("Pipe Bomb Rounds Upgrade"),
-
-        world.create_item("Pipe Bomb Blast Upgrade"),
-        world.create_item("Pipe Bomb Blast Upgrade"),
-
-        world.create_item("Gun Rounds Upgrade"),
-        world.create_item("Gun Rounds Upgrade"),
-        world.create_item("Gun Rounds Upgrade"),
-        world.create_item("Gun Rounds Upgrade"),
-        world.create_item("Gun Rounds Upgrade"),
-
-        world.create_item("Gun Range Upgrade"),
-        world.create_item("Gun Range Upgrade"),
-        world.create_item("Gun Range Upgrade"),
-
-        world.create_item("Gun Damage Upgrade"),
-        world.create_item("Gun Damage Upgrade"),
-
-        world.create_item("Bomb Rounds Upgrade"),
-        world.create_item("Bomb Rounds Upgrade"),
-        world.create_item("Bomb Rounds Upgrade"),
-        world.create_item("Bomb Rounds Upgrade"),
-        world.create_item("Bomb Rounds Upgrade"),
-
-        world.create_item("Bomb Blast Upgrade"),
-        world.create_item("Bomb Blast Upgrade"),
-
-        world.create_item("Rocket Launcher Rounds Upgrade"),
-        world.create_item("Rocket Launcher Rounds Upgrade"),
-        world.create_item("Rocket Launcher Rounds Upgrade"),
-
-        world.create_item("Rocket Launcher Blast Upgrade"),
-        world.create_item("Rocket Launcher Blast Upgrade"),
-
-        world.create_item("Rocket Booster Rounds Upgrade"),
-        world.create_item("Rocket Booster Rounds Upgrade"),
-        world.create_item("Rocket Booster Rounds Upgrade"),
-
-        world.create_item("Rocket Booster Power Upgrade"),
-        world.create_item("Rocket Booster Power Upgrade"),
-
-        world.create_item("Rocket Booster Time Upgrade"),
-        world.create_item("Rocket Booster Time Upgrade"),
-
-        world.create_item("Leaf Blower Power Upgrade"),
-        world.create_item("Leaf Blower Power Upgrade"),
-        world.create_item("Leaf Blower Power Upgrade"),
-
-        world.create_item("Cable Amount Upgrade"),
-        world.create_item("Cable Amount Upgrade"),
-        world.create_item("Cable Amount Upgrade"),
-
-        world.create_item("Cable Stretch Upgrade"),
-        world.create_item("Cable Stretch Upgrade"),
-
-        world.create_item("Vehicle Thruster Rounds Upgrade"),
-        world.create_item("Vehicle Thruster Rounds Upgrade"),
-        world.create_item("Vehicle Thruster Rounds Upgrade"),
-
-        world.create_item("Vehicle Thruster Power Upgrade"),
-        world.create_item("Vehicle Thruster Power Upgrade"),
-
-        world.create_item("Nitroglycerin Rounds Upgrade"),
-        world.create_item("Nitroglycerin Rounds Upgrade"),
-        world.create_item("Nitroglycerin Rounds Upgrade"),
-
-        world.create_item("Nitroglycerin Blast Upgrade"),
-        world.create_item("Nitroglycerin Blast Upgrade"),
-        world.create_item("Nitroglycerin Blast Upgrade"),
-
-        world.create_item("Hunting Rifle Rounds Upgrade"),
-        world.create_item("Hunting Rifle Rounds Upgrade"),
-
-        world.create_item("BlueTide Bottles Upgrade"),
-        world.create_item("BlueTide Bottles Upgrade"),
-
-        world.create_item("BlueTide Duration Upgrade"),
-        world.create_item("BlueTide Duration Upgrade"),
-
-        world.create_item("Extra Nothing"),
+        world.create_item("Cash Bundle 3000"),
     ]
 
 
-
-
-
-
     if world.options.StartingTool:
-        itempool.append(world.create_item("Sledge Hammer Unlock"))
-        itempool.append(world.create_item("Spraycan Unlock"))
-        itempool.append(world.create_item("Extinguisher Unlock"))
+        predeterminedtool1 = world.random.choice(item_name_groups["tools"])
+        nontool1 = [tool for tool in (item_name_groups["tools"]) if tool != predeterminedtool1]
+
+        predeterminedtool2 = world.random.choice(nontool1)
+        nontool2 = [tool for tool in nontool1 if tool != predeterminedtool2]
+
+        predeterminedtool3 = world.random.choice(nontool2)
+
+        nonstartingtool = [tool for tool in nontool2 if tool != predeterminedtool1]
+
+        world.push_precollected(world.create_item(predeterminedtool1))
+        world.push_precollected(world.create_item(predeterminedtool2))
+        world.push_precollected(world.create_item(predeterminedtool3))
+
+
+        itempool.append(world.create_item(nonstartingtool[0]))
+        itempool.append(world.create_item(nonstartingtool[1]))
+        itempool.append(world.create_item(nonstartingtool[2]))
+        itempool.append(world.create_item(nonstartingtool[3]))
+        itempool.append(world.create_item(nonstartingtool[4]))
+        itempool.append(world.create_item(nonstartingtool[5]))
+        itempool.append(world.create_item(nonstartingtool[6]))
+        itempool.append(world.create_item(nonstartingtool[7]))
+        itempool.append(world.create_item(nonstartingtool[8]))
+        itempool.append(world.create_item(nonstartingtool[9]))
+        itempool.append(world.create_item(nonstartingtool[10]))
+        itempool.append(world.create_item(nonstartingtool[11]))
+        itempool.append(world.create_item(nonstartingtool[12]))
+        itempool.append(world.create_item(nonstartingtool[13]))
+
 
     else:
         world.push_precollected(world.create_item("Sledge Hammer Unlock"))
         world.push_precollected(world.create_item("Spraycan Unlock"))
         world.push_precollected(world.create_item("Extinguisher Unlock"))
 
+        itempool.append(world.create_item("Blowtorch Unlock"))
+        itempool.append(world.create_item("Shotgun Unlock"))
+        itempool.append(world.create_item("Plank Unlock"))
+        itempool.append(world.create_item("Pipe Bomb Unlock"))
+        itempool.append(world.create_item("Gun Unlock"))
+        itempool.append(world.create_item("Bomb Unlock"))
+        itempool.append(world.create_item("Rocket Launcher Unlock"))
+        itempool.append(world.create_item("Rocket Booster Unlock"))
+        itempool.append(world.create_item("Leaf Blower Unlock"))
+        itempool.append(world.create_item("Cable Unlock"))
+        itempool.append(world.create_item("Vehicle Thruster Unlock"))
+        itempool.append(world.create_item("Nitroglycerin Unlock"))
+        itempool.append(world.create_item("Hunting Rifle Unlock"))
+        itempool.append(world.create_item("BlueTide Unlock"))
+
 
     if world.options.StartingLevel:
-        predeterminedlevel = world.random.choice(item_name_groups["levels"])
-        nonstartinglevel = [lvl for lvl in (item_name_groups["levels"]) if lvl != predeterminedlevel]
+        predeterminedlevel = world.random.choice(item_name_groups["nonlevels"])
         world.push_precollected(world.create_item(predeterminedlevel))
+
+        nonstartinglevel = [lvl for lvl in (item_name_groups["levels"]) if lvl != predeterminedlevel]
 
         itempool.append(world.create_item(nonstartinglevel[0]))
         itempool.append(world.create_item(nonstartinglevel[1]))
@@ -482,7 +611,6 @@ def create_all_items(world: TeardownWorld) -> None:
         itempool.append(world.create_item(nonstartinglevel[35]))
         itempool.append(world.create_item(nonstartinglevel[36]))
         itempool.append(world.create_item(nonstartinglevel[37]))
-
 
     else:
         world.push_precollected(world.create_item("Old Building Problem Unlock"))
@@ -525,6 +653,125 @@ def create_all_items(world: TeardownWorld) -> None:
         itempool.append(world.create_item("Malice In Woonderland Unlock"))
         itempool.append(world.create_item("Handle With Care Unlock"))
         itempool.append(world.create_item("Droid Dismount Unlock"))
+
+
+    if world.options.ToolUpgrades:
+        itempool.append(world.create_item("Blowtorch Fuel Upgrade"))
+        itempool.append(world.create_item("Blowtorch Fuel Upgrade"))
+        itempool.append(world.create_item("Blowtorch Fuel Upgrade"))
+        itempool.append(world.create_item("Blowtorch Fuel Upgrade"))
+
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+        itempool.append(world.create_item("Shotgun Rounds Upgrade"))
+
+        itempool.append(world.create_item("Shotgun Range Upgrade"))
+        itempool.append(world.create_item("Shotgun Range Upgrade"))
+
+        itempool.append(world.create_item("Shotgun Damage Upgrade"))
+        itempool.append(world.create_item("Shotgun Damage Upgrade"))
+
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+        itempool.append(world.create_item("Plank Amount Upgrade"))
+
+        itempool.append(world.create_item("Plank Width Upgrade"))
+        itempool.append(world.create_item("Plank Width Upgrade"))
+
+        itempool.append(world.create_item("Plank Max Length Upgrade"))
+        itempool.append(world.create_item("Plank Max Length Upgrade"))
+        itempool.append(world.create_item("Plank Max Length Upgrade"))
+
+        itempool.append(world.create_item("Pipe Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Pipe Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Pipe Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Pipe Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Pipe Bomb Rounds Upgrade"))
+
+        itempool.append(world.create_item("Pipe Bomb Blast Upgrade"))
+        itempool.append(world.create_item("Pipe Bomb Blast Upgrade"))
+
+        itempool.append(world.create_item("Gun Rounds Upgrade"))
+        itempool.append(world.create_item("Gun Rounds Upgrade"))
+        itempool.append(world.create_item("Gun Rounds Upgrade"))
+        itempool.append(world.create_item("Gun Rounds Upgrade"))
+        itempool.append(world.create_item("Gun Rounds Upgrade"))
+
+        itempool.append(world.create_item("Gun Range Upgrade"))
+        itempool.append(world.create_item("Gun Range Upgrade"))
+        itempool.append(world.create_item("Gun Range Upgrade"))
+
+        itempool.append(world.create_item("Gun Damage Upgrade"))
+        itempool.append(world.create_item("Gun Damage Upgrade"))
+
+        itempool.append(world.create_item("Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Bomb Rounds Upgrade"))
+        itempool.append(world.create_item("Bomb Rounds Upgrade"))
+
+        itempool.append(world.create_item("Bomb Blast Upgrade"))
+        itempool.append(world.create_item("Bomb Blast Upgrade"))
+
+        itempool.append(world.create_item("Rocket Launcher Rounds Upgrade"))
+        itempool.append(world.create_item("Rocket Launcher Rounds Upgrade"))
+        itempool.append(world.create_item("Rocket Launcher Rounds Upgrade"))
+
+        itempool.append(world.create_item("Rocket Launcher Blast Upgrade"))
+        itempool.append(world.create_item("Rocket Launcher Blast Upgrade"))
+
+        itempool.append(world.create_item("Rocket Booster Rounds Upgrade"))
+        itempool.append(world.create_item("Rocket Booster Rounds Upgrade"))
+        itempool.append(world.create_item("Rocket Booster Rounds Upgrade"))
+
+        itempool.append(world.create_item("Rocket Booster Power Upgrade"))
+        itempool.append(world.create_item("Rocket Booster Power Upgrade"))
+
+        itempool.append(world.create_item("Rocket Booster Time Upgrade"))
+        itempool.append(world.create_item("Rocket Booster Time Upgrade"))
+
+        itempool.append(world.create_item("Leaf Blower Power Upgrade"))
+        itempool.append(world.create_item("Leaf Blower Power Upgrade"))
+        itempool.append(world.create_item("Leaf Blower Power Upgrade"))
+
+        itempool.append(world.create_item("Cable Amount Upgrade"))
+        itempool.append(world.create_item("Cable Amount Upgrade"))
+        itempool.append(world.create_item("Cable Amount Upgrade"))
+
+        itempool.append(world.create_item("Cable Stretch Upgrade"))
+        itempool.append(world.create_item("Cable Stretch Upgrade"))
+
+        itempool.append(world.create_item("Vehicle Thruster Rounds Upgrade"))
+        itempool.append(world.create_item("Vehicle Thruster Rounds Upgrade"))
+        itempool.append(world.create_item("Vehicle Thruster Rounds Upgrade"))
+
+        itempool.append(world.create_item("Vehicle Thruster Power Upgrade"))
+        itempool.append(world.create_item("Vehicle Thruster Power Upgrade"))
+
+        itempool.append(world.create_item("Nitroglycerin Rounds Upgrade"))
+        itempool.append(world.create_item("Nitroglycerin Rounds Upgrade"))
+        itempool.append(world.create_item("Nitroglycerin Rounds Upgrade"))
+
+        itempool.append(world.create_item("Nitroglycerin Blast Upgrade"))
+        itempool.append(world.create_item("Nitroglycerin Blast Upgrade"))
+        itempool.append(world.create_item("Nitroglycerin Blast Upgrade"))
+
+        itempool.append(world.create_item("Hunting Rifle Rounds Upgrade"))
+        itempool.append(world.create_item("Hunting Rifle Rounds Upgrade"))
+
+        itempool.append(world.create_item("BlueTide Bottles Upgrade"))
+        itempool.append(world.create_item("BlueTide Bottles Upgrade"))
+
+        itempool.append(world.create_item("BlueTide Duration Upgrade"))
+        itempool.append(world.create_item("BlueTide Duration Upgrade"))
 
     # The length of our itempool is easy to determine, since we have it as a list.
     number_of_items = len(itempool)

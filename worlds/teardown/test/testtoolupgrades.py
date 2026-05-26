@@ -8,8 +8,8 @@ class BasicTestLogic(TeardownTestBase):
     options = {
         "Mission Amount": 40,
         "Randomize Starting Tools": False,
-        "Randomize Starting Level": False,
-        "Tool Upgrades": True,
+        "Randomize Starting Level": True,
+        "Tool Upgrades": False,
         "Valuable Sanity": False,
 
     }

@@ -2,7 +2,6 @@ import asyncio
 import subprocess
 import os
 import json
-import time
 import xml.etree.ElementTree as ET
 from Utils import gui_enabled, open_filename, user_path
 from CommonClient import CommonContext, get_base_parser, server_loop
@@ -153,7 +152,16 @@ Upgrademap = {
 
 }
 
-
+Cashmap = {
+    251: 20,
+    252: 50,
+    253: 100,
+    254: 250,
+    255: 500,
+    256: 750,
+    257: 1000,
+    258: 3000
+}
 
 Mission_upgrade_send_map = {
     "mall_intro": 1,
@@ -348,6 +356,294 @@ Tool_upgrade_send_map = {
 
 }
 
+VALUABLE_BASE_ID = 800
+
+valuable_items_list = [
+    "hub_banana",
+
+    "lee_trowel",
+    "lee_pneumaticwrench",
+    "lee_cash6",
+    "lee_college",
+    "lee_bits",
+    "lee_tilecutter",
+    "lee_disccutter",
+    "lee_wrench",
+    "lee_cutters",
+    "lee_cash1",
+    "lee_cash4",
+    "lee_cash3",
+    "lee_painting1",
+    "lee_painting2",
+    "lee_cash2",
+    "lee_pension",
+    "lee_painting4",
+    "lee_whisky",
+    "lee_circularsaw",
+    "lee_screwdriver",
+    "lee_bottles",
+    "lee_microscope",
+    "lee_cash5",
+    "lee_laser2",
+    "lee_wallet",
+    "lee_comics",
+    "lee_laser1",
+    "lee_stair_toolbox",
+    "lee_hammer",
+
+    "marina_cigarbox",
+    "marina_silvercoins",
+    "marina_cashbag",
+    "marina_sander",
+    "marina_amethyst",
+    "marina_callibration",
+    "marina_lubrication",
+    "marina_sonar",
+    "marina_sparkplugs",
+    "marina_propeller",
+    "marina_drill",
+    "marina_telescope",
+    "marina_gamingconsole",
+    "marina_sunglasses",
+    "marina_cashregister",
+    "marina_swordfish",
+    "marina_hook",
+    "marina_vacuum",
+    "marina_sword",
+    "marina_dagger",
+    "marina_modelship",
+    "marina_fishing",
+    "marina_mp3",
+    "marina_binoculars",
+    "marina_compass",
+    "marina_cannonball",
+    "marina_cashbox",
+    "marina_trophy",
+    "marina_gun",
+    "marina_painting1",
+    "marina_flashlight",
+    "marina_walkietalkie",
+    "marina_sextant",
+    "marina_tequila",
+    "marina_lifevest",
+    "marina_steeringwheel",
+
+    "mansion_wallet1",
+    "liquor1",
+    "mansion_passport"
+    "mansion_soup",
+    "mansion_walkman",
+    "vacuumcleaner",
+    "mansion_gift",
+    "mansion_knives",
+    "mansion_caviar",
+    "mansion_pan",
+    "mansion_elevatormanual",
+    "mansion_cash",
+    "mansion_coincollection",
+    "mansion_bronzestatue",
+    "mansion_remote",
+    "mansion_cablebox",
+    "mansion_dictaphone",
+    "mansion_snookerbook",
+    "mansion_popcornmanual",
+    "mansion_moviebook",
+    "mansion_wallet3",
+    "mansion_sneakers",
+    "mansion_tshirt",
+    "mansion_lighter2",
+    "mansion_creditcard",
+    "mansion_gardeningbook",
+    "mansion_makeup",
+    "mansion_pills",
+    "mansion_wallet2",
+    "mansion_silverware",
+    "mansion_oysters",
+    "mansion_foodprocessor",
+    "guesthouse_lamp",
+    "mansion_jewelry",
+    "mansion_charcoal",
+    "mansion_trophy",
+    "mansion_lighter",
+    "mansion_chocolate",
+    "mansion_wine",
+    "mansion_toiletbrush",
+    "mansion_thermometer",
+    "mansion_calibration",
+    "mansion_carburetor",
+    "mansion_drill",
+    "mansion_model_train",
+    "fraud_toolbox",
+    "mansion_polishtrophy",
+
+    "caveisland_phone",
+    "caveisland_disccutter",
+    "caveisland_drill",
+    "caveisland_detergent",
+    "caveisland_nutrition",
+    "caveisland_yeast",
+    "caveisland_pesticide",
+    "caveisland_oldtv",
+    "caveisland_crock-of-gold",
+    "caveisland_carbon_lamp",
+    "caveisland_tar",
+    "caveisland_fishinggear",
+    "caveisland_fishingscale",
+    "caveisland_radio",
+    "caveisland_labeling",
+    "caveisland_fishingknife",
+    "caveisland_cashregister1",
+    "caveisland_btextra",
+    "caveisland_pulsewatch",
+    "caveisland_cashregister2",
+    "caveisland_gin",
+    "caveisland_monitor",
+    "caveisland_book",
+    "caveisland_alarmclock1",
+    "caveisland_tv1",
+    "caveisland_wallet1",
+    "caveisland_chess",
+    "caveisland_vacuum",
+    "caveisland_projector",
+    "caveisland_binoculars",
+    "caveisland_gardenscissors",
+    "caveisland_ragswater",
+    "caveisland_drilltape",
+    "caveisland_wine",
+    "caveisland_airpurifier",
+    "caveisland_pills",
+    "caveisland_vaultgold",
+    "caveisland_vaultcash",
+
+    "mall_durablephone",
+    "mall_taco",
+    "mall_busybooks",
+    "mall_flashlight",
+    "mall_trufflejuice",
+    "mall_bluetidecashbox",
+    "mall_furcoat",
+    "mall_democash",
+    "mall_safecracking",
+    "mall_pinkspray",
+    "mall_wallet1",
+    "mall_hoodie",
+    "mall_goldwatch",
+    "mall_necklace",
+    "mall_tiepin",
+    "mall_stapler",
+    "mall_skateboard",
+    "mall_civet",
+    "mall_cash1",
+    "mall_vram",
+    "mall_vodka",
+    "mall_gardenscissors",
+    "mall_underwear",
+    "mall_fxpedal",
+    "mall_radio",
+    "mall_vinegar",
+    "mall_eaudetoilette",
+
+    "frustrum_oilpaint",
+    "frustrum_itbonus",
+    "frustrum_oil",
+    "frustrum_wallet1",
+    "frustrum_reciprocating",
+    "frustrum_lp",
+    "frustrum_shaver",
+    "frustrum_fredaward",
+    "frustrum_tribalmask",
+    "frustrum_darts",
+    "frustrum_smokemachine",
+    "frustrum_wallet3",
+    "frustrum_dehumidifier",
+    "frustrum_bones",
+    "frustrum_fabricsoftener",
+    "frustrum_wallet2",
+    "frustrum_spices",
+    "frustrum_lotion",
+    "frustrum_filter",
+    "frustrum_ring",
+    "frustrum_lure",
+    "frustrum_wallet4",
+    "frustrum_hat",
+    "frustrum_guitar",
+    "frustrum_preasuremeter",
+    "frustrum_bits",
+    "frustrum_harmonica",
+
+    "factory_bulletproof",
+    "factory_microphone",
+    "factory_aicore",
+    "factory_gyroscope",
+    "factory_gearmotor",
+    "factory_radio",
+    "factory_oldoutboardmotor",
+    "factory_infraredtransmitter",
+    "factory_semiconductors",
+    "factory_campingguide",
+    "factory_climbinghat",
+    "factory_roses",
+    "factory_umbrella",
+    "factory_key",
+    "factory_cigars",
+    "factory_gillianbribe",
+    "factory_distancesensor",
+    "factory_cards",
+    "factory_waterproof",
+    "factory_roboteye",
+    "factory_survivalbook",
+    "factory_lightsensor",
+    "factory_servo",
+    "factory_ultrasonicsensor",
+    "factory_infraredsensor",
+    "factory_scubagear",
+    "factory_watersensor",
+    "factory_fishingrod",
+    "factory_helicoptermanual",
+    "factory_explosionproof",
+
+    "carib_snorkel",
+    "carib_volleyball",
+    "carib_exoticfruit",
+    "carib_rims",
+    "carib_knuckles",
+    "carib_wallet",
+    "carib_monkeyhand",
+    "carib_moneycounter",
+    "carib_diamondcane",
+    "carib_islandlife",
+    "carib_teapot",
+    "carib_grease",
+    "carib_copperwire",
+    "carib_jetskiengine",
+    "carib_grappa",
+    "carib_oldmagazines",
+    "carib_skate",
+    "carib_lastroll",
+    "carib_chainsaw",
+    "carib_carburetor",
+    "carib_pegleg",
+    "carib_supercharger",
+    "carib_messageinabottle",
+    "carib_scale",
+    "carib_tuningkit",
+    "carib_tropicalhelmet",
+    "carib_goldenbullets",
+    "carib_scubatank",
+    "carib_birdegg",
+    "carib_shell",
+    "carib_goldengrillz",
+    "carib_pineapple",
+    "carib_duck",
+    "carib_bayran",
+
+]
+
+Valuable_send_map = {
+    name: VALUABLE_BASE_ID + index
+    for index, name in enumerate(valuable_items_list)
+}
+
 SAVE_TEMPLATE = {
     "toolupgrade": {
 
@@ -538,6 +834,7 @@ SAVE_TEMPLATE = {
         "cullington_bomb": "0",
 
     },
+
     "mission": {
         "mall_intro": "0",
         "mall_intro/score": "0",
@@ -620,12 +917,280 @@ SAVE_TEMPLATE = {
         "cullington_bomb": "0",
         "cullington_bomb/score": "0",
 
+    },
+    "valuable": {
+        "hub_banana": "0",
+        "lee_cash6": "0",
+        "lee_college": "0",
+        "lee_cash2": "0",
+        "lee_painting4": "0",
+        "lee_wrench": "0",
+        "marina_drill": "0",
+        "marina_dagger": "0",
+        "mall_durablephone": "0",
+        "mall_taco": "0",
+        "mall_busybooks": "0",
+        "mall_flashlight": "0",
+        "mall_radio": "0",
+        "mall_vinegar": "0",
+        "mall_eaudetoilette": "0",
+        "mall_vram": "0",
+        "mall_fxpedal": "0",
+        "mall_underwear": "0",
+        "mall_gardenscissors": "0",
+        "mall_hoodie": "0",
+        "mall_democash": "0",
+        "mall_goldwatch": "0",
+        "mall_wallet1": "0",
+        "mall_tiepin": "0",
+        "mall_trufflejuice": "0",
+        "mall_civet": "0",
+        "mall_bluetidecashbox": "0",
+        "mall_cash1": "0",
+        "mall_skateboard": "0",
+        "mall_stapler": "0",
+        "mall_vodka": "0",
+        "mall_furcoat": "0",
+        "mall_safecracking": "0",
+        "mall_necklace": "0",
+        "mall_pinkspray": "0",
+        "mansion_wallet1": "0",
+        "liquor1": "0",
+        "mansion_calibration": "0",
+        "mansion_drill": "0",
+        "mansion_carburetor": "0",
+        "mansion_wine": "0",
+        "mansion_lighter": "0",
+        "mansion_toiletbrush": "0",
+        "mansion_chocolate": "0",
+        "mansion_thermometer": "0",
+        "mansion_trophy": "0",
+        "mansion_charcoal": "0",
+        "mansion_jewelry": "0",
+        "guesthouse_lamp": "0",
+        "mansion_foodprocessor": "0",
+        "mansion_oysters": "0",
+        "mansion_silverware": "0",
+        "mansion_model_train": "0",
+        "mansion_lighter2": "0",
+        "mansion_creditcard": "0",
+        "mansion_tshirt": "0",
+        "mansion_sneakers": "0",
+        "mansion_snookerbook": "0",
+        "mansion_wallet3": "0",
+        "mansion_moviebook": "0",
+        "mansion_popcornmanual": "0",
+        "mansion_gardeningbook": "0",
+        "mansion_caviar": "0",
+        "mansion_pan": "0",
+        "mansion_knives": "0",
+        "mansion_elevatormanual": "0",
+        "mansion_bronzestatue": "0",
+        "mansion_coincollection": "0",
+        "mansion_cablebox": "0",
+        "mansion_remote": "0",
+        "mansion_gift": "0",
+        "mansion_dictaphone": "0",
+        "mansion_makeup": "0",
+        "mansion_pills": "0",
+        "mansion_wallet2": "0",
+        "mansion_passport": "0",
+        "vacuumcleaner": "0",
+        "mansion_walkman": "0",
+        "mansion_soup": "0",
+        "mansion_cash": "0",
+        "mansion_polishtrophy": "0",
+        "fraud_toolbox": "0",
+        "factory_radio": "0",
+        "factory_gearmotor": "0",
+        "factory_lightsensor": "0",
+        "factory_survivalbook": "0",
+        "factory_watersensor": "0",
+        "factory_scubagear": "0",
+        "factory_infraredtransmitter": "0",
+        "factory_semiconductors": "0",
+        "factory_climbinghat": "0",
+        "factory_campingguide": "0",
+        "factory_oldoutboardmotor": "0",
+        "factory_cigars": "0",
+        "factory_gillianbribe": "0",
+        "factory_distancesensor": "0",
+        "factory_infraredsensor": "0",
+        "factory_servo": "0",
+        "factory_ultrasonicsensor": "0",
+        "factory_cards": "0",
+        "factory_roses": "0",
+        "factory_umbrella": "0",
+        "factory_key": "0",
+        "factory_waterproof": "0",
+        "factory_roboteye": "0",
+        "factory_fishingrod": "0",
+        "factory_gyroscope": "0",
+        "factory_aicore": "0",
+        "factory_bulletproof": "0",
+        "factory_microphone": "0",
+        "factory_explosionproof": "0",
+        "factory_helicoptermanual": "0",
+        "marina_lifevest": "0",
+        "marina_tequila": "0",
+        "marina_trophy": "0",
+        "marina_cannonball": "0",
+        "marina_cashbox": "0",
+        "marina_gun": "0",
+        "marina_flashlight": "0",
+        "marina_walkietalkie": "0",
+        "marina_sextant": "0",
+        "marina_binoculars": "0",
+        "marina_compass": "0",
+        "marina_mp3": "0",
+        "marina_modelship": "0",
+        "marina_swordfish": "0",
+        "marina_vacuum": "0",
+        "marina_hook": "0",
+        "marina_sword": "0",
+        "marina_sander": "0",
+        "marina_cashbag": "0",
+        "marina_cigarbox": "0",
+        "marina_silvercoins": "0",
+        "marina_lubrication": "0",
+        "marina_callibration": "0",
+        "marina_amethyst": "0",
+        "marina_telescope": "0",
+        "marina_propeller": "0",
+        "marina_sparkplugs": "0",
+        "marina_sonar": "0",
+        "marina_gamingconsole": "0",
+        "marina_fishing": "0",
+        "marina_sunglasses": "0",
+        "marina_cashregister": "0",
+        "marina_painting1": "0",
+        "marina_steeringwheel": "0",
+        "caveisland_binoculars": "0",
+        "caveisland_projector": "0",
+        "caveisland_gardenscissors": "0",
+        "caveisland_drilltape": "0",
+        "caveisland_vacuum": "0",
+        "caveisland_vaultgold": "0",
+        "caveisland_vaultcash": "0",
+        "caveisland_disccutter": "0",
+        "caveisland_drill": "0",
+        "caveisland_detergent": "0",
+        "caveisland_carbon_lamp": "0",
+        "caveisland_fishingscale": "0",
+        "caveisland_radio": "0",
+        "caveisland_labeling": "0",
+        "caveisland_fishingknife": "0",
+        "caveisland_btextra": "0",
+        "caveisland_pulsewatch": "0",
+        "caveisland_cashregister1": "0",
+        "caveisland_ragswater": "0",
+        "caveisland_wine": "0",
+        "caveisland_alarmclock1": "0",
+        "caveisland_book": "0",
+        "caveisland_cashregister2": "0",
+        "caveisland_monitor": "0",
+        "caveisland_gin": "0",
+        "caveisland_tv1": "0",
+        "caveisland_fishinggear": "0",
+        "caveisland_phone": "0",
+        "caveisland_chess": "0",
+        "caveisland_wallet1": "0",
+        "caveisland_tar": "0",
+        "caveisland_yeast": "0",
+        "caveisland_nutrition": "0",
+        "caveisland_pesticide": "0",
+        "caveisland_oldtv": "0",
+        "caveisland_crock-of-gold": "0",
+        "caveisland_airpurifier": "0",
+        "caveisland_pills": "0",
+        "frustrum_itbonus": "0",
+        "frustrum_oil": "0",
+        "frustrum_fabricsoftener": "0",
+        "frustrum_wallet2": "0",
+        "frustrum_spices": "0",
+        "frustrum_preasuremeter": "0",
+        "frustrum_bits": "0",
+        "frustrum_guitar": "0",
+        "frustrum_hat": "0",
+        "frustrum_ring": "0",
+        "frustrum_wallet4": "0",
+        "frustrum_filter": "0",
+        "frustrum_lure": "0",
+        "frustrum_harmonica": "0",
+        "frustrum_oilpaint": "0",
+        "frustrum_reciprocating": "0",
+        "frustrum_lp": "0",
+        "frustrum_wallet1": "0",
+        "frustrum_fredaward": "0",
+        "frustrum_shaver": "0",
+        "frustrum_smokemachine": "0",
+        "frustrum_darts": "0",
+        "frustrum_wallet3": "0",
+        "frustrum_lotion": "0",
+        "frustrum_tribalmask": "0",
+        "frustrum_bones": "0",
+        "frustrum_dehumidifier": "0",
+        "lee_tilecutter": "0",
+        "lee_bits": "0",
+        "lee_comics": "0",
+        "lee_wallet": "0",
+        "lee_laser1": "0",
+        "lee_laser2": "0",
+        "lee_cash5": "0",
+        "lee_microscope": "0",
+        "lee_bottles": "0",
+        "lee_screwdriver": "0",
+        "lee_stair_toolbox": "0",
+        "lee_circularsaw": "0",
+        "lee_whisky": "0",
+        "lee_pension": "0",
+        "lee_trowel": "0",
+        "lee_cash4": "0",
+        "lee_cash1": "0",
+        "lee_cutters": "0",
+        "lee_disccutter": "0",
+        "lee_pneumaticwrench": "0",
+        "lee_cash3": "0",
+        "lee_painting1": "0",
+        "lee_painting2": "0",
+        "lee_hammer": "0",
+        "carib_snorkel": "0",
+        "carib_pineapple": "0",
+        "carib_birdegg": "0",
+        "carib_supercharger": "0",
+        "carib_goldenbullets": "0",
+        "carib_messageinabottle": "0",
+        "carib_carburetor": "0",
+        "carib_shell": "0",
+        "carib_duck": "0",
+        "carib_diamondcane": "0",
+        "carib_moneycounter": "0",
+        "carib_monkeyhand": "0",
+        "carib_wallet": "0",
+        "carib_rims": "0",
+        "carib_volleyball": "0",
+        "carib_knuckles": "0",
+        "carib_islandlife": "0",
+        "carib_teapot": "0",
+        "carib_copperwire": "0",
+        "carib_bayran": "0",
+        "carib_exoticfruit": "0",
+        "carib_goldengrillz": "0",
+        "carib_tropicalhelmet": "0",
+        "carib_scale": "0",
+        "carib_chainsaw": "0",
+        "carib_lastroll": "0",
+        "carib_grappa": "0",
+        "carib_oldmagazines": "0",
+        "carib_jetskiengine": "0",
+        "carib_grease": "0",
+        "carib_skate": "0",
+        "carib_pegleg": "0",
+        "carib_tuningkit": "0",
+        "carib_scubatank": "0",
     }
+
 }
-
-
-
-
 
 
 
@@ -659,7 +1224,9 @@ class TeardownContext(CommonContext):
         self.items_received_event = asyncio.Event()
         self.auth_event = asyncio.Event()
         self.locations_checked = []
-
+        self.applied_cash_counts = {}
+        self.last_cash = None
+        self.last_received_count = None
 
     def loadsettings(self):
         # Load our settings from our json file
@@ -768,6 +1335,11 @@ class TeardownContext(CommonContext):
                 self.player_data.remove(message_node)
                 print(f"Initializing: Pruned message node: {message_node.tag}")
 
+            for mission_node in self.player_data.findall("mission"):
+                self.player_data.remove(mission_node)
+                print(f"Initializing: Pruned message node: {mission_node.tag}")
+
+
             self.apply_server_state_to_xml(self.player_data)
 
             for i in range(5):  # Try 5 times
@@ -796,9 +1368,10 @@ class TeardownContext(CommonContext):
     def apply_server_state_to_xml(self, player_data):
         received_counts = {}
         print(f"First Apply: Total items in self.items_received: {len(self.items_received)}")
+        self.last_received_count = len(self.items_received)
 
         for item in self.items_received:
-            item_id = item.item  # This is the raw integer ID (e.g., 41, 42)
+            item_id = item.item
             received_counts[item_id] = received_counts.get(item_id, 0) + 1
             print(f"First Apply: Counted Item ID {item_id}")
 
@@ -832,6 +1405,20 @@ class TeardownContext(CommonContext):
             update_node(path, final_val)
 
 
+
+        current_cash = getattr(self, "cash_total", 0)
+        cash_node = player_data.find("cash")
+        self.last_cash = current_cash
+
+        print(f"First Apply: Current Cash {current_cash}")
+        if cash_node is None:
+            print("First Apply: 'cash' node not found, creating new SubElement.")
+            cash_node = ET.SubElement(player_data, "cash")
+
+        cash_node.set("value", str(current_cash))
+        print(f"First Apply: Cash XML node successfully synchronized to {current_cash}")
+
+
     async def sync_savegame(self):
         if not self.savegame_path or not os.path.exists(self.savegame_path):
             return False
@@ -852,6 +1439,7 @@ class TeardownContext(CommonContext):
 
         self.check_missions()
         self.check_tools()
+        self.check_valuables()
         self.apply_received_items(self.player_data)
         print("Sync: Functions ran.")
 
@@ -947,6 +1535,81 @@ class TeardownContext(CommonContext):
             else:
                 pass
 
+    def check_valuables(self):
+        print("Sync Valuables: Entering check_valuables")
+        if self.player_data is None:
+            return
+
+        cash_node = self.player_data.find("cash")
+        if cash_node is None:
+            print("Sync Valuables: cash isn't found")
+            return
+        try:
+            current_cash = int(cash_node.get("value", "0"))
+        except (ValueError, TypeError):
+            return
+        if not hasattr(self, "last_cash"):
+            self.last_cash = None
+
+
+        if current_cash != self.last_cash:
+            print(f"Sync Tools: Cash changed from {self.last_cash} to {current_cash}. Scanning valuables...")
+            self.watch_cash()
+
+            # 3. Locate the 'valuable' base block in the XML
+            valuable_base = self.player_data.find("valuable")
+            if valuable_base is None:
+                return
+
+            # 4. Iterate over the valuable names and their sequential integer IDs
+            for xml_path, location_id in Valuable_send_map.items():
+                # Skip if this location check was already completed/sent
+                if location_id in self.locations_checked:
+                    continue
+
+                # Look for the valuable item element inside the valuable block
+                node = valuable_base.find(xml_path)
+                if node is not None:
+                    try:
+                        current_val = int(node.get("value", "0"))
+
+                        # If the valuable item has been collected (value is 1 or greater)
+                        if current_val >= 1:
+                            print(f"Sync Valuables: {xml_path} collected. Sending ID {location_id}")
+                            self.send_upgrade_check(location_id)
+
+                    except (ValueError, TypeError) as e:
+                        print(f"Sync Valuables: Error processing value at {xml_path}: {e}")
+
+    def watch_cash(self):
+        print("Sync Cash: Entering watch_cash")
+
+        if self.player_data is None:
+            return
+
+        cash_node = self.player_data.find("cash")
+        if cash_node is None:
+            print("Watch Cash: Cash isn't found")
+            return
+        try:
+            current_cash = int(cash_node.get("value", "0"))
+        except (ValueError, TypeError):
+            return
+
+        if current_cash != self.last_cash:
+            print(f"Sync Cash: Current Cash {current_cash}, Last Cash {self.last_cash}")
+
+            asyncio.create_task(self.send_msgs([{
+                "cmd": "Set",
+                "key": f"Teardown-{self.auth}-Cash",
+                "default": 0,
+                "want_reply": True,
+                "operations": [{"operation": "replace", "value": current_cash}]
+            }]))
+            self.last_cash = current_cash
+            print(f"Sync Cash: Updated cash on server to {current_cash}.")
+
+
 
     def send_upgrade_check(self, location_id):
         print(f"Sync Check: Entering send_upgrade_check location {location_id}")
@@ -964,8 +1627,6 @@ class TeardownContext(CommonContext):
         print("Entering Apply Received Items")
 
         current_count = len(self.items_received)
-        if not hasattr(self, 'last_received_count'):
-            self.last_received_count = 0
 
         if current_count == self.last_received_count:
             print("No New Items")
@@ -1008,6 +1669,49 @@ class TeardownContext(CommonContext):
             print(f"DEBUG: {ap_id} -> {path} is now {final_val} (Base {base} + {count} items)")
             update_node(path, final_val)
 
+        if not hasattr(self, 'applied_cash_counts'):
+            self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
+
+        cash_to_add = 0
+        cash_counts_changed = False
+
+        for ap_id, cash_val in Cashmap.items():
+            total_received = received_item_counts.get(ap_id, 0)
+            already_applied = self.applied_cash_counts.get(ap_id, 0)
+
+            if total_received > already_applied:
+                new_items = total_received - already_applied
+                cash_to_add += new_items * cash_val
+
+                # Update separate tracker for this item ID
+                self.applied_cash_counts[ap_id] = total_received
+                cash_counts_changed = True
+
+            # If there is new cash to award, read current balance and increment it
+        if cash_to_add > 0:
+            cash_node = player_data.find("cash")
+            current_cash = 0
+            if cash_node is not None:
+                try:
+                    current_cash = int(cash_node.get("value", "0"))
+                except (ValueError, TypeError):
+                    pass
+
+            new_cash_total = current_cash + cash_to_add
+            update_node("cash", new_cash_total)
+            print(f"DEBUG: Added {cash_to_add} cash. New total savegame cash: {new_cash_total}")
+
+            # Sync the separate tracking counts back up to the server storage key
+        if cash_counts_changed:
+            asyncio.create_task(self.send_msgs([{
+                "cmd": "Set",
+                "key": f"Teardown_Applied_Cash_{self.team}_{self.slot}",
+                "default": {},
+                "want_reply": True,
+                "operations": [{"operation": "replace", "value": self.applied_cash_counts}]
+            }]))
+            print(f"Archipelago: Synchronized separate cash counts to server: {self.applied_cash_counts}")
+
 
     def mission_counter(self, mission_id: str):
         # 1. Get the index (e.g., lee_login is 2)
@@ -1042,14 +1746,14 @@ class TeardownContext(CommonContext):
             mission_path.set("value", "1")
 
         # 2. Check if Cullington Bomb is already done (The actual WIN)
-        final_mission = self.player_data.find("mission/cullington_bomb")
+        final_mission = self.player_data.find("mission/cullington_bomb/score")
         if final_mission is not None and final_mission.get("value") == "1":
             if not self.finished_game:
                 asyncio.create_task(self.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}]))
                 self.finished_game = True
 
 
-    def launch_game(self):
+    async def launch_game(self):
         if self.game_exe_path and os.path.exists(self.game_exe_path):
             subprocess.Popen([self.game_exe_path])
         else:
@@ -1066,23 +1770,32 @@ class TeardownContext(CommonContext):
 
             async def init_sequence():
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown-{self.auth}-Missions"]}])
+                await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown-{self.auth}-Cash"]}])
                 await self.reset_and_initialize_save()
                 self.auth_event.set()
+                await self.launch_game()
 
             asyncio.create_task(init_sequence())
 
 
         elif cmd == "Retrieved":
             keys = args.get("keys", {})
+
             self.mission_count = keys.get(f"Teardown-{self.auth}-Missions") or 0
             self.mission_bitmask = keys.get(f"Teardown_Missions_Counter{self.team}_{self.slot}") or 0
+            self.applied_cash_counts = keys.get(f"Teardown_Applied_Cash_{self.team}_{self.slot}") or {}
+            self.cash_total = keys.get(f"Teardown-{self.auth}-Cash") or 0
 
         elif cmd == "SetReply":
-            if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
-                new_count = args.get("value")
+            target_key = args.get("key")
+            new_count = args.get("value")
+
+            if target_key == f"Teardown_Missions_Counter{self.team}_{self.slot}":
                 self.mission_bitmask = new_count
                 self.handle_victory_unlock(new_count)
 
+            elif target_key == f"Teardown_Applied_Cash_{self.team}_{self.slot}":
+                self.applied_cash_counts = new_count
 
 
     async def server_auth(self, password_requested: bool = False):
@@ -1106,6 +1819,7 @@ async def main(args):
     async def sync_loop():
         await ctx.auth_event.wait()
         print("DEBUG: Sync loop started!")
+        await asyncio.sleep(10)
         while not ctx.exit_event.is_set():
             print("DEBUG: Loop tick...")
             if ctx.savegame_path and os.path.exists(ctx.savegame_path):
