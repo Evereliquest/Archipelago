@@ -196,7 +196,6 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         menu_to_gordonvaluablehard = world.get_entrance("Main Menu to Gordon Valuables Harder")
         menu_to_hollowrockvaluable = world.get_entrance("Main Menu to Hollowrock Valuables")
         menu_to_hollowrockvaluablehard = world.get_entrance("Main Menu to Hollowrock Valuables Harder")
-        menu_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
         menu_to_evertidesvaluable = world.get_entrance("Main Menu to Evertides Valuables")
         menu_to_evertidesvaluablehard = world.get_entrance("Main Menu to Evertides Valuables Harder")
         menu_to_frustrumvaluable = world.get_entrance("Main Menu to Frustrum Valuables")
@@ -214,7 +213,6 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_gordonvaluablehard, HasGroup("Villa Gordon", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
         world.set_rule(menu_to_hollowrockvaluable, HasGroup("Hollowrock Island", count=1))
         world.set_rule(menu_to_hollowrockvaluablehard, HasGroup("Hollowrock Island", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
-        world.set_rule(menu_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1) & Has("Plank Unlock") & Has("Plank Amount Upgrade", count=3))
         world.set_rule(menu_to_evertidesvaluable, HasGroup("Evertides Mall", count=1))
         world.set_rule(menu_to_evertidesvaluablehard, HasGroup("Evertides Mall", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
         world.set_rule(menu_to_frustrumvaluable, HasGroup("Frustrum", count=1))
@@ -223,6 +221,18 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_quilezvaluablehard, HasGroup("Quilez Security", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
         world.set_rule(menu_to_islavaluable, HasGroup("Isla Estocastica", count=1))
         world.set_rule(menu_to_islavaluablehard, HasGroup("Isla Estocastica", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+
+    if world.options.ValuableSanity and world.options.ToolUpgrades:
+
+        menu_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
+        world.set_rule(menu_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1) & Has("Plank Unlock") & Has("Plank Amount Upgrade", count=3))
+
+
+    if world.options.ValuableSanity and not world.options.ToolUpgrades:
+
+        menu_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
+        world.set_rule(menu_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1))
+
 
 
 def set_completion_condition(world: TeardownWorld) -> None:

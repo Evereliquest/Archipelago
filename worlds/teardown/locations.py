@@ -80,10 +80,10 @@ valuable_locations_list = [
     "Marina's Spare Steering Wheel Valuable",
 
     "Gordon's $45 Wallet Valuable",
-    "Gordon's Fancy Bottle of Run Valuable",
-    "Gordon's Loss Passport Valuable",
+    "Gordon's Fancy Bottle of Rum Valuable",
+    "Gordon's Lost Passport Valuable",
     "Gordon's Artisanal Tomato Soup Valuable",
-    "Gordon's Portable Casette Tape Player Valuable",
+    "Gordon's Portable Cassette Tape Player Valuable",
     "Gordon's Vacuum Cleaner Valuable",
     "Gordon's Hidden Birthday Gift Valuable",
     "Gordon's Chef Knives Valuable",
@@ -1260,9 +1260,9 @@ def create_regular_locations(world: TeardownWorld) -> None:
 
         gordonvaluable_locations = get_location_names_with_ids([
             "Gordon's $45 Wallet Valuable",
-            "Gordon's Fancy Bottle of Run Valuable",
+            "Gordon's Fancy Bottle of Rum Valuable",
             "Gordon's Artisanal Tomato Soup Valuable",
-            "Gordon's Portable Casette Tape Player Valuable",
+            "Gordon's Portable Cassette Tape Player Valuable",
             "Gordon's Vacuum Cleaner Valuable",
             "Gordon's Chef Knives Valuable",
             "Gordon's Russian Caviar Valuable",
@@ -1302,7 +1302,7 @@ def create_regular_locations(world: TeardownWorld) -> None:
         gordonvaluable.add_locations(gordonvaluable_locations, TeardownLocation)
 
         gordonvaluablehard_locations = get_location_names_with_ids([
-            "Gordon's Loss Passport Valuable",
+            "Gordon's Lost Passport Valuable",
             "Gordon's Hidden Birthday Gift Valuable",
             "Gordon's Elevator Maintenance Manual Valuable",
             "Gordon's Stack of Emergency Cash Valuable",

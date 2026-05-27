@@ -367,14 +367,12 @@ item_name_groups = {
     ],
 
     "Frustrum": [
-        "The Chase Unlock",
         "The BlueTide Shortage Unlock",
         "Truckload Of Trouble Unlock",
         "The Pawn Shop Unlock",
     ],
 
     "Quilez Security": [
-        "Roborazzi Unlock",
         "The Quilez Tools Unlock",
         "The Droid Abduction Unlock",
         "Handle With Care Unlock",
@@ -523,12 +521,16 @@ def create_all_items(world: TeardownWorld) -> None:
 
         predeterminedtool3 = world.random.choice(nontool2)
 
-        nonstartingtool = [tool for tool in nontool2 if tool != predeterminedtool1]
+        nonstartingtool = [tool for tool in nontool2 if tool != predeterminedtool3]
 
         world.push_precollected(world.create_item(predeterminedtool1))
         world.push_precollected(world.create_item(predeterminedtool2))
         world.push_precollected(world.create_item(predeterminedtool3))
 
+        print(f"NonStartingTool: {nonstartingtool}")
+        print(f"NonStartingTool: {predeterminedtool1}")
+        print(f"NonStartingTool: {predeterminedtool2}")
+        print(f"NonStartingTool: {predeterminedtool3}")
 
         itempool.append(world.create_item(nonstartingtool[0]))
         itempool.append(world.create_item(nonstartingtool[1]))
