@@ -2,6 +2,7 @@ import asyncio
 import subprocess
 import os
 import json
+import time
 import xml.etree.ElementTree as ET
 from Utils import gui_enabled, open_filename, user_path
 from CommonClient import CommonContext, get_base_parser, server_loop
@@ -356,7 +357,7 @@ Tool_upgrade_send_map = {
 
 }
 
-VALUABLE_BASE_ID = 800
+Valuable_First_ID = 800
 
 valuable_items_list = [
     "hub_banana",
@@ -430,7 +431,7 @@ valuable_items_list = [
 
     "mansion_wallet1",
     "liquor1",
-    "mansion_passport"
+    "mansion_passport",
     "mansion_soup",
     "mansion_walkman",
     "vacuumcleaner",
@@ -640,7 +641,7 @@ valuable_items_list = [
 ]
 
 Valuable_send_map = {
-    name: VALUABLE_BASE_ID + index
+    name: Valuable_First_ID + index
     for index, name in enumerate(valuable_items_list)
 }
 
@@ -1271,11 +1272,7 @@ class TeardownContext(CommonContext):
 
 
     async def reset_and_initialize_save(self):
-
-        print("Initializing: Waiting for items to be received from server")
-        while not self.items_received:
-            await asyncio.sleep(0.5)
-        await asyncio.sleep(0.5)
+        print("Initializing: Resetting the Save")
 
         if not self.savegame_path or not os.path.exists(self.savegame_path):
             return
@@ -1339,8 +1336,23 @@ class TeardownContext(CommonContext):
                 self.player_data.remove(mission_node)
                 print(f"Initializing: Pruned message node: {mission_node.tag}")
 
+            await self.apply_server_state_to_xml(self.player_data)
 
-            self.apply_server_state_to_xml(self.player_data)
+            bigint = getattr(self, "mission_bitmask", 0)
+            current_count = bigint.bit_count()
+            goal_required = getattr(self, 'MissionAmount', 20)
+            print(f"Archipelago: Current Missions Count {current_count} Goal Required Count {goal_required}")
+
+            if current_count >= goal_required:
+                message_path = self.player_data.find("message")
+                cullington_path = self.player_data.find("cullington_bomb")
+
+                if cullington_path is None:
+                    cullington_path = ET.SubElement(message_path, "cullington_bomb")
+
+                cullington_path.set("value", "1")
+                print("Archipelago: Final Mission Unlocked.")
+
 
             for i in range(5):  # Try 5 times
                 try:
@@ -1365,7 +1377,13 @@ class TeardownContext(CommonContext):
             print(f"Failed to initialize player_data: {e}")
             traceback.print_exc()
 
-    def apply_server_state_to_xml(self, player_data):
+    async def apply_server_state_to_xml(self, player_data):
+
+        print("Initializing: Waiting for items to be received from server")
+        while not hasattr(self, 'items_received') or not self.items_received:
+            await asyncio.sleep(0.5)
+        await asyncio.sleep(0.5)
+
         received_counts = {}
         print(f"First Apply: Total items in self.items_received: {len(self.items_received)}")
         self.last_received_count = len(self.items_received)
@@ -1551,16 +1569,16 @@ class TeardownContext(CommonContext):
         if not hasattr(self, "last_cash"):
             self.last_cash = None
 
-
+        print(f"Sync Valuables: Current Cash {current_cash} Last Cash {self.last_cash}")
         if current_cash != self.last_cash:
-            print(f"Sync Tools: Cash changed from {self.last_cash} to {current_cash}. Scanning valuables...")
+            print(f"Sync Valuables: Cash changed from {self.last_cash} to {current_cash}. Scanning valuables...")
             self.watch_cash()
 
             # 3. Locate the 'valuable' base block in the XML
             valuable_base = self.player_data.find("valuable")
             if valuable_base is None:
                 return
-
+            print(f"Sync Valuables: No Valuable Base")
             # 4. Iterate over the valuable names and their sequential integer IDs
             for xml_path, location_id in Valuable_send_map.items():
                 # Skip if this location check was already completed/sent
@@ -1721,9 +1739,9 @@ class TeardownContext(CommonContext):
             # 1 << 2 becomes 00000100 in binary
             bit_to_set = 1 << index
             current_mask = getattr(self, 'mission_bitmask', 0)
-            if current_mask & bit_to_set:
-                print(f"Archipelago: Bit at index {index} is already 1. No update needed.")
-                return
+            #if current_mask & bit_to_set:
+                #print(f"Archipelago: Bit at index {index} is already 1. No update needed.")
+                #return
 
             asyncio.create_task(self.send_msgs([{
                 "cmd": "Set",
@@ -1735,23 +1753,54 @@ class TeardownContext(CommonContext):
             self.mission_bitmask = current_mask | bit_to_set
             print(f"Archipelago: Flipped bit {index} to 1.")
 
-    def handle_victory_unlock(self, current_count):
+    def handle_victory_unlock(self, bitmask):
         if self.player_data is None:
             return
+
+        final_mission = self.player_data.find("mission/cullington_bomb/score")
+        final_score = final_mission.get("value")
+
+        print(f"Final Score {final_score}")
+        if final_score is not None and final_score == "1":
+            asyncio.create_task(self.send_msgs([{
+                "cmd": "StatusUpdate",
+                "status": 30,
+            }]))
+            print("Goal Sent!!...?")
+
+        current_count = bitmask.bit_count()
         goal_required = getattr(self, 'MissionAmount', 20)
+        print(f"Archipelago: Current Missions Count {current_count} Goal Required Count {goal_required}")
 
         if current_count >= goal_required:
             message_path = self.player_data.find("message")
-            mission_path = ET.SubElement(message_path, "cullington_bomb")
-            mission_path.set("value", "1")
+            cullington_path = self.player_data.find("cullington_bomb")
 
-        # 2. Check if Cullington Bomb is already done (The actual WIN)
-        final_mission = self.player_data.find("mission/cullington_bomb/score")
-        if final_mission is not None and final_mission.get("value") == "1":
-            if not self.finished_game:
-                asyncio.create_task(self.send_msgs([{"cmd": "StatusUpdate", "status": ClientStatus.CLIENT_GOAL}]))
-                self.finished_game = True
+            if cullington_path is None:
+                cullington_path = ET.SubElement(message_path, "cullington_bomb")
 
+            cullington_path.set("value", "1")
+            print("Archipelago: Final Mission Unlocked.")
+
+            tree = ET.parse(self.savegame_path)
+
+            for i in range(5):  # Try 5 times
+                try:
+                    print(f"Initializing: Attempting initialization write {i + 1}/5")
+                    ET.indent(tree, space="          ", level=0)
+                    tree.write(self.savegame_path, encoding="UTF-8", xml_declaration=False)
+
+                    print("Teardown Save: Player Data initialized and globally set.")
+                    return True
+
+                except PermissionError:
+                    print("Initializing: File locked during init, retrying")
+                    time.sleep(0.2)
+                except Exception as e:
+                    print(f"Failed to initialize player_data: {e}")
+                    traceback.print_exc()
+                    break
+        return None
 
     async def launch_game(self):
         if self.game_exe_path and os.path.exists(self.game_exe_path):
@@ -1771,6 +1820,8 @@ class TeardownContext(CommonContext):
             async def init_sequence():
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown-{self.auth}-Missions"]}])
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown-{self.auth}-Cash"]}])
+                await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown_Missions_Counter{self.team}_{self.slot}"]}])
+
                 await self.reset_and_initialize_save()
                 self.auth_event.set()
                 await self.launch_game()
