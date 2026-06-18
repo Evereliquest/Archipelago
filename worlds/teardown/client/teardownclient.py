@@ -1758,15 +1758,16 @@ class TeardownContext(CommonContext):
             return
 
         final_mission = self.player_data.find("mission/cullington_bomb/score")
-        final_score = final_mission.get("value")
+        if final_mission is not None:
+            final_score = final_mission.get("value")
+            print(f"Final Score {final_score}")
 
-        print(f"Final Score {final_score}")
-        if final_score is not None and final_score == "1":
-            asyncio.create_task(self.send_msgs([{
-                "cmd": "StatusUpdate",
-                "status": 30,
-            }]))
-            print("Goal Sent!!...?")
+            if final_score is not None and final_score == "1":
+                asyncio.create_task(self.send_msgs([{
+                    "cmd": "StatusUpdate",
+                    "status": 30,
+                }]))
+                print("Goal Sent!!...?")
 
         current_count = bitmask.bit_count()
         goal_required = getattr(self, 'MissionAmount', 20)
