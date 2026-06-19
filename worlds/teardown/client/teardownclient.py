@@ -1226,7 +1226,10 @@ class TeardownContext(CommonContext):
         self.auth_event = asyncio.Event()
         self.locations_checked = []
         self.applied_cash_counts = {}
-        self.last_cash = None
+        self.last_cash = 0
+        self.current_cash = 0
+        self.last3_cash = 0
+
         self.last_received_count = None
 
     def loadsettings(self):
@@ -1418,23 +1421,51 @@ class TeardownContext(CommonContext):
             path, mult, base = config
             final_val = (count * mult) + base
             update_node(path, final_val)
-
             print(f"First Apply: Initial Setting {ap_id} -> {path} is now {final_val} (Base {base} + {count} items)")
-            update_node(path, final_val)
 
+        if not hasattr(self, 'applied_cash_counts'):
+            self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
 
+        cash_to_add = 0
 
-        current_cash = getattr(self, "cash_total", 0)
+        for ap_id, cash_val in Cashmap.items():
+            total_received = received_counts.get(ap_id, 0)
+            already_applied = self.applied_cash_counts.get(ap_id, 0)
+
+            if total_received > already_applied:
+                new_items = total_received - already_applied
+                cash_to_add += new_items * cash_val
+
+                # Update separate tracker for this item ID
+                self.applied_cash_counts[ap_id] = total_received
+
+        if cash_to_add > 0:
+
+            new_cash_total = self.current_cash + cash_to_add
+            self.current_cash = new_cash_total
+
+            update_node("cash", self.current_cash)
+            print(f"DEBUG: Added {cash_to_add} cash. New total savegame cash: {new_cash_total}")
+
+            asyncio.create_task(self.send_msgs([{
+                "cmd": "Set",
+                "key": f"Teardown_Applied_Cash_{self.team}_{self.slot}",
+                "default": {},
+                "want_reply": True,
+                "operations": [{"operation": "replace", "value": self.applied_cash_counts}]
+            }]))
+            print(f"Apply State: Updated cash on server to {new_cash_total}.")
+
         cash_node = player_data.find("cash")
-        self.last_cash = current_cash
+        self.last_cash = self.current_cash
 
-        print(f"First Apply: Current Cash {current_cash}")
+        print(f"First Apply: Current Cash {self.current_cash}")
         if cash_node is None:
             print("First Apply: 'cash' node not found, creating new SubElement.")
             cash_node = ET.SubElement(player_data, "cash")
 
-        cash_node.set("value", str(current_cash))
-        print(f"First Apply: Cash XML node successfully synchronized to {current_cash}")
+        cash_node.set("value", str(self.current_cash))
+        print(f"First Apply: Cash XML node successfully synchronized to {self.current_cash}")
 
 
     async def sync_savegame(self):
@@ -1563,15 +1594,15 @@ class TeardownContext(CommonContext):
             print("Sync Valuables: cash isn't found")
             return
         try:
-            current_cash = int(cash_node.get("value", "0"))
+            self.current_cash = int(cash_node.get("value", "0"))
         except (ValueError, TypeError):
             return
         if not hasattr(self, "last_cash"):
             self.last_cash = None
 
-        print(f"Sync Valuables: Current Cash {current_cash} Last Cash {self.last_cash}")
-        if current_cash != self.last_cash:
-            print(f"Sync Valuables: Cash changed from {self.last_cash} to {current_cash}. Scanning valuables...")
+        print(f"Sync Valuables: Current Cash {self.current_cash} Last Cash {self.last_cash}")
+        if self.current_cash != self.last_cash:
+            print(f"Sync Valuables: Cash changed from {self.last_cash} to {self.current_cash}. Scanning valuables...")
             self.watch_cash()
 
             # 3. Locate the 'valuable' base block in the XML
@@ -1610,22 +1641,23 @@ class TeardownContext(CommonContext):
             print("Watch Cash: Cash isn't found")
             return
         try:
-            current_cash = int(cash_node.get("value", "0"))
+            self.current_cash = int(cash_node.get("value", "0"))
         except (ValueError, TypeError):
             return
 
-        if current_cash != self.last_cash:
-            print(f"Sync Cash: Current Cash {current_cash}, Last Cash {self.last_cash}")
+        if self.current_cash != self.last_cash and self.current_cash != self.last3_cash:
+            print(f"Sync Cash: Current Cash {self.current_cash}, Last Cash {self.last_cash}, Last3 Cash {self.last3_cash}")
 
             asyncio.create_task(self.send_msgs([{
                 "cmd": "Set",
                 "key": f"Teardown-{self.auth}-Cash",
                 "default": 0,
                 "want_reply": True,
-                "operations": [{"operation": "replace", "value": current_cash}]
+                "operations": [{"operation": "replace", "value": self.current_cash}]
             }]))
-            self.last_cash = current_cash
-            print(f"Sync Cash: Updated cash on server to {current_cash}.")
+            self.last3_cash = self.last_cash
+            self.last_cash = self.current_cash
+            print(f"Sync Cash: Updated cash on server to {self.current_cash}.")
 
 
 
@@ -1708,14 +1740,13 @@ class TeardownContext(CommonContext):
             # If there is new cash to award, read current balance and increment it
         if cash_to_add > 0:
             cash_node = player_data.find("cash")
-            current_cash = 0
             if cash_node is not None:
                 try:
-                    current_cash = int(cash_node.get("value", "0"))
+                    self.current_cash = int(cash_node.get("value", "0"))
                 except (ValueError, TypeError):
                     pass
 
-            new_cash_total = current_cash + cash_to_add
+            new_cash_total = self.current_cash + cash_to_add
             update_node("cash", new_cash_total)
             print(f"DEBUG: Added {cash_to_add} cash. New total savegame cash: {new_cash_total}")
 
@@ -1728,7 +1759,9 @@ class TeardownContext(CommonContext):
                 "want_reply": True,
                 "operations": [{"operation": "replace", "value": self.applied_cash_counts}]
             }]))
-            print(f"Archipelago: Synchronized separate cash counts to server: {self.applied_cash_counts}")
+            self.last3_cash = self.last_cash
+            self.last_cash = self.current_cash
+            print(f"Sync Cash: Updated cash on server to {self.current_cash}.")
 
 
     def mission_counter(self, mission_id: str):
