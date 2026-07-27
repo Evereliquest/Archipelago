@@ -103,37 +103,70 @@ def create_all_regions(world: TeardownWorld) -> None:
     if world.options.ValuableSanity:
         leevaluable = Region("Lee Valuables", world.player, world.multiworld)
         leevaluablehard = Region("Lee Valuables Harder", world.player, world.multiworld)
-        marinavaluable = Region("Marina Valuables", world.player, world.multiworld)
-        marinavaluablehard = Region("Marina Valuables Harder", world.player, world.multiworld)
-        gordonvaluable = Region("Gordon Valuables", world.player, world.multiworld)
-        gordonvaluablehard = Region("Gordon Valuables Harder", world.player, world.multiworld)
-        hollowrockvaluable = Region("Hollowrock Valuables", world.player, world.multiworld)
-        hollowrockvaluablehard = Region("Hollowrock Valuables Harder", world.player, world.multiworld)
-        hollowrockvaluableevenharder = Region("Hollowrock Valuables Even Harder", world.player, world.multiworld)
-        evertidesvaluable = Region("Evertides Valuables", world.player, world.multiworld)
-        evertidesvaluablehard = Region("Evertides Valuables Harder", world.player, world.multiworld)
-        frustrumvaluable = Region("Frustrum Valuables", world.player, world.multiworld)
-        frustrumvaluablehard = Region("Frustrum Valuables Harder", world.player, world.multiworld)
-        quilezvaluable = Region("Quilez Valuables", world.player, world.multiworld)
-        quilezvaluablehard = Region("Quilez Valuables Harder", world.player, world.multiworld)
-        islavaluable = Region("Isla Valuables", world.player, world.multiworld)
-        islavaluablehard = Region("Isla Valuables Harder", world.player, world.multiworld)
+        leevaluablecomputers = Region("Lee Valuables Computers", world.player, world.multiworld)
+        leevaluablewoonderland = Region("Lee Valuables Woonderland", world.player, world.multiworld)
 
         regions.append(leevaluable)
         regions.append(leevaluablehard)
+        regions.append(leevaluablecomputers)
+        regions.append(leevaluablewoonderland)
+
+        marinavaluable = Region("Marina Valuables", world.player, world.multiworld)
+        marinavaluablehard = Region("Marina Valuables Harder", world.player, world.multiworld)
+        marinavaluablemakingspace = Region("Marina Valuables Making Space", world.player, world.multiworld)
+        marinavaluableafter = Region("Marina Valuables After Art", world.player, world.multiworld)
+
         regions.append(marinavaluable)
         regions.append(marinavaluablehard)
+        regions.append(marinavaluablemakingspace)
+        regions.append(marinavaluableafter)
+
+
+        gordonvaluable = Region("Gordon Valuables", world.player, world.multiworld)
+        gordonvaluablehard = Region("Gordon Valuables Harder", world.player, world.multiworld)
+        gordonvaluablefraud = Region("Gordon Valuables Fraud", world.player, world.multiworld)
+
         regions.append(gordonvaluable)
         regions.append(gordonvaluablehard)
+        regions.append(gordonvaluablefraud)
+
+        hollowrockvaluable = Region("Hollowrock Valuables", world.player, world.multiworld)
+        hollowrockvaluablehard = Region("Hollowrock Valuables Harder", world.player, world.multiworld)
+        hollowrockvaluableevenharder = Region("Hollowrock Valuables Even Harder", world.player, world.multiworld)
+        hollowrockvaluabledishes = Region("Hollowrock Valuables Dishes", world.player, world.multiworld)
+
         regions.append(hollowrockvaluable)
         regions.append(hollowrockvaluablehard)
         regions.append(hollowrockvaluableevenharder)
+        regions.append(hollowrockvaluabledishes)
+
+        evertidesvaluable = Region("Evertides Valuables", world.player, world.multiworld)
+        evertidesvaluablehard = Region("Evertides Valuables Harder", world.player, world.multiworld)
+        evertidesvaluablechaos = Region("Evertides Valuables Covert Chaos", world.player, world.multiworld)
+
         regions.append(evertidesvaluable)
         regions.append(evertidesvaluablehard)
+        regions.append(evertidesvaluablechaos)
+
+        frustrumvaluable = Region("Frustrum Valuables", world.player, world.multiworld)
+        frustrumvaluablehard = Region("Frustrum Valuables Harder", world.player, world.multiworld)
+        frustrumvaluablechase = Region("Frustrum Valuables Chase", world.player, world.multiworld)
+
         regions.append(frustrumvaluable)
         regions.append(frustrumvaluablehard)
+        regions.append(frustrumvaluablechase)
+
+        quilezvaluable = Region("Quilez Valuables", world.player, world.multiworld)
+        quilezvaluablehard = Region("Quilez Valuables Harder", world.player, world.multiworld)
+        quilezvaluablecare = Region("Quilez Valuables Handle with Care", world.player, world.multiworld)
+
         regions.append(quilezvaluable)
         regions.append(quilezvaluablehard)
+        regions.append(quilezvaluablecare)
+
+        islavaluable = Region("Isla Valuables", world.player, world.multiworld)
+        islavaluablehard = Region("Isla Valuables Harder", world.player, world.multiworld)
+
         regions.append(islavaluable)
         regions.append(islavaluablehard)
 
@@ -263,36 +296,68 @@ def connect_regions(world: TeardownWorld) -> None:
     if world.options.ValuableSanity:
         leevaluable = world.get_region("Lee Valuables")
         leevaluablehard = world.get_region("Lee Valuables Harder")
+        leevaluablecomputers = world.get_region("Lee Valuables Computers")
+        leevaluablewoonderland = world.get_region("Lee Valuables Woonderland")
+
         marinavaluable = world.get_region("Marina Valuables")
         marinavaluablehard = world.get_region("Marina Valuables Harder")
+        marinavaluablemakingspace = world.get_region("Marina Valuables Making Space")
+        marinavaluableafter = world.get_region("Marina Valuables After Art")
+
         gordonvaluable = world.get_region("Gordon Valuables")
         gordonvaluablehard = world.get_region("Gordon Valuables Harder")
+        gordonvaluablefraud = world.get_region("Gordon Valuables Fraud")
+
         hollowrockvaluable = world.get_region("Hollowrock Valuables")
         hollowrockvaluablehard = world.get_region("Hollowrock Valuables Harder")
         hollowrockvaluableevenharder = world.get_region("Hollowrock Valuables Even Harder")
+        hollowrockvaluabledishes = world.get_region("Hollowrock Valuables Dishes")
+
         evertidesvaluable = world.get_region("Evertides Valuables")
         evertidesvaluablehard = world.get_region("Evertides Valuables Harder")
+        evertidesvaluablechaos = world.get_region("Evertides Valuables Covert Chaos")
+
         frustrumvaluable = world.get_region("Frustrum Valuables")
         frustrumvaluablehard = world.get_region("Frustrum Valuables Harder")
+        frustrumvaluablechase = world.get_region("Frustrum Valuables Chase")
+
         quilezvaluable = world.get_region("Quilez Valuables")
         quilezvaluablehard = world.get_region("Quilez Valuables Harder")
+        quilezvaluablecare = world.get_region("Quilez Valuables Handle with Care")
+
         islavaluable = world.get_region("Isla Valuables")
         islavaluablehard = world.get_region("Isla Valuables Harder")
 
         menu.connect(leevaluable, "Main Menu to Lee Valuables")
-        menu.connect(leevaluablehard, "Main Menu to Lee Valuables Harder")
+        leevaluable.connect(leevaluablehard, "Lee Valuables to Lee Valuables Harder")
+        leevaluable.connect(leevaluablecomputers, "Lee Valuables to Lee Valuables Computers")
+        leevaluable.connect(leevaluablewoonderland, "Lee Valuables to Lee Valuables Woonderland")
+
         menu.connect(marinavaluable, "Main Menu to Marina Valuables")
-        menu.connect(marinavaluablehard, "Main Menu to Marina Valuables Harder")
+        marinavaluable.connect(marinavaluablehard, "Marina Valuables to Marina Valuables Harder")
+        marinavaluable.connect(marinavaluablemakingspace, "Marina Valuables to Marina Valuables Making Space")
+        marinavaluable.connect(marinavaluableafter, "Marina Valuables to Marina Valuables After Art")
+
         menu.connect(gordonvaluable, "Main Menu to Gordon Valuables")
-        menu.connect(gordonvaluablehard, "Main Menu to Gordon Valuables Harder")
+        gordonvaluable.connect(gordonvaluablehard, "Gordon Valuables to Gordon Valuables Harder")
+        gordonvaluable.connect(gordonvaluablefraud, "Gordon Valuables to Gordon Valuables Fraud")
+
         menu.connect(hollowrockvaluable, "Main Menu to Hollowrock Valuables")
-        menu.connect(hollowrockvaluablehard, "Main Menu to Hollowrock Valuables Harder")
-        menu.connect(hollowrockvaluableevenharder, "Main Menu to Hollowrock Valuables Even Harder")
+        hollowrockvaluable.connect(hollowrockvaluablehard, "Hollowrock Valuables to Hollowrock Valuables Harder")
+        hollowrockvaluable.connect(hollowrockvaluableevenharder, "Hollowrock Valuables to Hollowrock Valuables Even Harder")
+        hollowrockvaluable.connect(hollowrockvaluabledishes, "Hollowrock Valuables to Hollowrock Valuables Dishes")
+
         menu.connect(evertidesvaluable, "Main Menu to Evertides Valuables")
-        menu.connect(evertidesvaluablehard, "Main Menu to Evertides Valuables Harder")
+        evertidesvaluable.connect(evertidesvaluablehard, "Evertides Valuables to Evertides Valuables Harder")
+        evertidesvaluable.connect(evertidesvaluablechaos, "Evertides Valuables to Evertides Valuables Covert Chaos")
+
         menu.connect(frustrumvaluable, "Main Menu to Frustrum Valuables")
-        menu.connect(frustrumvaluablehard, "Main Menu to Frustrum Valuables Harder")
+        frustrumvaluable.connect(frustrumvaluablehard, "Frustrum Valuables to Frustrum Valuables Harder")
+        frustrumvaluable.connect(frustrumvaluablechase, "Frustrum Valuables to Frustrum Valuables Chase")
+
         menu.connect(quilezvaluable, "Main Menu to Quilez Valuables")
-        menu.connect(quilezvaluablehard, "Main Menu to Quilez Valuables Harder")
+        quilezvaluable.connect(quilezvaluablehard, "Quilez Valuables to Quilez Valuables Harder")
+        quilezvaluable.connect(quilezvaluablecare, "Quilez Valuables to Quilez Valuables Handle with Care")
+
         menu.connect(islavaluable, "Main Menu to Isla Valuables")
-        menu.connect(islavaluablehard, "Main Menu to Isla Valuables Harder")
+        islavaluable.connect(islavaluablehard, "Isla Valuables to Isla Valuables Harder")

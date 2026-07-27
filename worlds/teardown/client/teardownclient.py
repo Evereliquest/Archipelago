@@ -57,7 +57,70 @@ Missionindex = {
         "cullington_bomb": 39,
 }
 
+Toolmap = {
+    41: "tool/sledge/enabled",
+    42: "tool/spraycan/enabled",
+    43: "tool/extinguisher/enabled",
+    51: "tool/blowtorch/enabled",
+    52: "tool/shotgun/enabled",
+    53: "tool/plank/enabled",
+    54: "tool/pipebomb/enabled",
+    55: "tool/gun/enabled",
+    56: "tool/bomb/enabled",
+    57: "tool/rocket/enabled",
+    58: "tool/booster/enabled",
+    59: "tool/leafblower/enabled",
+    60: "tool/wire/enabled",
+    61: "tool/turbo/enabled",
+    62: "tool/explosive/enabled",
+    63: "tool/rifle/enabled",
+    64: "tool/steroid/enabled",
+}
+
 Missionmap = {
+    1: "mission/mall_intro",
+    2: "mission/lee_computers",
+    3: "mission/lee_login",
+    4: "mission/marina_demolish",
+    5: "mission/marina_cars",
+    6: "mission/marina_gps",
+    7: "mission/mansion_pool",
+    8: "mission/lee_safe",
+    9: "mission/lee_tower",
+    10: "mission/mansion_art",
+    11: "mission/marina_tools",
+    12: "mission/marina_art_back",
+    13: "mission/mall_foodcourt",
+    14: "mission/mansion_fraud",
+    15: "mission/caveisland_computers",
+    16: "mission/mansion_race",
+    17: "mission/mansion_safe",
+    18: "mission/lee_powerplant",
+    19: "mission/caveisland_propane",
+    20: "mission/caveisland_dishes",
+    21: "mission/lee_flooding",
+    22: "mission/frustrum_chase",
+    23: "mission/factory_espionage",
+    24: "mission/caveisland_ingredients",
+    25: "mission/frustrum_tornado",
+    26: "mission/mall_shipping",
+    27: "mission/carib_alarm",
+    28: "mission/carib_barrels",
+    29: "mission/carib_destroy",
+    30: "mission/carib_yacht",
+    31: "mission/frustrum_vehicle",
+    32: "mission/mall_decorations",
+    33: "mission/factory_tools",
+    34: "mission/mall_radiolink",
+    35: "mission/frustrum_pawnshop",
+    36: "mission/factory_robot",
+    37: "mission/lee_woonderland",
+    38: "mission/factory_explosive",
+    39: "mission/caveisland_roboclear",
+    40: "mission/cullington_bomb",
+}
+
+Messagemap = {
     1: "message/mall_intro",
     2: "message/lee_computers",
     3: "message/lee_login",
@@ -100,26 +163,6 @@ Missionmap = {
     40: "message/cullington_bomb",
 }
 
-Toolmap = {
-    41: "tool/sledge/enabled",
-    42: "tool/spraycan/enabled",
-    43: "tool/extinguisher/enabled",
-    51: "tool/blowtorch/enabled",
-    52: "tool/shotgun/enabled",
-    53: "tool/plank/enabled",
-    54: "tool/pipebomb/enabled",
-    55: "tool/gun/enabled",
-    56: "tool/bomb/enabled",
-    57: "tool/rocket/enabled",
-    58: "tool/booster/enabled",
-    59: "tool/leafblower/enabled",
-    60: "tool/wire/enabled",
-    61: "tool/turbo/enabled",
-    62: "tool/explosive/enabled",
-    63: "tool/rifle/enabled",
-    64: "tool/steroid/enabled",
-}
-
 Upgrademap = {
     71: ["tool/blowtorch/ammo", 10, 20],
     81: ["tool/shotgun/ammo", 12, 12],
@@ -127,7 +170,7 @@ Upgrademap = {
     83: ["tool/shotgun/damage", 1, 3],
     91: ["tool/plank/ammo", 8, 8],
     92: ["tool/plank/width", 1, 3],
-    93: ["tool/plank/length", 8, 36],
+    93: ["tool/plank/length", 8, 40],
     101: ["tool/pipebomb/ammo", 6, 6],
     102: ["tool/pipebomb/damage", 1, 2],
     111: ["tool/gun/ammo", 6, 6],
@@ -162,6 +205,133 @@ Cashmap = {
     256: 750,
     257: 1000,
     258: 3000
+}
+
+Missionlocations = {
+    "Old Building Problem": [1],
+    "Lee Computers": [11, 12, 13],
+    "Login Devices": [21, 22, 23],
+    "Making Space": [31, 32, 33],
+    "Classic Cars": [41, 42, 43, 44],
+    "The GPS Devices": [51, 52, 53, 54, 55],
+    "The Car Wash": [61, 62, 63, 64, 65, 66],
+    "Heavy Lifting": [71, 72, 73, 74, 75],
+    "The Tower": [81],
+    "Fine Arts": [91, 92, 93, 94, 95, 96],
+    "Tool Up": [101, 102, 103, 104, 105, 106],
+    "Art Return": [111, 112, 113, 114],
+    "Covert Chaos": [121, 122, 123],
+    "Insurance Fraud": [131, 132, 133, 134, 135, 136],
+    "The BlueTide Computers": [141, 142, 143, 144, 145, 146, 147],
+    "The Speed Deal": [151, 152, 153],
+    "A Wet Affair": [161, 162, 163, 164, 165, 166],
+    "Power Outage": [171, 172, 173, 174, 175, 176, 177, 178],
+    "Motivational Reminder": [181, 182, 183, 184, 185, 186, 187, 188],
+    "An Assortment Of Dishes": [191, 192, 193, 194, 195, 196, 197, 198, 199],
+    "Flooding": [201, 202, 203, 204, 205, 206, 207, 208],
+    "The Chase": [211],
+    "Roborazzi": [221, 222, 223, 224, 225],
+    "The Secret Ingredients": [231, 232, 233, 234, 235, 236],
+    "The BlueTide Shortage": [241, 242, 243, 244, 245, 246],
+    "The Shipping Logs": [251, 252, 253, 254, 255, 256, 257, 258],
+    "The Alarm System": [261, 262, 263, 264, 265, 266],
+    "Moving The Goods": [271, 272, 273, 274, 275],
+    "Havoc In Paradise": [281, 282, 283, 284, 285, 286, 287],
+    "Elena's Revenge": [291],
+    "Truckload Of Trouble": [301, 302, 303],
+    "Ornament Ordeal": [311, 312, 313, 314, 315, 316],
+    "The Quilez Tools": [321, 322, 323, 324, 325, 326],
+    "Connecting The Dots": [331, 332, 333, 334, 335],
+    "The Pawn Shop": [341, 342, 343, 344, 345, 346, 347],
+    "The Droid Abduction": [351, 352, 353, 354],
+    "Malice In Woonderland": [361, 362, 363, 364, 365, 366, 367, 368],
+    "Handle With Care": [371, 372, 373, 374, 375, 376, 377],
+    "Droid Dismount": [381, 382, 383, 384, 385, 386, 387],
+}
+
+Mission_prereq = {
+    "Old Building Problem": 1,
+    "Lee Computers": 2,
+    "Login Devices": 3,
+    "Making Space": 4,
+    "Classic Cars": 5,
+    "The GPS Devices": 6,
+    "The Car Wash": 7,
+    "Heavy Lifting": 8,
+    "The Tower": 9,
+    "Fine Arts": 10,
+    "Tool Up": 11,
+    "Art Return": 12,
+    "Covert Chaos": 13,
+    "Insurance Fraud": 14,
+    "The BlueTide Computers": 15,
+    "The Speed Deal": 16,
+    "A Wet Affair": 17,
+    "Power Outage": 18,
+    "Motivational Reminder": 19,
+    "An Assortment Of Dishes": 20,
+    "Flooding": 21,
+    "The Chase": 22,
+    "Roborazzi": 23,
+    "The Secret Ingredients": 24,
+    "The BlueTide Shortage": 25,
+    "The Shipping Logs": 26,
+    "The Alarm System": 27,
+    "Moving The Goods": 28,
+    "Havoc In Paradise": 29,
+    "Elena's Revenge": 30,
+    "Truckload Of Trouble": 31,
+    "Ornament Ordeal": 32,
+    "The Quilez Tools": 33,
+    "Connecting The Dots": 34,
+    "The Pawn Shop": 35,
+    "The Droid Abduction": 36,
+    "Malice In Woonderland": 37,
+    "Handle With Care": 38,
+    "Droid Dismount": 39,
+    "The Final Diversion": 40,
+}
+
+Mission_xml = {
+    "Old Building Problem":"mission/mall_intro/score",
+    "Lee Computers": "mission/lee_computers/score",
+    "Login Devices": "mission/lee_login/score",
+    "Making Space": "mission/marina_demolish/score",
+    "Classic Cars": "mission/marina_cars/score",
+    "The GPS Devices": "mission/marina_gps/score",
+    "The Car Wash": "mission/mansion_pool/score",
+    "Heavy Lifting": "mission/lee_safe/score",
+    "The Tower": "mission/lee_tower/score",
+    "Fine Arts": "mission/mansion_art/score",
+    "Tool Up": "mission/marina_tools/score",
+    "Art Return": "mission/marina_art_back/score",
+    "Covert Chaos": "mission/mall_foodcourt/score",
+    "Insurance Fraud": "mission/mansion_fraud/score",
+    "The BlueTide Computers": "mission/caveisland_computers/score",
+    "The Speed Deal": "mission/mansion_race/score",
+    "A Wet Affair": "mission/mansion_safe/score",
+    "Power Outage": "mission/lee_powerplant/score",
+    "Motivational Reminder": "mission/caveisland_propane/score",
+    "An Assortment Of Dishes": "mission/caveisland_dishes/score",
+    "Flooding": "mission/lee_flooding/score",
+    "The Chase": "mission/frustrum_chase/score",
+    "Roborazzi": "mission/factory_espionage/score",
+    "The Secret Ingredients": "mission/caveisland_ingredients/score",
+    "The BlueTide Shortage": "mission/frustrum_tornado/score",
+    "The Shipping Logs": "mission/mall_shipping/score",
+    "The Alarm System": "mission/carib_alarm/score",
+    "Moving The Goods": "mission/carib_barrels/score",
+    "Havoc In Paradise": "mission/carib_destroy/score",
+    "Elena's Revenge": "mission/carib_yacht/score",
+    "Truckload Of Trouble": "mission/frustrum_vehicle/score",
+    "Ornament Ordeal": "mission/mall_decorations/score",
+    "The Quilez Tools": "mission/factory_tools/score",
+    "Connecting The Dots": "mission/mall_radiolink/score",
+    "The Pawn Shop": "mission/frustrum_pawnshop/score",
+    "The Droid Abduction": "mission/factory_robot/score",
+    "Malice In Woonderland": "mission/lee_woonderland/score",
+    "Handle With Care": "mission/factory_explosive/score",
+    "Droid Dismount": "mission/caveisland_roboclear/score",
 }
 
 Mission_upgrade_send_map = {
@@ -225,7 +395,7 @@ Tool_upgrade_send_map = {
     },
     "toolupgrade/shotgun/range": {
         40: 521,
-        60: 521,
+        60: 522,
     },
     "toolupgrade/shotgun/damage": {
         4: 531,
@@ -326,7 +496,7 @@ Tool_upgrade_send_map = {
     "toolupgrade/turbo/ammo": {
         12: 721,
         18: 722,
-        36: 723,
+        24: 723,
     },
     "toolupgrade/turbo/power": {
         300: 731,
@@ -1205,6 +1375,7 @@ class TeardownContext(CommonContext):
     stored_data: dict[str, typing.Any]
     stored_data_notification_keys: set[str]
     items_received: int = 0
+    locations_found: int = 0
 
 
 
@@ -1219,18 +1390,21 @@ class TeardownContext(CommonContext):
         self.first_sync_done = False
         self.loadsettings()
         self.MissionAmount = 0
+        self.ToolUpgrades = True
+        self.ValuableSanity = False
         self.mission_count = 0
         self.finished_game = False
-        self.location_name_to_id = ""
         self.items_received_event = asyncio.Event()
+        self.locations_found_event = asyncio.Event()
         self.auth_event = asyncio.Event()
         self.locations_checked = []
         self.applied_cash_counts = {}
         self.last_cash = 0
         self.current_cash = 0
         self.last3_cash = 0
-
+        self.found_count = 0
         self.last_received_count = None
+
 
     def loadsettings(self):
         # Load our settings from our json file
@@ -1383,7 +1557,12 @@ class TeardownContext(CommonContext):
     async def apply_server_state_to_xml(self, player_data):
 
         print("Initializing: Waiting for items to be received from server")
-        while not hasattr(self, 'items_received') or not self.items_received:
+        while not hasattr(self, 'items_received'):
+            await asyncio.sleep(0.5)
+        await asyncio.sleep(0.5)
+
+        print("Initializing: Waiting for found locations")
+        while not hasattr(self, 'checked_locations'):
             await asyncio.sleep(0.5)
         await asyncio.sleep(0.5)
 
@@ -1416,12 +1595,120 @@ class TeardownContext(CommonContext):
                 if count > 0:
                     update_node(xml_path, "1")
 
+        for mapping in [Messagemap]:
+            for ap_id, xml_path in mapping.items():
+                count = received_counts.get(ap_id, 0)
+                if count > 0:
+                    update_node(xml_path, "2")
+
         for ap_id, config in Upgrademap.items():
             count = received_counts.get(ap_id, 0)
             path, mult, base = config
             final_val = (count * mult) + base
             update_node(path, final_val)
             print(f"First Apply: Initial Setting {ap_id} -> {path} is now {final_val} (Base {base} + {count} items)")
+
+        def missions_checked():
+
+            group_results = {}
+
+            # Unpack the player's received items for quick checking
+            received_item_ids = {network_item.item for network_item in self.items_received}
+
+            # Cycle through ALL groups automatically
+            for group_name, location_ids in Missionlocations.items():
+
+                # Check prerequisites if this group has one
+                if group_name in Mission_prereq:
+                    required_item_id = Mission_prereq[group_name]
+                    if required_item_id not in received_item_ids:
+                        group_results[group_name] = 0
+                        continue
+
+                # Count the checked locations
+                found_count = 0
+                for loc_id in location_ids:
+                    if loc_id in self.checked_locations:
+                        found_count += 1
+
+                # Save the final tally
+                group_results[group_name] = found_count
+            return group_results
+
+
+        print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        current_loc = missions_checked()
+        for mission_name, xml_path in Mission_xml.items():
+            count = current_loc.get(mission_name, 0)
+            if count > 0:
+                update_node(xml_path, str(count))
+
+
+        def tools_checked():
+            upgrade_results = {}
+
+            for xml_path_tool, upgrades in Tool_upgrade_send_map.items():
+                sorted_amounts = sorted(upgrades.keys())
+
+                highest_amount = None
+
+                # 2. Check each location ID in order
+                for amount in sorted_amounts:
+                    loc_id = upgrades[amount]  # This grabs the Location ID (e.g., 501)
+
+                    if loc_id in self.checked_locations:
+                        # They have this location! Update the highest amount achieved.
+                        highest_amount = amount
+                    else:
+                        # A location wasn't checked!
+                        # The chain is broken, stop counting and skip to the next tool.
+                        break
+
+                        # 3. Save to results ONLY if they actually found at least one upgrade
+                    # (If they found none, it leaves the game's default base value alone)
+                if highest_amount is not None:
+                    upgrade_results[xml_path_tool] = highest_amount
+
+            return upgrade_results
+
+        print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        if self.ToolUpgrades:
+            current_upgrades = tools_checked()
+            for xml_path, total_value in current_upgrades.items():
+                update_node(xml_path, str(total_value))
+
+
+        def valuables_checked():
+            valuable_results = {}
+
+            for index, item_name in enumerate(valuable_items_list):
+
+                # Calculate the ID
+                current_id = Valuable_First_ID + index
+
+                # Build the XML path
+                xml_path_val = f"valuable/{item_name}"
+
+                # Check if the player has this ID
+                if current_id in self.checked_locations:
+                    valuable_results[xml_path_val] = 1
+                else:
+                    valuable_results[xml_path_val] = 0
+
+            return valuable_results
+
+        print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        if self.ValuableSanity:
+            current_valuables = valuables_checked()
+            for xml_path, total_value in current_valuables.items():
+                update_node(xml_path, str(total_value))
+
+
+        if self.ToolUpgrades:
+            update_node("toolupgradeon", 1)
+        else:
+            update_node("toolupgradeon", 0)
+
 
         if not hasattr(self, 'applied_cash_counts'):
             self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
@@ -1487,7 +1774,8 @@ class TeardownContext(CommonContext):
 
 
         self.check_missions()
-        self.check_tools()
+        if self.ToolUpgrades:
+            self.check_tools()
         self.check_valuables()
         self.apply_received_items(self.player_data)
         print("Sync: Functions ran.")
@@ -1605,30 +1893,31 @@ class TeardownContext(CommonContext):
             print(f"Sync Valuables: Cash changed from {self.last_cash} to {self.current_cash}. Scanning valuables...")
             self.watch_cash()
 
-            # 3. Locate the 'valuable' base block in the XML
-            valuable_base = self.player_data.find("valuable")
-            if valuable_base is None:
-                return
-            print(f"Sync Valuables: No Valuable Base")
-            # 4. Iterate over the valuable names and their sequential integer IDs
-            for xml_path, location_id in Valuable_send_map.items():
-                # Skip if this location check was already completed/sent
-                if location_id in self.locations_checked:
-                    continue
+            if self.ValuableSanity:
+                # 3. Locate the 'valuable' base block in the XML
+                valuable_base = self.player_data.find("valuable")
+                if valuable_base is None:
+                    return
+                print(f"Sync Valuables: No Valuable Base")
+                # 4. Iterate over the valuable names and their sequential integer IDs
+                for xml_path, location_id in Valuable_send_map.items():
+                    # Skip if this location check was already completed/sent
+                    if location_id in self.locations_checked:
+                        continue
 
-                # Look for the valuable item element inside the valuable block
-                node = valuable_base.find(xml_path)
-                if node is not None:
-                    try:
-                        current_val = int(node.get("value", "0"))
+                    # Look for the valuable item element inside the valuable block
+                    node = valuable_base.find(xml_path)
+                    if node is not None:
+                        try:
+                            current_val = int(node.get("value", "0"))
 
-                        # If the valuable item has been collected (value is 1 or greater)
-                        if current_val >= 1:
-                            print(f"Sync Valuables: {xml_path} collected. Sending ID {location_id}")
-                            self.send_upgrade_check(location_id)
+                            # If the valuable item has been collected (value is 1 or greater)
+                            if current_val >= 1:
+                                print(f"Sync Valuables: {xml_path} collected. Sending ID {location_id}")
+                                self.send_upgrade_check(location_id)
 
-                    except (ValueError, TypeError) as e:
-                        print(f"Sync Valuables: Error processing value at {xml_path}: {e}")
+                        except (ValueError, TypeError) as e:
+                            print(f"Sync Valuables: Error processing value at {xml_path}: {e}")
 
     def watch_cash(self):
         print("Sync Cash: Entering watch_cash")
@@ -1847,7 +2136,8 @@ class TeardownContext(CommonContext):
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             self.MissionAmount = args.get("slot_data", {}).get("MissionAmount", 20)
-            self.location_name_to_id = args.get("slot_info", {}).get("location_name_to_id", {})
+            self.ToolUpgrades = args.get("slot_data", {}).get("ToolUpgrades", True)
+            self.ValuableSanity = args.get("slot_data", {}).get("ValuableSanity", False)
             self.last_connected_slot = self.slot
 
 
