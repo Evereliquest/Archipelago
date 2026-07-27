@@ -527,10 +527,10 @@ def create_all_items(world: TeardownWorld) -> None:
         world.push_precollected(world.create_item(predeterminedtool2))
         world.push_precollected(world.create_item(predeterminedtool3))
 
-        print(f"NonStartingTool: {nonstartingtool}")
-        print(f"NonStartingTool: {predeterminedtool1}")
-        print(f"NonStartingTool: {predeterminedtool2}")
-        print(f"NonStartingTool: {predeterminedtool3}")
+        # print(f"NonStartingTool: {nonstartingtool}")
+        #print(f"Starting Tool 1: {predeterminedtool1}")
+        #print(f"Starting Tool 2: {predeterminedtool2}")
+        #print(f"Starting Tool 3: {predeterminedtool3}")
 
         itempool.append(world.create_item(nonstartingtool[0]))
         itempool.append(world.create_item(nonstartingtool[1]))

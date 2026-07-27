@@ -262,7 +262,7 @@ valuable_locations_list = [
     "Isla's Monkey Hand Valuable",
     "Isla's Money Counter Valuable",
     "Isla's Diamond Cane Valuable",
-    "Isla's Magazine: Isla'snd life- Your guide to Muratoris, Valuable",
+    "Isla's Magazine: Island life- Your guide to Muratoris, Valuable",
     "Isla's Teapot, Short And Stout Valuable",
     "Isla's Machine Grease Valuable",
     "Isla's Copper Wire Valuable",
@@ -340,10 +340,10 @@ LOCATION_NAME_TO_ID = {
 
     "Fine Arts Required 1": 91,
     "Fine Arts Required 2": 92,
-    "Fine Arts Required 3": 94,
-    "Fine Arts Required 4": 95,
-    "Fine Arts Optional 1": 96,
-    "Fine Arts Optional 2": 97,
+    "Fine Arts Required 3": 93,
+    "Fine Arts Required 4": 94,
+    "Fine Arts Optional 1": 95,
+    "Fine Arts Optional 2": 96,
 
     "Tool Up Required 1": 101,
     "Tool Up Required 2": 102,
@@ -947,49 +947,144 @@ def create_regular_locations(world: TeardownWorld) -> None:
     ])
     bluetideshortage.add_locations(bluetideshortage_locations, TeardownLocation)
 
-    shippinglogs_locations = get_location_names_with_ids(["The Shipping Logs Required 1", "The Shipping Logs Required 2", "The Shipping Logs Required 3", "The Shipping Logs Required 4", "The Shipping Logs Required 5", "The Shipping Logs Optional 1", "The Shipping Logs Optional 2", "The Shipping Logs Optional 3"])
+    shippinglogs_locations = get_location_names_with_ids([
+        "The Shipping Logs Required 1",
+        "The Shipping Logs Required 2",
+        "The Shipping Logs Required 3",
+        "The Shipping Logs Required 4",
+        "The Shipping Logs Required 5",
+        "The Shipping Logs Optional 1",
+        "The Shipping Logs Optional 2",
+        "The Shipping Logs Optional 3"
+    ])
     shippinglogs.add_locations(shippinglogs_locations, TeardownLocation)
 
-    alarmsystem_locations = get_location_names_with_ids(["The Alarm System Required 1", "The Alarm System Required 2", "The Alarm System Required 3", "The Alarm System Required 4", "The Alarm System Optional 1", "The Alarm System Optional 2"])
+    alarmsystem_locations = get_location_names_with_ids([
+        "The Alarm System Required 1",
+        "The Alarm System Required 2",
+        "The Alarm System Required 3",
+        "The Alarm System Required 4",
+        "The Alarm System Optional 1",
+        "The Alarm System Optional 2"
+    ])
     alarmsystem.add_locations(alarmsystem_locations, TeardownLocation)
 
-    movingthegoods_locations = get_location_names_with_ids(["Moving The Goods Required 1", "Moving The Goods Required 2", "Moving The Goods Required 3", "Moving The Goods Optional 1", "Moving The Goods Optional 2"])
+    movingthegoods_locations = get_location_names_with_ids([
+        "Moving The Goods Required 1",
+        "Moving The Goods Required 2",
+        "Moving The Goods Required 3",
+        "Moving The Goods Optional 1",
+        "Moving The Goods Optional 2"
+    ])
     movingthegoods.add_locations(movingthegoods_locations, TeardownLocation)
 
-    havocinparaside_locations = get_location_names_with_ids(["Havoc In Paradise Required 1", "Havoc In Paradise Required 2", "Havoc In Paradise Required 3", "Havoc In Paradise Required 4", "Havoc In Paradise Optional 1", "Havoc In Paradise Optional 2", "Havoc In Paradise Optional 3"])
+    havocinparaside_locations = get_location_names_with_ids([
+        "Havoc In Paradise Required 1",
+        "Havoc In Paradise Required 2",
+        "Havoc In Paradise Required 3",
+        "Havoc In Paradise Required 4",
+        "Havoc In Paradise Optional 1",
+        "Havoc In Paradise Optional 2",
+        "Havoc In Paradise Optional 3"
+    ])
     havocinparaside.add_locations(havocinparaside_locations, TeardownLocation)
 
-    elenasrevenge_locations = get_location_names_with_ids(["Elena's Revenge"])
+    elenasrevenge_locations = get_location_names_with_ids([
+        "Elena's Revenge"
+    ])
     elenasrevenge.add_locations(elenasrevenge_locations, TeardownLocation)
 
-    truckloadoftrouble_locations = get_location_names_with_ids(["Truckload Of Trouble Required 1", "Truckload Of Trouble Required 2", "Truckload Of Trouble Optional 1"])
+    truckloadoftrouble_locations = get_location_names_with_ids([
+        "Truckload Of Trouble Required 1",
+        "Truckload Of Trouble Required 2",
+        "Truckload Of Trouble Optional 1"
+    ])
     truckloadoftrouble.add_locations(truckloadoftrouble_locations, TeardownLocation)
 
-    ornamentordeal_locations = get_location_names_with_ids(["Ornament Ordeal Required 1", "Ornament Ordeal Required 2", "Ornament Ordeal Required 3", "Ornament Ordeal Required 4", "Ornament Ordeal Optional 1", "Ornament Ordeal Optional 2"])
+    ornamentordeal_locations = get_location_names_with_ids([
+        "Ornament Ordeal Required 1",
+        "Ornament Ordeal Required 2",
+        "Ornament Ordeal Required 3",
+        "Ornament Ordeal Required 4",
+        "Ornament Ordeal Optional 1",
+        "Ornament Ordeal Optional 2"
+    ])
     ornamentordeal.add_locations(ornamentordeal_locations, TeardownLocation)
 
-    quileztools_locations = get_location_names_with_ids(["The Quilez Tools Required 1", "The Quilez Tools Required 2", "The Quilez Tools Required 3", "The Quilez Tools Required 4", "The Quilez Tools Optional 1", "The Quilez Tools Optional 2"])
+    quileztools_locations = get_location_names_with_ids([
+        "The Quilez Tools Required 1",
+        "The Quilez Tools Required 2",
+        "The Quilez Tools Required 3",
+        "The Quilez Tools Required 4",
+        "The Quilez Tools Optional 1",
+        "The Quilez Tools Optional 2"
+    ])
     quileztools.add_locations(quileztools_locations, TeardownLocation)
 
-    connectingthedots_locations = get_location_names_with_ids(["Connecting The Dots Required 1", "Connecting The Dots Required 2", "Connecting The Dots Required 3", "Connecting The Dots Optional 1", "Connecting The Dots Optional 2"])
+    connectingthedots_locations = get_location_names_with_ids([
+        "Connecting The Dots Required 1",
+        "Connecting The Dots Required 2",
+        "Connecting The Dots Required 3",
+        "Connecting The Dots Optional 1",
+        "Connecting The Dots Optional 2"
+    ])
     connectingthedots.add_locations(connectingthedots_locations, TeardownLocation)
 
-    pawnshop_locations = get_location_names_with_ids(["The Pawn Shop Required 1", "The Pawn Shop Required 2", "The Pawn Shop Required 3", "The Pawn Shop Required 4", "The Pawn Shop Required 5", "The Pawn Shop Optional 1", "The Pawn Shop Optional 2"])
+    pawnshop_locations = get_location_names_with_ids([
+        "The Pawn Shop Required 1",
+        "The Pawn Shop Required 2",
+        "The Pawn Shop Required 3",
+        "The Pawn Shop Required 4",
+        "The Pawn Shop Required 5",
+        "The Pawn Shop Optional 1",
+        "The Pawn Shop Optional 2"])
     pawnshop.add_locations(pawnshop_locations, TeardownLocation)
 
-    droidabduction_locations = get_location_names_with_ids(["The Droid Abduction Required 1", "The Droid Abduction Optional 1", "The Droid Abduction Optional 2", "The Droid Abduction Optional 3"])
+    droidabduction_locations = get_location_names_with_ids([
+        "The Droid Abduction Required 1",
+        "The Droid Abduction Optional 1",
+        "The Droid Abduction Optional 2",
+        "The Droid Abduction Optional 3"
+    ])
     droidabduction.add_locations(droidabduction_locations, TeardownLocation)
 
-    maliceinwoonderland_locations = get_location_names_with_ids(["Malice In Woonderland Required 1", "Malice In Woonderland Required 2", "Malice In Woonderland Required 3", "Malice In Woonderland Required 4", "Malice In Woonderland Required 5", "Malice In Woonderland Optional 1", "Malice In Woonderland Optional 2", "Malice In Woonderland Optional 3"])
+    maliceinwoonderland_locations = get_location_names_with_ids([
+        "Malice In Woonderland Required 1",
+        "Malice In Woonderland Required 2",
+        "Malice In Woonderland Required 3",
+        "Malice In Woonderland Required 4",
+        "Malice In Woonderland Required 5",
+        "Malice In Woonderland Optional 1",
+        "Malice In Woonderland Optional 2",
+        "Malice In Woonderland Optional 3"
+    ])
     maliceinwoonderland.add_locations(maliceinwoonderland_locations, TeardownLocation)
 
-    handlewithcare_locations = get_location_names_with_ids(["Handle With Care Required 1", "Handle With Care Required 2", "Handle With Care Required 3", "Handle With Care Optional 1", "Handle With Care Optional 2", "Handle With Care Optional 3", "Handle With Care Optional 4"])
+    handlewithcare_locations = get_location_names_with_ids([
+        "Handle With Care Required 1",
+        "Handle With Care Required 2",
+        "Handle With Care Required 3",
+        "Handle With Care Optional 1",
+        "Handle With Care Optional 2",
+        "Handle With Care Optional 3",
+        "Handle With Care Optional 4"
+    ])
     handlewithcare.add_locations(handlewithcare_locations, TeardownLocation)
 
-    droiddismount_locations = get_location_names_with_ids(["Droid Dismount Required 1", "Droid Dismount Required 2", "Droid Dismount Required 3", "Droid Dismount Required 4", "Droid Dismount Required 5", "Droid Dismount Optional 1", "Droid Dismount Optional 2"])
+    droiddismount_locations = get_location_names_with_ids([
+        "Droid Dismount Required 1",
+        "Droid Dismount Required 2",
+        "Droid Dismount Required 3",
+        "Droid Dismount Required 4",
+        "Droid Dismount Required 5",
+        "Droid Dismount Optional 1",
+        "Droid Dismount Optional 2"
+    ])
     droiddismount.add_locations(droiddismount_locations, TeardownLocation)
 
-    finaldiversion_locations = get_location_names_with_ids(["The Final Diversion"])
+    finaldiversion_locations = get_location_names_with_ids([
+        "The Final Diversion"
+    ])
     finaldiversion.add_locations(finaldiversion_locations, TeardownLocation)
 
     if world.options.ToolUpgrades:
@@ -1154,21 +1249,38 @@ def create_regular_locations(world: TeardownWorld) -> None:
 
     if world.options.ValuableSanity:
         menu = world.get_region("Main Menu")
+
         leevaluable = world.get_region("Lee Valuables")
         leevaluablehard = world.get_region("Lee Valuables Harder")
+        leevaluablecomputers = world.get_region("Lee Valuables Computers")
+        leevaluablewoonderland = world.get_region("Lee Valuables Woonderland")
+
         marinavaluable = world.get_region("Marina Valuables")
         marinavaluablehard = world.get_region("Marina Valuables Harder")
+        marinavaluablemakingspace = world.get_region("Marina Valuables Making Space")
+        marinavaluableafter = world.get_region("Marina Valuables After Art")
+
         gordonvaluable = world.get_region("Gordon Valuables")
         gordonvaluablehard = world.get_region("Gordon Valuables Harder")
+        gordonvaluablefraud = world.get_region("Gordon Valuables Fraud")
+
         hollowrockvaluable = world.get_region("Hollowrock Valuables")
         hollowrockvaluablehard = world.get_region("Hollowrock Valuables Harder")
         hollowrockvaluableevenharder = world.get_region("Hollowrock Valuables Even Harder")
+        hollowrockvaluabledishes = world.get_region("Hollowrock Valuables Dishes")
+
         evertidesvaluable = world.get_region("Evertides Valuables")
         evertidesvaluablehard = world.get_region("Evertides Valuables Harder")
+        evertidesvaluablechaos = world.get_region("Evertides Valuables Covert Chaos")
+
         frustrumvaluable = world.get_region("Frustrum Valuables")
         frustrumvaluablehard = world.get_region("Frustrum Valuables Harder")
+        frustrumvaluablechase = world.get_region("Frustrum Valuables Chase")
+
         quilezvaluable = world.get_region("Quilez Valuables")
         quilezvaluablehard = world.get_region("Quilez Valuables Harder")
+        quilezvaluablecare = world.get_region("Quilez Valuables Handle with Care")
+
         islavaluable = world.get_region("Isla Valuables")
         islavaluablehard = world.get_region("Isla Valuables Harder")
 
@@ -1188,7 +1300,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Lee's Wallet Valuable",
             "Lee's Agent B4 Comic Collection Valuable",
             "Lee's Distance Laser Valuable #2",
-            "Lee's Assortment of Tools Valuable",
         ])
         leevaluable.add_locations(leevaluable_locations, TeardownLocation)
 
@@ -1210,9 +1321,18 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Lee's Deposit Bottles Valuable",
             "Lee's Microscope Valuable",
             "Lee's Distance Laser Valuable #1",
-            "Lee's Hammer Valuable",
         ])
         leevaluablehard.add_locations(leevaluablehard_locations, TeardownLocation)
+
+        leevaluablecomputers_locations = get_location_names_with_ids([
+            "Lee's Assortment of Tools Valuable",
+        ])
+        leevaluablecomputers.add_locations(leevaluablecomputers_locations, TeardownLocation)
+
+        leevaluablewoonderland_locations = get_location_names_with_ids([
+            "Lee's Hammer Valuable",
+        ])
+        leevaluablewoonderland.add_locations(leevaluablewoonderland_locations, TeardownLocation)
 
         marinavaluable_locations = get_location_names_with_ids([
             "Marina's Cigar Box Valuable",
@@ -1236,7 +1356,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Marina's Flashlight Valuable",
             "Marina's Walkie Talkies Valuable",
             "Marina's Sextant Valuable",
-            "Marina's Designer Life Vest Valuable",
         ])
         marinavaluable.add_locations(marinavaluable_locations, TeardownLocation)
 
@@ -1254,9 +1373,18 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Marina's Antique Cannonball Valuable",
             "Marina's Antique Black Powder Gun Valuable",
             "Marina's Assortment of Tequila Valuable",
-            "Marina's Spare Steering Wheel Valuable",
         ])
         marinavaluablehard.add_locations(marinavaluablehard_locations, TeardownLocation)
+
+        marinavaluablemakingspace_locations = get_location_names_with_ids([
+            "Marina's Designer Life Vest Valuable",
+        ])
+        marinavaluablemakingspace.add_locations(marinavaluablemakingspace_locations, TeardownLocation)
+
+        marinavaluableafter_locations = get_location_names_with_ids([
+            "Marina's Spare Steering Wheel Valuable",
+        ])
+        marinavaluableafter.add_locations(marinavaluableafter_locations, TeardownLocation)
 
         gordonvaluable_locations = get_location_names_with_ids([
             "Gordon's $45 Wallet Valuable",
@@ -1296,8 +1424,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Gordon's Precision Thermometer Valuable",
             "Gordon's Carburetor for Castanet 500L Valuable",
             "Gordon's Electric Drill Valuable",
-            "Gordon's Car Mechanics Toolbox Valuable",
-            "Gordon's Fancy Racing Trophy Valuable",
         ])
         gordonvaluable.add_locations(gordonvaluable_locations, TeardownLocation)
 
@@ -1312,6 +1438,12 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Gordon's The Lazy Express Valuable",
         ])
         gordonvaluablehard.add_locations(gordonvaluablehard_locations, TeardownLocation)
+
+        gordonvaluablefraud_locations = get_location_names_with_ids([
+            "Gordon's Car Mechanics Toolbox Valuable",
+            "Gordon's Fancy Racing Trophy Valuable",
+        ])
+        gordonvaluablefraud.add_locations(gordonvaluablefraud_locations, TeardownLocation)
 
         hollowrockvaluable_locations = get_location_names_with_ids([
             "Hollowrock's Disc Cutter Valuable",
@@ -1353,7 +1485,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Hollowrock's Rags and Water Bottles Valuable",
             "Hollowrock's Hand-Drill And Duct Tape Valuable",
             "Hollowrock's Air Purifier Valuable",
-            "Hollowrock's Sleeping Aid Valuable",
         ])
         hollowrockvaluablehard.add_locations(hollowrockvaluablehard_locations, TeardownLocation)
 
@@ -1363,9 +1494,12 @@ def create_regular_locations(world: TeardownWorld) -> None:
         ])
         hollowrockvaluableevenharder.add_locations(hollowrockvaluableevenharder_locations, TeardownLocation)
 
+        hollowrockvaluabledishes_locations = get_location_names_with_ids([
+            "Hollowrock's Sleeping Aid Valuable",
+        ])
+        hollowrockvaluabledishes.add_locations(hollowrockvaluabledishes_locations, TeardownLocation)
+
         evertidesvaluable_locations = get_location_names_with_ids([
-            "Evertides's Holy Paula Taco Spices Valuable",
-            "Evertides's How to Look Busy at Work Magazine Valuable",
             "Evertides's Taxfree Profit Valuable",
             "Evertides's Stylish Fur Coat Valuable",
             "Evertides's Fake Demonstration Cash Valuable",
@@ -1376,8 +1510,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Evertides's Deposited Funds Valuable",
             "Evertides's Cheap Vodka Valuable",
             "Evertides's Cheap Garden Scissors Valuable",
-            "Evertides's Famous Underwear Valuable",
-            "Evertides's RolfFX Effect Pedal Valuable",
             "Evertides's Sandproof Radio Valuable",
             "Evertides's Signature Vinegar Valuable",
             "Evertides's Eau De Toilette Valuable",
@@ -1385,8 +1517,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
         evertidesvaluable.add_locations(evertidesvaluable_locations, TeardownLocation)
 
         evertidesvaluablehard_locations = get_location_names_with_ids([
-            "Evertides's Very Durable Phone Valuable",
-            "Evertides's Flashlight Valuable",
             "Evertides's Truffle Juice Valuable",
             "Evertides's Book: How To Open Any Safe In 4 Steps, Valuable",
             "Evertides's Rare Pink Spray Paint  Valuable",
@@ -1397,6 +1527,17 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Evertides's MumboJumbo 3D 16MB VRAM Valuable",
         ])
         evertidesvaluablehard.add_locations(evertidesvaluablehard_locations, TeardownLocation)
+
+        evertidesvaluablechaos_locations = get_location_names_with_ids([
+            "Evertides's Very Durable Phone Valuable",
+            "Evertides's Holy Paula Taco Spices Valuable",
+            "Evertides's How to Look Busy at Work Magazine Valuable",
+            "Evertides's Flashlight Valuable",
+            "Evertides's Famous Underwear Valuable",
+            "Evertides's RolfFX Effect Pedal Valuable",
+
+        ])
+        evertidesvaluablechaos.add_locations(evertidesvaluablechaos_locations, TeardownLocation)
 
         frustrumvaluable_locations = get_location_names_with_ids([
             "Frustrum's High Quality Oil Paint Valuable",
@@ -1429,9 +1570,13 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Frustrum's Questionable Bone Collection Valuable",
             "Frustrum's Industrial Filter Valuable",
             "Frustrum's Fredrick Frustrum'ss Long Lost Hat Valuable",
-            "Frustrum's Harmonica B-Minor Valuable",
         ])
         frustrumvaluablehard.add_locations(frustrumvaluablehard_locations, TeardownLocation)
+
+        frustrumvaluablechase_locations = get_location_names_with_ids([
+            "Frustrum's Harmonica B-Minor Valuable",
+        ])
+        frustrumvaluablechase.add_locations(frustrumvaluablechase_locations, TeardownLocation)
 
         quilezvaluable_locations = get_location_names_with_ids([
             "Quilez's Bullet Proof Material Sample Valuable",
@@ -1453,8 +1598,6 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Quilez's Pair of Scuba Diving Oxygen Tanks Valuable",
             "Quilez's High Sensitivity Moisture Sensor Valuable",
             "Quilez's Fishing Rod Valuable",
-            "Quilez's Helicopter Maintenance Manual Valuable",
-            "Quilez's Explosion Proof Material Sample Valuable",
         ])
         quilezvaluable.add_locations(quilezvaluable_locations, TeardownLocation)
 
@@ -1471,6 +1614,12 @@ def create_regular_locations(world: TeardownWorld) -> None:
         ])
         quilezvaluablehard.add_locations(quilezvaluablehard_locations, TeardownLocation)
 
+        quilezvaluablecare_locations = get_location_names_with_ids([
+            "Quilez's Helicopter Maintenance Manual Valuable",
+            "Quilez's Explosion Proof Material Sample Valuable",
+        ])
+        quilezvaluablecare.add_locations(quilezvaluablecare_locations, TeardownLocation)
+
         islavaluable_locations = get_location_names_with_ids([
             "Isla's Expensive Snorkel Valuable",
             "Isla's Volley Ball Made Toy Valuable",
@@ -1480,7 +1629,7 @@ def create_regular_locations(world: TeardownWorld) -> None:
             "Isla's Monkey Hand Valuable",
             "Isla's Money Counter Valuable",
             "Isla's Diamond Cane Valuable",
-            "Isla's Magazine: Isla'snd life- Your guide to Muratoris, Valuable",
+            "Isla's Magazine: Island life- Your guide to Muratoris, Valuable",
             "Isla's Machine Grease Valuable",
             "Isla's Jetski Engine Valuable",
             "Isla's Good Grappa Valuable",

@@ -89,10 +89,10 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_bluetideshortage,    Has("The BlueTide Shortage Unlock") &   HasGroup("Wall/Opening", count=1) & HasGroup("Plank/Cable", count=1))
         world.set_rule(menu_to_shippinglogs,        Has("The Shipping Logs Unlock") &       HasGroup("Wall/Opening", count=2))
 
-        world.set_rule(menu_to_alarmsystem,         Has("The Alarm System Unlock"))
-        world.set_rule(menu_to_movingthegoods,      Has("Moving The Goods Unlock"))
-        world.set_rule(menu_to_havocinparaside,     Has("Havoc In Paradise Unlock"))
-        world.set_rule(menu_to_elenasrevenge,       Has("Elena's Revenge Unlock"))
+        world.set_rule(menu_to_alarmsystem,         Has("The Alarm System Unlock") &        (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_movingthegoods,      Has("Moving The Goods Unlock") &        (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_havocinparaside,     Has("Havoc In Paradise Unlock") &       (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_elenasrevenge,       Has("Elena's Revenge Unlock") &         (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
 
         world.set_rule(menu_to_truckloadoftrouble,  Has("Truckload Of Trouble Unlock") &   ((Has("Plank Unlock") & Has("Plank Amount Upgrade", count=2) & Has("Plank Max Length Upgrade", count=1)) | (Has("Cable Unlock") & Has("Cable Amount Upgrade", count=2) & Has("Cable Stretch Upgrade", count=1))))
         world.set_rule(menu_to_ornamentordeal,      Has("Ornament Ordeal Unlock") &         HasGroup("Wall/Opening", count=3) & HasGroup("Guns", count=1))
@@ -133,10 +133,10 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_bluetideshortage,    Has("The BlueTide Shortage Unlock") &   HasGroup("Wall/Opening", count=1) & HasGroup("Plank/Cable", count=1))                                       #
         world.set_rule(menu_to_shippinglogs,        Has("The Shipping Logs Unlock") &       HasGroup("Wall/Opening", count=2))                                                                          #
 
-        world.set_rule(menu_to_alarmsystem,         Has("The Alarm System Unlock"))
-        world.set_rule(menu_to_movingthegoods,      Has("Moving The Goods Unlock"))
-        world.set_rule(menu_to_havocinparaside,     Has("Havoc In Paradise Unlock"))
-        world.set_rule(menu_to_elenasrevenge,       Has("Elena's Revenge Unlock"))
+        world.set_rule(menu_to_alarmsystem,         Has("The Alarm System Unlock") &        (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_movingthegoods,      Has("Moving The Goods Unlock") &        (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_havocinparaside,     Has("Havoc In Paradise Unlock") &       (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
+        world.set_rule(menu_to_elenasrevenge,       Has("Elena's Revenge Unlock") &         (Has("Sledge Hammer Unlock") | HasGroup("Destruction", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Door", count=1)))
 
         world.set_rule(menu_to_truckloadoftrouble,  Has("Truckload Of Trouble Unlock") &   (Has("Plank Unlock") | Has("Cable Unlock")))
         world.set_rule(menu_to_ornamentordeal,      Has("Ornament Ordeal Unlock") &         HasGroup("Wall/Opening", count=3) & HasGroup("Guns", count=1))
@@ -189,49 +189,81 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 
     if world.options.ValuableSanity:
         menu_to_leevaluable = world.get_entrance("Main Menu to Lee Valuables")
-        menu_to_leevaluablehard = world.get_entrance("Main Menu to Lee Valuables Harder")
+        leevaluable_to_leevaluablehard = world.get_entrance("Lee Valuables to Lee Valuables Harder")
+        leevaluable_to_leevaluablecomputers = world.get_entrance("Lee Valuables to Lee Valuables Computers")
+        leevaluable_to_leevaluablewoonderland = world.get_entrance("Lee Valuables to Lee Valuables Woonderland")
+
         menu_to_marinavaluable = world.get_entrance("Main Menu to Marina Valuables")
-        menu_to_marinavaluablehard = world.get_entrance("Main Menu to Marina Valuables Harder")
+        marinavaluable_to_marinavaluablehard = world.get_entrance("Marina Valuables to Marina Valuables Harder")
+        marinavaluable_to_marinavaluablemakingspace = world.get_entrance("Marina Valuables to Marina Valuables Making Space")
+        marinavaluable_to_marinavaluableafter = world.get_entrance("Marina Valuables to Marina Valuables After Art")
+
         menu_to_gordonvaluable = world.get_entrance("Main Menu to Gordon Valuables")
-        menu_to_gordonvaluablehard = world.get_entrance("Main Menu to Gordon Valuables Harder")
+        gordonvaluable_to_gordonvaluablehard = world.get_entrance("Gordon Valuables to Gordon Valuables Harder")
+        gordonvaluable_to_gordonvaluablefraud = world.get_entrance("Gordon Valuables to Gordon Valuables Fraud")
+
         menu_to_hollowrockvaluable = world.get_entrance("Main Menu to Hollowrock Valuables")
-        menu_to_hollowrockvaluablehard = world.get_entrance("Main Menu to Hollowrock Valuables Harder")
+        hollowrockvaluable_to_hollowrockvaluablehard = world.get_entrance("Hollowrock Valuables to Hollowrock Valuables Harder")
+        hollowrockvaluable_to_hollowrockvaluabledishes = world.get_entrance("Hollowrock Valuables to Hollowrock Valuables Dishes")
+
         menu_to_evertidesvaluable = world.get_entrance("Main Menu to Evertides Valuables")
-        menu_to_evertidesvaluablehard = world.get_entrance("Main Menu to Evertides Valuables Harder")
+        evertidesvaluable_to_evertidesvaluablehard = world.get_entrance("Evertides Valuables to Evertides Valuables Harder")
+        evertidesvaluable_to_evertidesvaluablechaos = world.get_entrance("Evertides Valuables to Evertides Valuables Covert Chaos")
+
         menu_to_frustrumvaluable = world.get_entrance("Main Menu to Frustrum Valuables")
-        menu_to_frustrumvaluablehard = world.get_entrance("Main Menu to Frustrum Valuables Harder")
+        frustrumvaluable_to_frustrumvaluablehard = world.get_entrance("Frustrum Valuables to Frustrum Valuables Harder")
+        frustrumvaluable_to_frustrumvaluablechase = world.get_entrance("Frustrum Valuables to Frustrum Valuables Chase")
+
         menu_to_quilezvaluable = world.get_entrance("Main Menu to Quilez Valuables")
-        menu_to_quilezvaluablehard = world.get_entrance("Main Menu to Quilez Valuables Harder")
+        quilezvaluable_to_quilezvaluablehard = world.get_entrance("Quilez Valuables to Quilez Valuables Harder")
+        quilezvaluable_to_quilezvaluablecare = world.get_entrance("Quilez Valuables to Quilez Valuables Handle with Care")
+
         menu_to_islavaluable = world.get_entrance("Main Menu to Isla Valuables")
-        menu_to_islavaluablehard = world.get_entrance("Main Menu to Isla Valuables Harder")
+        islavaluable_to_islavaluablehard = world.get_entrance("Isla Valuables to Isla Valuables Harder")
 
         world.set_rule(menu_to_leevaluable, HasGroup("Lee Chemicals", count=1))
-        world.set_rule(menu_to_leevaluablehard, HasGroup("Lee Chemicals", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(leevaluable_to_leevaluablehard, HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(leevaluable_to_leevaluablecomputers, Has("Lee Computers Unlock"))
+        world.set_rule(leevaluable_to_leevaluablewoonderland, Has("Malice In Woonderland Unlock") & HasGroup("Wall/Opening", count=1))
+
         world.set_rule(menu_to_marinavaluable, HasGroup("West Point Marina", count=1))
-        world.set_rule(menu_to_marinavaluablehard, HasGroup("West Point Marina", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(marinavaluable_to_marinavaluablehard, HasGroup("West Point Marina", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(marinavaluable_to_marinavaluablemakingspace, Has("Making Space Unlock"))
+        world.set_rule(marinavaluable_to_marinavaluableafter, Has("Art Return Unlock") & HasGroup("Wall/Opening", count=1))
+
         world.set_rule(menu_to_gordonvaluable, HasGroup("Villa Gordon", count=1))
-        world.set_rule(menu_to_gordonvaluablehard, HasGroup("Villa Gordon", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(gordonvaluable_to_gordonvaluablehard, HasGroup("Villa Gordon", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(gordonvaluable_to_gordonvaluablefraud, Has("Insurance Fraud Unlock"))
+
         world.set_rule(menu_to_hollowrockvaluable, HasGroup("Hollowrock Island", count=1))
-        world.set_rule(menu_to_hollowrockvaluablehard, HasGroup("Hollowrock Island", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(hollowrockvaluable_to_hollowrockvaluablehard, HasGroup("Hollowrock Island", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(hollowrockvaluable_to_hollowrockvaluabledishes, Has("An Assortment Of Dishes Unlock"))
+
         world.set_rule(menu_to_evertidesvaluable, HasGroup("Evertides Mall", count=1))
-        world.set_rule(menu_to_evertidesvaluablehard, HasGroup("Evertides Mall", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(evertidesvaluable_to_evertidesvaluablehard, HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(evertidesvaluable_to_evertidesvaluablechaos, Has("Covert Chaos Unlock") & HasGroup("Wall/Opening", count=1))
+
         world.set_rule(menu_to_frustrumvaluable, HasGroup("Frustrum", count=1))
-        world.set_rule(menu_to_frustrumvaluablehard, HasGroup("Frustrum", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(frustrumvaluable_to_frustrumvaluablehard, HasGroup("Frustrum", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(frustrumvaluable_to_frustrumvaluablechase, Has("The Chase Unlock") & HasGroup("Wall/Opening", count=1))
+
         world.set_rule(menu_to_quilezvaluable, HasGroup("Quilez Security", count=1))
-        world.set_rule(menu_to_quilezvaluablehard, HasGroup("Quilez Security", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(quilezvaluable_to_quilezvaluablehard, HasGroup("Quilez Security", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(quilezvaluable_to_quilezvaluablecare, Has("Handle With Care Unlock"))
+
         world.set_rule(menu_to_islavaluable, HasGroup("Isla Estocastica", count=1))
-        world.set_rule(menu_to_islavaluablehard, HasGroup("Isla Estocastica", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
+        world.set_rule(islavaluable_to_islavaluablehard, HasGroup("Isla Estocastica", count=1) & HasGroup("Wall/Opening", count=1) & HasGroup("Destruction", count=1))
 
     if world.options.ValuableSanity and world.options.ToolUpgrades:
 
-        menu_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
-        world.set_rule(menu_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1) & Has("Plank Unlock") & Has("Plank Amount Upgrade", count=3))
+        hollowrockvaluable_to_hollowrockvaluableevenharder = world.get_entrance("Hollowrock Valuables to Hollowrock Valuables Even Harder")
+        world.set_rule(hollowrockvaluable_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1) & Has("Plank Unlock") & Has("Plank Amount Upgrade", count=3))
 
 
     if world.options.ValuableSanity and not world.options.ToolUpgrades:
 
-        menu_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
-        world.set_rule(menu_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1))
+        hollowrockvaluable_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
+        world.set_rule(hollowrockvaluable_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1))
 
 
 
