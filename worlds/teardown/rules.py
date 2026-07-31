@@ -262,7 +262,7 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 
     if world.options.ValuableSanity and not world.options.ToolUpgrades:
 
-        hollowrockvaluable_to_hollowrockvaluableevenharder = world.get_entrance("Main Menu to Hollowrock Valuables Even Harder")
+        hollowrockvaluable_to_hollowrockvaluableevenharder = world.get_entrance("Hollowrock Valuables to Hollowrock Valuables Even Harder")
         world.set_rule(hollowrockvaluable_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island", count=1))
 
 

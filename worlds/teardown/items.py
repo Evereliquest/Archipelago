@@ -513,39 +513,18 @@ def create_all_items(world: TeardownWorld) -> None:
 
 
     if world.options.StartingTool:
-        predeterminedtool1 = world.random.choice(item_name_groups["tools"])
-        nontool1 = [tool for tool in (item_name_groups["tools"]) if tool != predeterminedtool1]
+        amount = world.options.AmountTools.value
+        startingtools = list(item_name_groups["tools"])
 
-        predeterminedtool2 = world.random.choice(nontool1)
-        nontool2 = [tool for tool in nontool1 if tool != predeterminedtool2]
+        for number in range(amount):
+            chosentool = world.random.choice(startingtools)
 
-        predeterminedtool3 = world.random.choice(nontool2)
+            startingtools.remove(chosentool)
 
-        nonstartingtool = [tool for tool in nontool2 if tool != predeterminedtool3]
+            world.push_precollected(world.create_item(chosentool))
 
-        world.push_precollected(world.create_item(predeterminedtool1))
-        world.push_precollected(world.create_item(predeterminedtool2))
-        world.push_precollected(world.create_item(predeterminedtool3))
-
-        # print(f"NonStartingTool: {nonstartingtool}")
-        #print(f"Starting Tool 1: {predeterminedtool1}")
-        #print(f"Starting Tool 2: {predeterminedtool2}")
-        #print(f"Starting Tool 3: {predeterminedtool3}")
-
-        itempool.append(world.create_item(nonstartingtool[0]))
-        itempool.append(world.create_item(nonstartingtool[1]))
-        itempool.append(world.create_item(nonstartingtool[2]))
-        itempool.append(world.create_item(nonstartingtool[3]))
-        itempool.append(world.create_item(nonstartingtool[4]))
-        itempool.append(world.create_item(nonstartingtool[5]))
-        itempool.append(world.create_item(nonstartingtool[6]))
-        itempool.append(world.create_item(nonstartingtool[7]))
-        itempool.append(world.create_item(nonstartingtool[8]))
-        itempool.append(world.create_item(nonstartingtool[9]))
-        itempool.append(world.create_item(nonstartingtool[10]))
-        itempool.append(world.create_item(nonstartingtool[11]))
-        itempool.append(world.create_item(nonstartingtool[12]))
-        itempool.append(world.create_item(nonstartingtool[13]))
+        for leftover in startingtools:
+            itempool.append(world.create_item(leftover))
 
 
     else:
@@ -569,92 +548,32 @@ def create_all_items(world: TeardownWorld) -> None:
         itempool.append(world.create_item("BlueTide Unlock"))
 
 
-    if world.options.StartingLevel:
-        predeterminedlevel = world.random.choice(item_name_groups["nonlevels"])
-        world.push_precollected(world.create_item(predeterminedlevel))
+    amountlevels = world.options.AmountLevels.value
+    startinglevels = list(item_name_groups["nonlevels"])
+    totallevels = list(item_name_groups["levels"])
+    totallevels = [level for level in totallevels if level not in startinglevels]
 
-        nonstartinglevel = [lvl for lvl in (item_name_groups["levels"]) if lvl != predeterminedlevel]
-
-        itempool.append(world.create_item(nonstartinglevel[0]))
-        itempool.append(world.create_item(nonstartinglevel[1]))
-        itempool.append(world.create_item(nonstartinglevel[2]))
-        itempool.append(world.create_item(nonstartinglevel[3]))
-        itempool.append(world.create_item(nonstartinglevel[4]))
-        itempool.append(world.create_item(nonstartinglevel[5]))
-        itempool.append(world.create_item(nonstartinglevel[6]))
-        itempool.append(world.create_item(nonstartinglevel[7]))
-        itempool.append(world.create_item(nonstartinglevel[8]))
-        itempool.append(world.create_item(nonstartinglevel[9]))
-        itempool.append(world.create_item(nonstartinglevel[10]))
-        itempool.append(world.create_item(nonstartinglevel[11]))
-        itempool.append(world.create_item(nonstartinglevel[12]))
-        itempool.append(world.create_item(nonstartinglevel[13]))
-        itempool.append(world.create_item(nonstartinglevel[14]))
-        itempool.append(world.create_item(nonstartinglevel[15]))
-        itempool.append(world.create_item(nonstartinglevel[16]))
-        itempool.append(world.create_item(nonstartinglevel[17]))
-        itempool.append(world.create_item(nonstartinglevel[18]))
-        itempool.append(world.create_item(nonstartinglevel[19]))
-        itempool.append(world.create_item(nonstartinglevel[20]))
-        itempool.append(world.create_item(nonstartinglevel[21]))
-        itempool.append(world.create_item(nonstartinglevel[22]))
-        itempool.append(world.create_item(nonstartinglevel[23]))
-        itempool.append(world.create_item(nonstartinglevel[24]))
-        itempool.append(world.create_item(nonstartinglevel[25]))
-        itempool.append(world.create_item(nonstartinglevel[26]))
-        itempool.append(world.create_item(nonstartinglevel[27]))
-        itempool.append(world.create_item(nonstartinglevel[28]))
-        itempool.append(world.create_item(nonstartinglevel[29]))
-        itempool.append(world.create_item(nonstartinglevel[30]))
-        itempool.append(world.create_item(nonstartinglevel[31]))
-        itempool.append(world.create_item(nonstartinglevel[32]))
-        itempool.append(world.create_item(nonstartinglevel[33]))
-        itempool.append(world.create_item(nonstartinglevel[34]))
-        itempool.append(world.create_item(nonstartinglevel[35]))
-        itempool.append(world.create_item(nonstartinglevel[36]))
-        itempool.append(world.create_item(nonstartinglevel[37]))
-
-    else:
+    if not world.options.StartingLevel:
         world.push_precollected(world.create_item("Old Building Problem Unlock"))
+        startinglevels.remove("Old Building Problem Unlock")
+        amountlevels = amountlevels - 1
 
-        itempool.append(world.create_item("Lee Computers Unlock"))
-        itempool.append(world.create_item("Login Devices Unlock"))
-        itempool.append(world.create_item("Making Space Unlock"))
-        itempool.append(world.create_item("Classic Cars Unlock"))
-        itempool.append(world.create_item("The GPS Devices Unlock"))
-        itempool.append(world.create_item("The Car Wash Unlock"))
-        itempool.append(world.create_item("Heavy Lifting Unlock"))
-        itempool.append(world.create_item("The Tower Unlock"))
-        itempool.append(world.create_item("Fine Arts Unlock"))
-        itempool.append(world.create_item("Tool Up Unlock"))
-        itempool.append(world.create_item("Art Return Unlock"))
-        itempool.append(world.create_item("Covert Chaos Unlock"))
-        itempool.append(world.create_item("Insurance Fraud Unlock"))
-        itempool.append(world.create_item("The BlueTide Computers Unlock"))
-        itempool.append(world.create_item("The Speed Deal Unlock"))
-        itempool.append(world.create_item("A Wet Affair Unlock"))
-        itempool.append(world.create_item("Power Outage Unlock"))
-        itempool.append(world.create_item("Motivational Reminder Unlock"))
-        itempool.append(world.create_item("An Assortment Of Dishes Unlock"))
-        itempool.append(world.create_item("Flooding Unlock"))
-        itempool.append(world.create_item("The Chase Unlock"))
-        itempool.append(world.create_item("Roborazzi Unlock"))
-        itempool.append(world.create_item("The Secret Ingredients Unlock"))
-        itempool.append(world.create_item("The BlueTide Shortage Unlock"))
-        itempool.append(world.create_item("The Shipping Logs Unlock"))
-        itempool.append(world.create_item("The Alarm System Unlock"))
-        itempool.append(world.create_item("Moving The Goods Unlock"))
-        itempool.append(world.create_item("Havoc In Paradise Unlock"))
-        itempool.append(world.create_item("Elena's Revenge Unlock"))
-        itempool.append(world.create_item("Truckload Of Trouble Unlock"))
-        itempool.append(world.create_item("Ornament Ordeal Unlock"))
-        itempool.append(world.create_item("The Quilez Tools Unlock"))
-        itempool.append(world.create_item("Connecting The Dots Unlock"))
-        itempool.append(world.create_item("The Pawn Shop Unlock"))
-        itempool.append(world.create_item("The Droid Abduction Unlock"))
-        itempool.append(world.create_item("Malice In Woonderland Unlock"))
-        itempool.append(world.create_item("Handle With Care Unlock"))
-        itempool.append(world.create_item("Droid Dismount Unlock"))
+    for number in range(amountlevels):
+        if startinglevels:
+            chosenlevel = world.random.choice(startinglevels)
+            startinglevels.remove(chosenlevel)
+        else:
+            chosenlevel = world.random.choice(totallevels)
+            totallevels.remove(chosenlevel)
+
+        world.push_precollected(world.create_item(chosenlevel))
+
+    for leftover in startinglevels:
+        itempool.append(world.create_item(leftover))
+
+    for leftover in totallevels:
+        itempool.append(world.create_item(leftover))
+
 
 
     if world.options.ToolUpgrades:
