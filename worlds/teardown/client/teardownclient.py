@@ -1713,8 +1713,9 @@ class TeardownContext(CommonContext):
         if not hasattr(self, 'applied_cash_counts'):
             self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
 
-        cash_to_add = 0
+        self.current_cash = 0
 
+        cash_to_add = 0
         for ap_id, cash_val in Cashmap.items():
             total_received = received_counts.get(ap_id, 0)
             already_applied = self.applied_cash_counts.get(ap_id, 0)
@@ -1722,17 +1723,12 @@ class TeardownContext(CommonContext):
             if total_received > already_applied:
                 new_items = total_received - already_applied
                 cash_to_add += new_items * cash_val
-
-                # Update separate tracker for this item ID
                 self.applied_cash_counts[ap_id] = total_received
 
         if cash_to_add > 0:
-
-            new_cash_total = self.current_cash + cash_to_add
-            self.current_cash = new_cash_total
+            self.current_cash += cash_to_add
 
             update_node("cash", self.current_cash)
-            print(f"DEBUG: Added {cash_to_add} cash. New total savegame cash: {new_cash_total}")
 
             asyncio.create_task(self.send_msgs([{
                 "cmd": "Set",
@@ -1741,17 +1737,8 @@ class TeardownContext(CommonContext):
                 "want_reply": True,
                 "operations": [{"operation": "replace", "value": self.applied_cash_counts}]
             }]))
-            print(f"Apply State: Updated cash on server to {new_cash_total}.")
 
-        cash_node = player_data.find("cash")
         self.last_cash = self.current_cash
-
-        print(f"First Apply: Current Cash {self.current_cash}")
-        if cash_node is None:
-            print("First Apply: 'cash' node not found, creating new SubElement.")
-            cash_node = ET.SubElement(player_data, "cash")
-
-        cash_node.set("value", str(self.current_cash))
         print(f"First Apply: Cash XML node successfully synchronized to {self.current_cash}")
 
 
@@ -1925,28 +1912,16 @@ class TeardownContext(CommonContext):
         if self.player_data is None:
             return
 
-        cash_node = self.player_data.find("cash")
-        if cash_node is None:
-            print("Watch Cash: Cash isn't found")
-            return
-        try:
-            self.current_cash = int(cash_node.get("value", "0"))
-        except (ValueError, TypeError):
-            return
+        self.last_cash = self.current_cash
 
-        if self.current_cash != self.last_cash and self.current_cash != self.last3_cash:
-            print(f"Sync Cash: Current Cash {self.current_cash}, Last Cash {self.last_cash}, Last3 Cash {self.last3_cash}")
-
-            asyncio.create_task(self.send_msgs([{
-                "cmd": "Set",
-                "key": f"Teardown-{self.auth}-Cash",
-                "default": 0,
-                "want_reply": True,
-                "operations": [{"operation": "replace", "value": self.current_cash}]
-            }]))
-            self.last3_cash = self.last_cash
-            self.last_cash = self.current_cash
-            print(f"Sync Cash: Updated cash on server to {self.current_cash}.")
+        asyncio.create_task(self.send_msgs([{
+            "cmd": "Set",
+            "key": f"Teardown-{self.auth}-Cash",
+            "default": 0,
+            "want_reply": True,
+            "operations": [{"operation": "replace", "value": self.current_cash}]
+        }]))
+        print(f"Sync Cash: Updated cash on server to {self.current_cash}.")
 
 
 
