@@ -1378,10 +1378,9 @@ class TeardownContext(CommonContext):
     locations_found: int = 0
 
 
-
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.game = "Teardown"
         self.last_known_item_count = None
         self.last_mtime = None
         self.game_exe_path = ""
@@ -1407,7 +1406,7 @@ class TeardownContext(CommonContext):
 
 
     def loadsettings(self):
-        # Load our settings from our json file
+        # Load settings from the json file
         if os.path.exists(SETTINGS_PATH):
             with open(SETTINGS_PATH, "r") as f:
                 data = json.load(f)
@@ -1446,6 +1445,31 @@ class TeardownContext(CommonContext):
         }
         with open(SETTINGS_PATH, "w") as f:
             json.dump(data, f, indent=4)
+
+    def update_node(self, path, value):
+        node = self.player_data.find(path)
+        if node is None:
+            curr = self.player_data
+            for part in path.split('/'):
+                child = curr.find(part)
+                if child is None: child = ET.SubElement(curr, part)
+                curr = child
+            node = curr
+        node.set("value", str(value))
+        print(f"Update Node: {path} set to {value}")
+
+    def run_gui(self):
+        from kvui import GameManager
+
+        class TeardownManager(GameManager):
+            logging_pairs = [
+                ("Client", "Archipelago")
+            ]
+            base_title = "Archipelago Teardown Client"
+
+        self.ui = TeardownManager(self)
+        self.ui_task = asyncio.create_task(self.ui.async_run(), name="UI")
+
 
 
     async def reset_and_initialize_save(self):
@@ -1513,6 +1537,12 @@ class TeardownContext(CommonContext):
                 self.player_data.remove(mission_node)
                 print(f"Initializing: Pruned message node: {mission_node.tag}")
 
+            resetcash = self.player_data.find("cash")
+            if resetcash is None:
+                resetcash = ET.SubElement(self.player_data, "cash")
+
+            resetcash.set("value", "0")
+
             await self.apply_server_state_to_xml(self.player_data)
 
             bigint = getattr(self, "mission_bitmask", 0)
@@ -1575,38 +1605,24 @@ class TeardownContext(CommonContext):
             received_counts[item_id] = received_counts.get(item_id, 0) + 1
             print(f"First Apply: Counted Item ID {item_id}")
 
-        def update_node(path, value):
-            node = player_data.find(path)
-            if node is None:
-                # Creation logic
-                curr = player_data
-                for part in path.split('/'):
-                    child = curr.find(part)
-                    if child is None: child = ET.SubElement(curr, part)
-                    curr = child
-                node = curr
-            node.set("value", str(value))
-            print(f"First Apply: Initial XML Setting - {path} set to {value}")
-
         # 1. Sync Tools & Missions
         for mapping in [Toolmap, Missionmap]:
             for ap_id, xml_path in mapping.items():
                 count = received_counts.get(ap_id, 0)
                 if count > 0:
-                    update_node(xml_path, "1")
+                    self.update_node(xml_path, "1")
 
         for mapping in [Messagemap]:
             for ap_id, xml_path in mapping.items():
                 count = received_counts.get(ap_id, 0)
                 if count > 0:
-                    update_node(xml_path, "2")
+                    self.update_node(xml_path, "2")
 
         for ap_id, config in Upgrademap.items():
             count = received_counts.get(ap_id, 0)
             path, mult, base = config
             final_val = (count * mult) + base
-            update_node(path, final_val)
-            print(f"First Apply: Initial Setting {ap_id} -> {path} is now {final_val} (Base {base} + {count} items)")
+            self.update_node(path, final_val)
 
         def missions_checked():
 
@@ -1641,7 +1657,7 @@ class TeardownContext(CommonContext):
         for mission_name, xml_path in Mission_xml.items():
             count = current_loc.get(mission_name, 0)
             if count > 0:
-                update_node(xml_path, str(count))
+                self.update_node(xml_path, str(count))
 
 
         def tools_checked():
@@ -1675,7 +1691,7 @@ class TeardownContext(CommonContext):
         if self.ToolUpgrades:
             current_upgrades = tools_checked()
             for xml_path, total_value in current_upgrades.items():
-                update_node(xml_path, str(total_value))
+                self.update_node(xml_path, str(total_value))
 
 
         def valuables_checked():
@@ -1701,19 +1717,19 @@ class TeardownContext(CommonContext):
         if self.ValuableSanity:
             current_valuables = valuables_checked()
             for xml_path, total_value in current_valuables.items():
-                update_node(xml_path, str(total_value))
+                self.update_node(xml_path, str(total_value))
 
 
         if self.ToolUpgrades:
-            update_node("toolupgradeon", 1)
+            self.update_node("toolupgradeon", 1)
         else:
-            update_node("toolupgradeon", 0)
+            self.update_node("toolupgradeon", 0)
 
 
         if not hasattr(self, 'applied_cash_counts'):
             self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
 
-        self.current_cash = 0
+        self.current_cash = self.cash_total
 
         cash_to_add = 0
         for ap_id, cash_val in Cashmap.items():
@@ -1728,7 +1744,7 @@ class TeardownContext(CommonContext):
         if cash_to_add > 0:
             self.current_cash += cash_to_add
 
-            update_node("cash", self.current_cash)
+            self.update_node("cash", self.current_cash)
 
             asyncio.create_task(self.send_msgs([{
                 "cmd": "Set",
@@ -1764,7 +1780,6 @@ class TeardownContext(CommonContext):
         if self.ToolUpgrades:
             self.check_tools()
         self.check_valuables()
-        self.apply_received_items(self.player_data)
         print("Sync: Functions ran.")
 
         new_xml_string = ET.tostring(root, encoding="unicode")
@@ -1935,97 +1950,6 @@ class TeardownContext(CommonContext):
 
             self.locations_checked.append(location_id)
             print(f"Success: Task created for {location_id}")
-
-
-    def apply_received_items(self, player_data):
-        print("Entering Apply Received Items")
-
-        current_count = len(self.items_received)
-
-        if current_count == self.last_received_count:
-            print("No New Items")
-            return
-
-        received_item_counts = {}
-        for item in self.items_received:
-            item_id = item.item
-            received_item_counts[item_id] = received_item_counts.get(item_id, 0) + 1
-            print(f"DEBUG: Counted Item ID {item_id}")
-
-        print(f"Sync Apply Items: Starting apply_received_items, total items in queue: {len(self.items_received)}")
-
-
-        def update_node(path2, value):
-            node = player_data.find(path2)
-            if node is None:
-                curr = player_data
-                for part in path2.split('/'):
-                    child = curr.find(part)
-                    if child is None: child = ET.SubElement(curr, part)
-                    curr = child
-                node = curr
-            node.set("value", str(value))
-            print(f"DEBUG: XML Update - {path2} set to {value}")
-
-        for mapping in [Toolmap, Missionmap]:
-            for ap_id, xml_path in mapping.items():
-                count = received_item_counts.get(ap_id, 0)
-                if count > 0:
-                    update_node(xml_path, "1")
-
-        for ap_id, config in Upgrademap.items():
-            count = received_item_counts.get(ap_id, 0)
-            path, mult, base = config
-            final_val = (count * mult) + base
-            update_node(path, final_val)
-
-            self.last_received_count = current_count
-            print(f"DEBUG: {ap_id} -> {path} is now {final_val} (Base {base} + {count} items)")
-            update_node(path, final_val)
-
-        if not hasattr(self, 'applied_cash_counts'):
-            self.applied_cash_counts = {ap_id: 0 for ap_id in Cashmap.keys()}
-
-        cash_to_add = 0
-        cash_counts_changed = False
-
-        for ap_id, cash_val in Cashmap.items():
-            total_received = received_item_counts.get(ap_id, 0)
-            already_applied = self.applied_cash_counts.get(ap_id, 0)
-
-            if total_received > already_applied:
-                new_items = total_received - already_applied
-                cash_to_add += new_items * cash_val
-
-                # Update separate tracker for this item ID
-                self.applied_cash_counts[ap_id] = total_received
-                cash_counts_changed = True
-
-            # If there is new cash to award, read current balance and increment it
-        if cash_to_add > 0:
-            cash_node = player_data.find("cash")
-            if cash_node is not None:
-                try:
-                    self.current_cash = int(cash_node.get("value", "0"))
-                except (ValueError, TypeError):
-                    pass
-
-            new_cash_total = self.current_cash + cash_to_add
-            update_node("cash", new_cash_total)
-            print(f"DEBUG: Added {cash_to_add} cash. New total savegame cash: {new_cash_total}")
-
-            # Sync the separate tracking counts back up to the server storage key
-        if cash_counts_changed:
-            asyncio.create_task(self.send_msgs([{
-                "cmd": "Set",
-                "key": f"Teardown_Applied_Cash_{self.team}_{self.slot}",
-                "default": {},
-                "want_reply": True,
-                "operations": [{"operation": "replace", "value": self.applied_cash_counts}]
-            }]))
-            self.last3_cash = self.last_cash
-            self.last_cash = self.current_cash
-            print(f"Sync Cash: Updated cash on server to {self.current_cash}.")
 
 
     def mission_counter(self, mission_id: str):
