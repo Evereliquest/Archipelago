@@ -200,3 +200,5 @@ _speedups.html
 Thumbs.db
 [Dd]esktop.ini
 /teardownsettings.json
+/fuzz.py
+/fuzz_output/report.json
