@@ -829,7 +829,7 @@ SAVE_TEMPLATE = {
         "plank/enabled": "0",
         "plank/ammo": "8",
         "plank/width": "3",
-        "plank/length": "36",
+        "plank/length": "40",
 
         "pipebomb/enabled": "0",
         "pipebomb/ammo": "6",
