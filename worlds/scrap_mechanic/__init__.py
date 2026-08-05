@@ -1,3 +1,3 @@
 
-from .world import TeardownWorld as TeardownWorld
+from .world import ScrapMechanicWorld as ScrapMechanicWorld
 
