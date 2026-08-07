@@ -14,161 +14,20 @@ def create_and_connect_regions(world: ScrapMechanicWorld) -> None:
 
 # Creates all regions
 def create_all_regions(world: ScrapMechanicWorld) -> None:
-    menu = Region("Main Menu", world.player, world.multiworld)
-    oldbuildingproblem = Region("Old Building Problem", world.player, world.multiworld)
-    leecomputers = Region("Lee Computers", world.player, world.multiworld)
-    logindevices = Region("Login Devices", world.player, world.multiworld)
-    makingspace = Region("Making Space", world.player, world.multiworld)
-    classiccars = Region("Classic Cars", world.player, world.multiworld)
-    gpsdevices = Region("The GPS Devices", world.player, world.multiworld)
-    carwash = Region("The Car Wash", world.player, world.multiworld)
-    heavylifting = Region("Heavy Lifting", world.player, world.multiworld)
-    tower = Region("The Tower", world.player, world.multiworld)
-    finearts = Region("Fine Arts", world.player, world.multiworld)
-    toolup = Region("Tool Up", world.player, world.multiworld)
-    artreturn = Region("Art Return", world.player, world.multiworld)
-    covertchaos = Region("Covert Chaos", world.player, world.multiworld)
-    insurancefraud = Region("Insurance Fraud", world.player, world.multiworld)
-    bluetidecomputers = Region("The BlueTide Computers", world.player, world.multiworld)
-    speeddeal = Region("The Speed Deal", world.player, world.multiworld)
-    wetaffair = Region("A Wet Affair", world.player, world.multiworld)
-    poweroutage = Region("Power Outage", world.player, world.multiworld)
-    motivationalreminder = Region("Motivational Reminder", world.player, world.multiworld)
-    assortmentofdishes = Region("An Assortment Of Dishes", world.player, world.multiworld)
-    flooding = Region("Flooding", world.player, world.multiworld)
-    chase = Region("The Chase", world.player, world.multiworld)
-    roborazzi = Region("Roborazzi", world.player, world.multiworld)
-    secretingredients = Region("The Secret Ingredients", world.player, world.multiworld)
-    bluetideshortage = Region("The BlueTide Shortage", world.player, world.multiworld)
-    shippinglogs = Region("The Shipping Logs", world.player, world.multiworld)
-    alarmsystem = Region("The Alarm System", world.player, world.multiworld)
-    movingthegoods = Region("Moving The Goods", world.player, world.multiworld)
-    havocinparaside = Region("Havoc In Paradise", world.player, world.multiworld)
-    elenasrevenge = Region("Elena's Revenge", world.player, world.multiworld)
-    truckloadoftrouble = Region("Truckload Of Trouble", world.player, world.multiworld)
-    ornamentordeal = Region("Ornament Ordeal", world.player, world.multiworld)
-    quileztools = Region("The Quilez Tools", world.player, world.multiworld)
-    connectingthedots = Region("Connecting The Dots", world.player, world.multiworld)
-    pawnshop = Region("The Pawn Shop", world.player, world.multiworld)
-    droidabduction = Region("The Droid Abduction", world.player, world.multiworld)
-    maliceinwoonderland = Region("Malice In Woonderland", world.player, world.multiworld)
-    handlewithcare = Region("Handle With Care", world.player, world.multiworld)
-    droiddismount = Region("Droid Dismount", world.player, world.multiworld)
-    finaldiversion = Region("The Final Diversion", world.player, world.multiworld)
+    ship = Region("Crashed Ship", world.player, world.multiworld)
+    mechanic_station_1 = Region("Mechanic Station 1", world.player, world.multiworld)
 
 
 
 # Lists all regions
-    regions = [menu, oldbuildingproblem, leecomputers, logindevices, makingspace, classiccars, gpsdevices, carwash, heavylifting,
-               tower, finearts, toolup, artreturn, covertchaos, insurancefraud, bluetidecomputers,speeddeal, wetaffair, poweroutage,
-               motivationalreminder, assortmentofdishes, flooding, chase, roborazzi, secretingredients, bluetideshortage,
-               shippinglogs, alarmsystem, movingthegoods, havocinparaside, elenasrevenge, truckloadoftrouble, ornamentordeal,
-               quileztools, connectingthedots, pawnshop, droidabduction, maliceinwoonderland, handlewithcare, droiddismount,
-               finaldiversion
+    regions = [ship, mechanic_station_1,
                ]
 
 # Creates region if option is enabled
-    if world.options.ToolUpgrades:
-        blowtorchupgrade = Region("Blowtorch Upgrades", world.player, world.multiworld)
-        shotgunupgrade = Region("Shotgun Upgrades", world.player, world.multiworld)
-        plankupgrade = Region("Plank Upgrades", world.player, world.multiworld)
-        pipebombupgrade = Region("Pipe Bomb Upgrades", world.player, world.multiworld)
-        gunupgrade = Region("Gun Upgrades", world.player, world.multiworld)
-        bombupgrade = Region("Bomb Upgrades", world.player, world.multiworld)
-        rocketlauncherupgrade = Region("Rocket Launcher Upgrades", world.player, world.multiworld)
-        rocketboosterupgrade = Region("Rocket Booster Upgrades", world.player, world.multiworld)
-        leafblowerupgrade = Region("Leaf Blower Upgrades", world.player, world.multiworld)
-        cableupgrade = Region("Cable Upgrades", world.player, world.multiworld)
-        vehiclethrusterupgrade = Region("Vehicle Thruster Upgrades", world.player, world.multiworld)
-        nitroglycerinupgrade = Region("Nitroglycerin Upgrades", world.player, world.multiworld)
-        huntingrifleupgrade = Region("Hunting Rifle Upgrades", world.player, world.multiworld)
-        bluetideupgrade = Region("BlueTide Upgrades", world.player, world.multiworld)
+    #if world.options.ToolUpgrades:
+        #blowtorchupgrade = Region("Blowtorch Upgrades", world.player, world.multiworld)
 
-        regions.append(blowtorchupgrade)
-        regions.append(shotgunupgrade)
-        regions.append(plankupgrade)
-        regions.append(pipebombupgrade)
-        regions.append(gunupgrade)
-        regions.append(bombupgrade)
-        regions.append(rocketlauncherupgrade)
-        regions.append(rocketboosterupgrade)
-        regions.append(leafblowerupgrade)
-        regions.append(cableupgrade)
-        regions.append(vehiclethrusterupgrade)
-        regions.append(nitroglycerinupgrade)
-        regions.append(huntingrifleupgrade)
-        regions.append(bluetideupgrade)
-
-
-    if world.options.ValuableSanity:
-        leevaluable = Region("Lee Valuables", world.player, world.multiworld)
-        leevaluablehard = Region("Lee Valuables Harder", world.player, world.multiworld)
-        leevaluablecomputers = Region("Lee Valuables Computers", world.player, world.multiworld)
-        leevaluablewoonderland = Region("Lee Valuables Woonderland", world.player, world.multiworld)
-
-        regions.append(leevaluable)
-        regions.append(leevaluablehard)
-        regions.append(leevaluablecomputers)
-        regions.append(leevaluablewoonderland)
-
-        marinavaluable = Region("Marina Valuables", world.player, world.multiworld)
-        marinavaluablehard = Region("Marina Valuables Harder", world.player, world.multiworld)
-        marinavaluablemakingspace = Region("Marina Valuables Making Space", world.player, world.multiworld)
-        marinavaluableafter = Region("Marina Valuables After Art", world.player, world.multiworld)
-
-        regions.append(marinavaluable)
-        regions.append(marinavaluablehard)
-        regions.append(marinavaluablemakingspace)
-        regions.append(marinavaluableafter)
-
-
-        gordonvaluable = Region("Gordon Valuables", world.player, world.multiworld)
-        gordonvaluablehard = Region("Gordon Valuables Harder", world.player, world.multiworld)
-        gordonvaluablefraud = Region("Gordon Valuables Fraud", world.player, world.multiworld)
-
-        regions.append(gordonvaluable)
-        regions.append(gordonvaluablehard)
-        regions.append(gordonvaluablefraud)
-
-        hollowrockvaluable = Region("Hollowrock Valuables", world.player, world.multiworld)
-        hollowrockvaluablehard = Region("Hollowrock Valuables Harder", world.player, world.multiworld)
-        hollowrockvaluableevenharder = Region("Hollowrock Valuables Even Harder", world.player, world.multiworld)
-        hollowrockvaluabledishes = Region("Hollowrock Valuables Dishes", world.player, world.multiworld)
-
-        regions.append(hollowrockvaluable)
-        regions.append(hollowrockvaluablehard)
-        regions.append(hollowrockvaluableevenharder)
-        regions.append(hollowrockvaluabledishes)
-
-        evertidesvaluable = Region("Evertides Valuables", world.player, world.multiworld)
-        evertidesvaluablehard = Region("Evertides Valuables Harder", world.player, world.multiworld)
-        evertidesvaluablechaos = Region("Evertides Valuables Covert Chaos", world.player, world.multiworld)
-
-        regions.append(evertidesvaluable)
-        regions.append(evertidesvaluablehard)
-        regions.append(evertidesvaluablechaos)
-
-        frustrumvaluable = Region("Frustrum Valuables", world.player, world.multiworld)
-        frustrumvaluablehard = Region("Frustrum Valuables Harder", world.player, world.multiworld)
-        frustrumvaluablechase = Region("Frustrum Valuables Chase", world.player, world.multiworld)
-
-        regions.append(frustrumvaluable)
-        regions.append(frustrumvaluablehard)
-        regions.append(frustrumvaluablechase)
-
-        quilezvaluable = Region("Quilez Valuables", world.player, world.multiworld)
-        quilezvaluablehard = Region("Quilez Valuables Harder", world.player, world.multiworld)
-        quilezvaluablecare = Region("Quilez Valuables Handle with Care", world.player, world.multiworld)
-
-        regions.append(quilezvaluable)
-        regions.append(quilezvaluablehard)
-        regions.append(quilezvaluablecare)
-
-        islavaluable = Region("Isla Valuables", world.player, world.multiworld)
-        islavaluablehard = Region("Isla Valuables Harder", world.player, world.multiworld)
-
-        regions.append(islavaluable)
-        regions.append(islavaluablehard)
+        #regions.append(blowtorchupgrade)
 
 # Adds all regions to list
     world.multiworld.regions += regions
@@ -176,188 +35,16 @@ def create_all_regions(world: ScrapMechanicWorld) -> None:
 # Renames the objects we lost creating them
 def connect_regions(world: ScrapMechanicWorld) -> None:
 
-    menu = world.get_region("Main Menu")
-    oldbuildingproblem = world.get_region("Old Building Problem")
-    leecomputers = world.get_region("Lee Computers")
-    logindevices = world.get_region("Login Devices")
-    makingspace = world.get_region("Making Space")
-    classiccars = world.get_region("Classic Cars")
-    gpsdevices = world.get_region("The GPS Devices")
-    carwash = world.get_region("The Car Wash")
-    heavylifting = world.get_region("Heavy Lifting")
-    tower = world.get_region("The Tower")
-    finearts = world.get_region("Fine Arts")
-    toolup = world.get_region("Tool Up")
-    artreturn = world.get_region("Art Return")
-    covertchaos = world.get_region("Covert Chaos")
-    insurancefraud = world.get_region("Insurance Fraud")
-    bluetidecomputers = world.get_region("The BlueTide Computers")
-    speeddeal = world.get_region("The Speed Deal")
-    wetaffair = world.get_region("A Wet Affair")
-    poweroutage = world.get_region("Power Outage")
-    motivationalreminder = world.get_region("Motivational Reminder")
-    assortmentofdishes = world.get_region("An Assortment Of Dishes")
-    flooding = world.get_region("Flooding")
-    chase = world.get_region("The Chase")
-    roborazzi = world.get_region("Roborazzi")
-    secretingredients = world.get_region("The Secret Ingredients")
-    bluetideshortage = world.get_region("The BlueTide Shortage")
-    shippinglogs = world.get_region("The Shipping Logs")
-    alarmsystem = world.get_region("The Alarm System")
-    movingthegoods = world.get_region("Moving The Goods")
-    havocinparaside = world.get_region("Havoc In Paradise")
-    elenasrevenge = world.get_region("Elena's Revenge")
-    truckloadoftrouble = world.get_region("Truckload Of Trouble")
-    ornamentordeal = world.get_region("Ornament Ordeal")
-    quileztools = world.get_region("The Quilez Tools")
-    connectingthedots = world.get_region("Connecting The Dots")
-    pawnshop = world.get_region("The Pawn Shop")
-    droidabduction = world.get_region("The Droid Abduction")
-    maliceinwoonderland = world.get_region("Malice In Woonderland")
-    handlewithcare = world.get_region("Handle With Care")
-    droiddismount = world.get_region("Droid Dismount")
-    finaldiversion = world.get_region("The Final Diversion")
+    ship = world.get_region("Crashed Ship")
+    mechanic_station_1 = world.get_region("Mechanic Station 1")
 
 
     # Connects the regions
-    menu.connect(oldbuildingproblem, "Main Menu to Old Building Problem")
-    menu.connect(leecomputers, "Main Menu to Lee Computers")
-    menu.connect(logindevices, "Main Menu to Login Devices")
-    menu.connect(makingspace, "Main Menu to Making Space")
-    menu.connect(classiccars, "Main Menu to Classic Cars")
-    menu.connect(gpsdevices, "Main Menu to The GPS Devices")
-    menu.connect(carwash, "Main Menu to The Car Wash")
-    menu.connect(heavylifting, "Main Menu to Heavy Lifting")
-    menu.connect(tower, "Main Menu to The Tower")
-    menu.connect(finearts, "Main Menu to Fine Arts")
-    menu.connect(toolup, "Main Menu to Tool Up")
-    menu.connect(artreturn, "Main Menu to Art Return")
-    menu.connect(covertchaos, "Main Menu to Covert Chaos")
-    menu.connect(insurancefraud, "Main Menu to Insurance Fraud")
-    menu.connect(bluetidecomputers, "Main Menu to The BlueTide Computers")
-    menu.connect(speeddeal, "Main Menu to The Speed Deal")
-    menu.connect(wetaffair, "Main Menu to A Wet Affair")
-    menu.connect(poweroutage, "Main Menu to Power Outage")
-    menu.connect(motivationalreminder, "Main Menu to Motivational Reminder")
-    menu.connect(assortmentofdishes, "Main Menu to An Assortment Of Dishes")
-    menu.connect(flooding, "Main Menu to Flooding")
-    menu.connect(chase, "Main Menu to The Chase")
-    menu.connect(roborazzi, "Main Menu to Roborazzi")
-    menu.connect(secretingredients, "Main Menu to The Secret Ingredients")
-    menu.connect(bluetideshortage, "Main Menu to The BlueTide Shortage")
-    menu.connect(shippinglogs, "Main Menu to The Shipping Logs")
-    menu.connect(alarmsystem, "Main Menu to The Alarm System")
-    menu.connect(movingthegoods, "Main Menu to Moving The Goods")
-    menu.connect(havocinparaside, "Main Menu to Havoc In Paradise")
-    menu.connect(elenasrevenge, "Main Menu to Elena's Revenge")
-    menu.connect(truckloadoftrouble, "Main Menu to Truckload Of Trouble")
-    menu.connect(ornamentordeal, "Main Menu to Ornament Ordeal")
-    menu.connect(quileztools, "Main Menu to The Quilez Tools")
-    menu.connect(connectingthedots, "Main Menu to Connecting The Dots")
-    menu.connect(pawnshop, "Main Menu to The Pawn Shop")
-    menu.connect(droidabduction, "Main Menu to The Droid Abduction")
-    menu.connect(maliceinwoonderland, "Main Menu to Malice In Woonderland")
-    menu.connect(handlewithcare, "Main Menu to Handle With Care")
-    menu.connect(droiddismount, "Main Menu to Droid Dismount")
-    menu.connect(finaldiversion, "Main Menu to The Final Diversion")
+    ship.connect(mechanic_station_1, "Crashed Ship to Mechanic Station 1")
 
 
-    if world.options.ToolUpgrades:
-        blowtorchupgrade = world.get_region("Blowtorch Upgrades")
-        shotgunupgrade = world.get_region("Shotgun Upgrades")
-        plankupgrade = world.get_region("Plank Upgrades")
-        pipebombupgrade = world.get_region("Pipe Bomb Upgrades")
-        gunupgrade = world.get_region("Gun Upgrades")
-        bombupgrade = world.get_region("Bomb Upgrades")
-        rocketlauncherupgrade = world.get_region("Rocket Launcher Upgrades")
-        rocketboosterupgrade = world.get_region("Rocket Booster Upgrades")
-        leafblowerupgrade = world.get_region("Leaf Blower Upgrades")
-        cableupgrade = world.get_region("Cable Upgrades")
-        vehiclethrusterupgrade = world.get_region("Vehicle Thruster Upgrades")
-        nitroglycerinupgrade = world.get_region("Nitroglycerin Upgrades")
-        huntingrifleupgrade = world.get_region("Hunting Rifle Upgrades")
-        bluetideupgrade = world.get_region("BlueTide Upgrades")
+    #if world.options.ToolUpgrades:
+        #blowtorchupgrade = world.get_region("Blowtorch Upgrades")
 
-        menu.connect(blowtorchupgrade, "Main Menu to Blowtorch Upgrades")
-        menu.connect(shotgunupgrade, "Main Menu to Shotgun Upgrades")
-        menu.connect(plankupgrade, "Main Menu to Plank Upgrades")
-        menu.connect(pipebombupgrade, "Main Menu to Pipe Bomb Upgrades")
-        menu.connect(gunupgrade, "Main Menu to Gun Upgrades")
-        menu.connect(bombupgrade, "Main Menu to Bomb Upgrades")
-        menu.connect(rocketlauncherupgrade, "Main Menu to Rocket Launcher Upgrades")
-        menu.connect(rocketboosterupgrade, "Main Menu to Rocket Booster Upgrades")
-        menu.connect(leafblowerupgrade, "Main Menu to Leaf Blower Upgrades")
-        menu.connect(cableupgrade, "Main Menu to Cable Upgrades")
-        menu.connect(vehiclethrusterupgrade, "Main Menu to Vehicle Thruster Upgrades")
-        menu.connect(nitroglycerinupgrade, "Main Menu to Nitroglycerin Upgrades")
-        menu.connect(huntingrifleupgrade, "Main Menu to Hunting Rifle Upgrades")
-        menu.connect(bluetideupgrade, "Main Menu to BlueTide Upgrades")
+        #menu.connect(blowtorchupgrade, "Main Menu to Blowtorch Upgrades")
 
-    if world.options.ValuableSanity:
-        leevaluable = world.get_region("Lee Valuables")
-        leevaluablehard = world.get_region("Lee Valuables Harder")
-        leevaluablecomputers = world.get_region("Lee Valuables Computers")
-        leevaluablewoonderland = world.get_region("Lee Valuables Woonderland")
-
-        marinavaluable = world.get_region("Marina Valuables")
-        marinavaluablehard = world.get_region("Marina Valuables Harder")
-        marinavaluablemakingspace = world.get_region("Marina Valuables Making Space")
-        marinavaluableafter = world.get_region("Marina Valuables After Art")
-
-        gordonvaluable = world.get_region("Gordon Valuables")
-        gordonvaluablehard = world.get_region("Gordon Valuables Harder")
-        gordonvaluablefraud = world.get_region("Gordon Valuables Fraud")
-
-        hollowrockvaluable = world.get_region("Hollowrock Valuables")
-        hollowrockvaluablehard = world.get_region("Hollowrock Valuables Harder")
-        hollowrockvaluableevenharder = world.get_region("Hollowrock Valuables Even Harder")
-        hollowrockvaluabledishes = world.get_region("Hollowrock Valuables Dishes")
-
-        evertidesvaluable = world.get_region("Evertides Valuables")
-        evertidesvaluablehard = world.get_region("Evertides Valuables Harder")
-        evertidesvaluablechaos = world.get_region("Evertides Valuables Covert Chaos")
-
-        frustrumvaluable = world.get_region("Frustrum Valuables")
-        frustrumvaluablehard = world.get_region("Frustrum Valuables Harder")
-        frustrumvaluablechase = world.get_region("Frustrum Valuables Chase")
-
-        quilezvaluable = world.get_region("Quilez Valuables")
-        quilezvaluablehard = world.get_region("Quilez Valuables Harder")
-        quilezvaluablecare = world.get_region("Quilez Valuables Handle with Care")
-
-        islavaluable = world.get_region("Isla Valuables")
-        islavaluablehard = world.get_region("Isla Valuables Harder")
-
-        menu.connect(leevaluable, "Main Menu to Lee Valuables")
-        leevaluable.connect(leevaluablehard, "Lee Valuables to Lee Valuables Harder")
-        leevaluable.connect(leevaluablecomputers, "Lee Valuables to Lee Valuables Computers")
-        leevaluable.connect(leevaluablewoonderland, "Lee Valuables to Lee Valuables Woonderland")
-
-        menu.connect(marinavaluable, "Main Menu to Marina Valuables")
-        marinavaluable.connect(marinavaluablehard, "Marina Valuables to Marina Valuables Harder")
-        marinavaluable.connect(marinavaluablemakingspace, "Marina Valuables to Marina Valuables Making Space")
-        marinavaluable.connect(marinavaluableafter, "Marina Valuables to Marina Valuables After Art")
-
-        menu.connect(gordonvaluable, "Main Menu to Gordon Valuables")
-        gordonvaluable.connect(gordonvaluablehard, "Gordon Valuables to Gordon Valuables Harder")
-        gordonvaluable.connect(gordonvaluablefraud, "Gordon Valuables to Gordon Valuables Fraud")
-
-        menu.connect(hollowrockvaluable, "Main Menu to Hollowrock Valuables")
-        hollowrockvaluable.connect(hollowrockvaluablehard, "Hollowrock Valuables to Hollowrock Valuables Harder")
-        hollowrockvaluable.connect(hollowrockvaluableevenharder, "Hollowrock Valuables to Hollowrock Valuables Even Harder")
-        hollowrockvaluable.connect(hollowrockvaluabledishes, "Hollowrock Valuables to Hollowrock Valuables Dishes")
-
-        menu.connect(evertidesvaluable, "Main Menu to Evertides Valuables")
-        evertidesvaluable.connect(evertidesvaluablehard, "Evertides Valuables to Evertides Valuables Harder")
-        evertidesvaluable.connect(evertidesvaluablechaos, "Evertides Valuables to Evertides Valuables Covert Chaos")
-
-        menu.connect(frustrumvaluable, "Main Menu to Frustrum Valuables")
-        frustrumvaluable.connect(frustrumvaluablehard, "Frustrum Valuables to Frustrum Valuables Harder")
-        frustrumvaluable.connect(frustrumvaluablechase, "Frustrum Valuables to Frustrum Valuables Chase")
-
-        menu.connect(quilezvaluable, "Main Menu to Quilez Valuables")
-        quilezvaluable.connect(quilezvaluablehard, "Quilez Valuables to Quilez Valuables Harder")
-        quilezvaluable.connect(quilezvaluablecare, "Quilez Valuables to Quilez Valuables Handle with Care")
-
-        menu.connect(islavaluable, "Main Menu to Isla Valuables")
-        islavaluable.connect(islavaluablehard, "Isla Valuables to Isla Valuables Harder")

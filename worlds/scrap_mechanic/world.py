@@ -4,21 +4,21 @@ from typing import Any
 from worlds.AutoWorld import World
 
 from . import items, locations, regions, rules, web_world
-from . import options as teardown_options
+from . import options as scrapmechanic_options
 from.items import item_name_groups
 
 
 class ScrapMechanicWorld(World):
     """
-    ScrapMechanic is a creative survival, building, and exploring game which features near infinite creativity wit hit's wide and complex building system.
+    ScrapMechanic is a creative survival, building, and exploring game which features near infinite creativity with its wide and complex building system.
     """
 
     game = "Scrap Mechanic"
 
     web = web_world.ScrapMechanicWebWorld()
 
-    options_dataclass = teardown_options.ScrapMechanicOptions
-    options: teardown_options.ScrapMechanicOptions
+    options_dataclass = scrapmechanic_options.ScrapMechanicOptions
+    options: scrapmechanic_options.ScrapMechanicOptions
 
     location_name_to_id = locations.LOCATION_NAME_TO_ID
     item_name_to_id = items.ITEM_NAME_TO_ID
@@ -46,7 +46,11 @@ class ScrapMechanicWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         # If you need access to the player's chosen options on the client side, there is a helper for that.
         return self.options.as_dict(
-            "",
-            "",
-            "",
+            "GrowlabAmount",
+            "RandomizePlantUnlocks",
+            "TutorialPlatform",
+            "PartSanity",
+            "SchematicSanity",
+            "BotSanity",
+            "LiftSanity",
         )

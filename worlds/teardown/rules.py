@@ -10,6 +10,19 @@ if TYPE_CHECKING:
     from .world import TeardownWorld
 
 
+CASH_VALUES = {
+    "Cash Bundle 20": 20,
+    "Cash Bundle 50": 50,
+    "Cash Bundle 100": 100,
+    "Cash Bundle 250": 250,
+    "Cash Bundle 500": 500,
+    "Cash Bundle 750": 750,
+    "Cash Bundle 1000": 1000,
+    "Cash Bundle 3000": 3000,
+
+}
+
+
 def set_all_rules(world: TeardownWorld) -> None:
 
     set_all_entrance_rules(world)
