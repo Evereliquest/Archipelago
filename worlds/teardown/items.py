@@ -235,7 +235,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Cash Bundle 20": ItemClassification.filler,
     "Cash Bundle 50": ItemClassification.filler,
     "Cash Bundle 100": ItemClassification.filler,
-    "Cash Bundle 250": ItemClassification.filler,
+    "Cash Bundle 250": ItemClassification.useful,
     "Cash Bundle 500": ItemClassification.useful,
     "Cash Bundle 750": ItemClassification.useful,
     "Cash Bundle 1000": ItemClassification.useful,
@@ -243,7 +243,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 }
 
 item_name_groups = {
-    "levels": [
+    "Levels": [
         "Old Building Problem Unlock",
         "Lee Computers Unlock",
         "Login Devices Unlock",
@@ -285,7 +285,7 @@ item_name_groups = {
         "Droid Dismount Unlock",
     ],
 
-    "nonlevels": [
+    "Easy Levels": [
         "Old Building Problem Unlock",
         "Lee Computers Unlock",
         "Login Devices Unlock",
@@ -304,7 +304,7 @@ item_name_groups = {
         "Elena's Revenge Unlock",
     ],
 
-    "tools": [
+    "Tools": [
         "Sledge Hammer Unlock",
         "Spraycan Unlock",
         "Extinguisher Unlock",
@@ -325,7 +325,7 @@ item_name_groups = {
 
     ],
 
-    "Lee Chemicals": [
+    "Lee Chemicals Unlock": [
         "Lee Computers Unlock",
         "Login Devices Unlock",
         "Heavy Lifting Unlock",
@@ -335,7 +335,7 @@ item_name_groups = {
         "Malice In Woonderland Unlock",
     ],
 
-    "West Point Marina": [
+    "West Point Marina Unlock": [
         "Making Space Unlock",
         "Classic Cars Unlock",
         "The GPS Devices Unlock",
@@ -343,7 +343,7 @@ item_name_groups = {
         "Art Return Unlock",
     ],
 
-    "Villa Gordon": [
+    "Villa Gordon Unlock": [
         "Classic Cars Unlock",
         "Fine Arts Unlock",
         "Insurance Fraud Unlock",
@@ -351,7 +351,7 @@ item_name_groups = {
         "A Wet Affair Unlock",
     ],
 
-    "Hollowrock Island": [
+    "Hollowrock Island Unlock": [
         "The BlueTide Computers Unlock",
         "Motivational Reminder Unlock",
         "An Assortment Of Dishes Unlock",
@@ -359,33 +359,33 @@ item_name_groups = {
         "Droid Dismount Unlock",
     ],
 
-    "Evertides Mall": [
+    "Evertides Mall Unlock": [
         "Covert Chaos Unlock",
         "The Shipping Logs Unlock",
         "Ornament Ordeal Unlock",
         "Connecting The Dots Unlock",
     ],
 
-    "Frustrum": [
+    "Frustrum Unlock": [
         "The BlueTide Shortage Unlock",
         "Truckload Of Trouble Unlock",
         "The Pawn Shop Unlock",
     ],
 
-    "Quilez Security": [
+    "Quilez Security Unlock": [
         "The Quilez Tools Unlock",
         "The Droid Abduction Unlock",
         "Handle With Care Unlock",
     ],
 
-    "Isla Estocastica": [
+    "Isla Estocastica Unlock": [
         "The Alarm System Unlock",
         "Moving The Goods Unlock",
         "Havoc In Paradise Unlock",
         "Elena's Revenge Unlock",
     ],
 
-    "Door": [
+    "Door Breaking Tools": [
         "Blowtorch Unlock",
         "Shotgun Unlock",
         "Gun Unlock",
@@ -393,14 +393,14 @@ item_name_groups = {
         "Hunting Rifle Unlock",
     ],
 
-    "Wall/Opening": [
+    "Wall Opening Tools": [
         "Shotgun Unlock",
         "Pipe Bomb Unlock",
         "Bomb Unlock",
         "Rocket Launcher Unlock",
     ],
 
-    "Destruction": [
+    "Destruction Tools": [
         "Shotgun Unlock",
         "Pipe Bomb Unlock",
         "Bomb Unlock",
@@ -408,14 +408,14 @@ item_name_groups = {
         "Nitroglycerin Unlock",
     ],
 
-    "Guns": [
+    "Gun Tools": [
         "Gun Unlock",
         "Rocket Launcher Unlock",
         "Hunting Rifle Unlock",
 
     ],
 
-    "Plank/Cable": [
+    "Plank/Cable Unlock": [
         "Plank Unlock",
         "Cable Unlock",
     ],
@@ -514,7 +514,7 @@ def create_all_items(world: TeardownWorld) -> None:
 
     if world.options.StartingTool:
         amount = world.options.AmountTools.value
-        startingtools = list(item_name_groups["tools"])
+        startingtools = list(item_name_groups["Tools"])
 
         for number in range(amount):
             chosentool = world.random.choice(startingtools)
@@ -549,8 +549,8 @@ def create_all_items(world: TeardownWorld) -> None:
 
 
     amountlevels = world.options.AmountLevels.value
-    startinglevels = list(item_name_groups["nonlevels"])
-    totallevels = list(item_name_groups["levels"])
+    startinglevels = list(item_name_groups["Easy Levels"])
+    totallevels = list(item_name_groups["Levels"])
     totallevels = [level for level in totallevels if level not in startinglevels]
 
     if not world.options.StartingLevel:
@@ -693,6 +693,105 @@ def create_all_items(world: TeardownWorld) -> None:
 
         itempool.append(world.create_item("BlueTide Duration Upgrade"))
         itempool.append(world.create_item("BlueTide Duration Upgrade"))
+
+    if world.options.StartingTool:
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+        itempool.append(world.create_item("Cash Bundle 50"))
+
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+        itempool.append(world.create_item("Cash Bundle 100"))
+
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+        itempool.append(world.create_item("Cash Bundle 250"))
+
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+        itempool.append(world.create_item("Cash Bundle 500"))
+
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+        itempool.append(world.create_item("Cash Bundle 750"))
+
+        itempool.append(world.create_item("Cash Bundle 1000"))
+        itempool.append(world.create_item("Cash Bundle 1000"))
+        itempool.append(world.create_item("Cash Bundle 1000"))
+        itempool.append(world.create_item("Cash Bundle 1000"))
+        itempool.append(world.create_item("Cash Bundle 1000"))
+
+        itempool.append(world.create_item("Cash Bundle 3000"))
+        itempool.append(world.create_item("Cash Bundle 3000"))
+        itempool.append(world.create_item("Cash Bundle 3000"))
+
 
     # The length of our itempool is easy to determine, since we have it as a list.
     number_of_items = len(itempool)
