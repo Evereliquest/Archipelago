@@ -34,10 +34,21 @@ class QuestPlatform(Toggle):
    display_name = "Quest Platform Sanity"
 
 
+class GarmentSanity(Range):
+    """
+    Amount of Garment locations to add to the Dress Bot
+    """
+    display_name = "Garment Sanity"
+
+    range_start = 0
+    range_end = 50
+    default = 5
+
+
 class PartSanity(Toggle):
    """
-   Creates items for all initially unlocked recipes available at the craft bot.
-   Does not include the mini craft bot or recipes given other ways.
+   Creates items for all initially unlocked recipes available at the Craftbot.
+   Does not include the Mini Craftbot or recipes given other ways.
    """
    display_name = "Part Sanity"
 
@@ -69,6 +80,7 @@ class TeardownOptions(PerGameCommonOptions):
     RandomizePlantUnlocks: RandomizePlantUnlocks
     TraderSanity: TraderSanity
     QuestPlatform: QuestPlatform
+    GarmentSanity: GarmentSanity
     PartSanity: PartSanity
     SchematicSanity: SchematicSanity
     BotSanity: BotSanity

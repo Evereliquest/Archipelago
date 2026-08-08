@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, HasGroup
-from .options import MissionAmount
+from .options import GrowlabAmount
 
 if TYPE_CHECKING:
     from .world import ScrapMechanicWorld
@@ -18,7 +18,7 @@ def set_all_rules(world: ScrapMechanicWorld) -> None:
 
 def set_all_entrance_rules(world: ScrapMechanicWorld) -> None:
     # First, we need to actually grab our entrances. Luckily, there is a helper method for this.
-    #menu_to_oldbuildingproblem = world.get_entrance("Main Menu to Old Building Problem")
+    menu_to_oldbuildingproblem = world.get_entrance("Main Menu to Old Building Problem")
 
 
     # Now, let's make some rules!
@@ -39,4 +39,4 @@ def set_all_entrance_rules(world: ScrapMechanicWorld) -> None:
 
 def set_completion_condition(world: ScrapMechanicWorld) -> None:
 
-    world.set_completion_rule(HasGroup("levels", count=FromOption(MissionAmount)))
+    world.set_completion_rule(HasGroup("levels", count=FromOption(GrowlabAmount)))
