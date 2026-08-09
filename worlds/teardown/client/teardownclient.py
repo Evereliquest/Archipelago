@@ -61,6 +61,7 @@ class TeardownContext(CommonContext):
         self.mission_bitmask = 0
         self.cash = 0
         self.received_counts = {}
+        self.applied_cash_total = 0
 
 
     #Setup settings like exe and xml
@@ -135,7 +136,7 @@ class TeardownContext(CommonContext):
                 curr = child
             node = curr
         node.set("value", str(value))
-        print(f"Update Node: {path} set to {value}")
+        #print(f"Update Node: {path} set to {value}")
 
     # Setup Window Name
     def run_gui(self):
@@ -297,23 +298,23 @@ class TeardownContext(CommonContext):
     # Needs Cleanup
     async def apply_server_state_to_xml(self, player_data):
 
-        print("Initializing: Waiting for items to be received from server")
         while not hasattr(self, 'items_received'):
+            print("Initializing: Waiting for items to be received from server")
             await asyncio.sleep(0.5)
         await asyncio.sleep(0.5)
 
-        print("Initializing: Waiting for found locations")
         while not hasattr(self, 'checked_locations'):
+            print("Initializing: Waiting for found locations")
             await asyncio.sleep(0.5)
         await asyncio.sleep(0.5)
 
         self.received_counts = {}
-        print(f"First Apply: Total items in self.items_received: {len(self.items_received)}")
+        print(f"First Apply: Total items in items_received: {len(self.items_received)}")
 
         for item in self.items_received:
             item_id = item.item
             self.received_counts[item_id] = self.received_counts.get(item_id, 0) + 1
-            print(f"First Apply: Counted Item ID {item_id}")
+            #print(f"First Apply: Counted Item ID {item_id}")
 
         # 1. Sync Tools & Missions
         for mapping in [Tool_Enable, Mission_Enable]:
@@ -361,6 +362,7 @@ class TeardownContext(CommonContext):
 
 
         print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        print(f"First Apply: Checking Mission Sent Locations")
         current_loc = missions_checked()
         for mission_id, xml_path in Mission_Enable.items():
             new_path = xml_path + "/score"
@@ -396,11 +398,15 @@ class TeardownContext(CommonContext):
 
             return upgrade_results
 
-        print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        print(f"First Apply: Checking Tool Sent Locations")
         if self.ToolUpgrades:
+            # Setting put in savegame for mod to know if to separate or give upgrade
+            self.update_node("toolupgradeon", 1)
             current_upgrades = tools_checked()
             for xml_path, total_value in current_upgrades.items():
                 self.update_node(xml_path, str(total_value))
+        else:
+            self.update_node("toolupgradeon", 0)
 
 
         def valuables_checked():
@@ -422,24 +428,18 @@ class TeardownContext(CommonContext):
 
             return valuable_results
 
-        print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
+        print(f"First Apply: Checking Valuable Sent Locations")
         if self.ValuableSanity:
             current_valuables = valuables_checked()
             for xml_path, total_value in current_valuables.items():
                 self.update_node(xml_path, str(total_value))
 
-        # Setting put in savegame for mod to know if to seperate or give upgrade
-        if self.ToolUpgrades:
-            self.update_node("toolupgradeon", 1)
-        else:
-            self.update_node("toolupgradeon", 0)
-
 
         # Cash Setting Below
         def cash_counted():
             self.current_cash = self.cash
-            print(f"Cash Counted: Cash XML node successfully synchronized to {self.cash}")
-            print(f"Cash Counted:  {self.applied_cash_total}")
+            print(f"Cash Counted: Cash XML node synchronized to {self.cash}")
+            print(f"Cash Counted: {self.applied_cash_total}")
 
 
             total_received_cash = sum(
@@ -447,23 +447,27 @@ class TeardownContext(CommonContext):
                 for ap_id, cash_val in Cash_Value.items()
             )
 
-            cash_to_add = total_received_cash - self.applied_cash_total
+            if self.applied_cash_total is not None:
+                cash_to_add = total_received_cash - self.applied_cash_total
 
-            if cash_to_add > 0:
-                self.current_cash += cash_to_add
-                self.applied_cash_total = total_received_cash
+                if cash_to_add > 0:
+                    self.current_cash += cash_to_add
+                    self.applied_cash_total = total_received_cash
 
-                asyncio.create_task(self.send_msgs([{
-                    "cmd": "Set",
-                    "key": f"Teardown_Applied_Cash{self.team}_{self.slot}",
-                    "default": 0,
-                    "want_reply": True,
-                    "operations": [{"operation": "replace", "value": total_received_cash}]
-                }]))
+                    asyncio.create_task(self.send_msgs([{
+                        "cmd": "Set",
+                        "key": f"Teardown_Applied_Cash{self.team}_{self.slot}",
+                        "default": 0,
+                        "want_reply": True,
+                        "operations": [{"operation": "replace", "value": total_received_cash}]
+                    }]))
 
-            self.update_node("cash", self.current_cash)
-            self.last_cash = self.current_cash
-            print(f"First Apply: Cash XML node successfully synchronized to {self.current_cash}")
+                self.update_node("cash", self.current_cash)
+                self.last_cash = self.current_cash
+                print(f"Cash Counted: Cash XML node synchronized to {self.current_cash}")
+
+            else:
+                print(f"Cash Counted: self.applied_cash_total is None")
 
         cash_counted()
 
@@ -651,7 +655,7 @@ class TeardownContext(CommonContext):
 
 
     def send_upgrade_check(self, location_id):
-        print(f"Sync Check: Entering send_upgrade_check location {location_id}")
+        print(f"Send Upgrade: Entering send_upgrade_check location {location_id}")
 
         if location_id not in self.locations_checked:
             print(f"Sync Missions: Queuing Location ID {location_id}")
@@ -732,7 +736,7 @@ class TeardownContext(CommonContext):
             self.mission_bitmask = args.get("keys", {}).get(f"Teardown_Missions_Counter{self.team}_{self.slot}") or 0
             self.applied_cash_total = args.get("keys", {}).get(f"Teardown_Applied_Cash{self.team}_{self.slot}")
             self.cash = args.get("keys", {}).get(f"Teardown_Cash{self.team}_{self.slot}") or 0
-
+            self.game = self.slot_info[self.slot].game
 
             async def init_sequence():
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown_Missions{self.team}_{self.slot}"]}])
@@ -745,14 +749,27 @@ class TeardownContext(CommonContext):
                 #await self.launch_game()
 
             asyncio.create_task(init_sequence())
+        elif cmd == "Retrieved":
+            if args.get("key") == f"Teardown_Missions{self.team}_{self.slot}":
+                self.mission_bitmask = args.get("value")
+
+            if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
+                self.mission_bitmask = args.get("value")
+
+            if args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
+                self.mission_bitmask = args.get("value")
+
+            if args.get("key") == f"Teardown_Cash{self.team}_{self.slot}":
+                self.mission_bitmask = args.get("value")
+
 
         elif cmd == "SetReply":
             if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
                 self.mission_bitmask = args.get("value")
                 self.handle_victory_unlock(args.get("value"))
 
-            elif args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
-                self.applied_cash_counts = args.get("value")
+            #elif args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
+                #self.applied_cash_counts = args.get("value")
 
 
     async def server_auth(self, password_requested: bool = False):
