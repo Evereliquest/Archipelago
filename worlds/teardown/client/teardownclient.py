@@ -53,7 +53,6 @@ class TeardownContext(CommonContext):
         self.mission_count = 0
         self.items_received_event = asyncio.Event()
         self.locations_found_event = asyncio.Event()
-        self.auth_event = asyncio.Event()
         self.locations_checked = []
         self.applied_cash_counts = {ap_id: 0 for ap_id in Cash_Value.keys()}
         self.last_cash = 0
@@ -62,6 +61,10 @@ class TeardownContext(CommonContext):
         self.cash = 0
         self.received_counts = {}
         self.applied_cash_total = 0
+
+        self.innit_event = asyncio.Event()
+        self.message_event1 = asyncio.Event()
+        self.message_event2 = asyncio.Event()
 
 
     #Setup settings like exe and xml
@@ -156,8 +159,93 @@ class TeardownContext(CommonContext):
 
     # XML setup function, does all the work in setting up save on connect
     # Still needs cleanup
-    async def reset_and_initialize_save(self):
-        print("Initializing: Resetting the Save")
+
+    async def reset_save(self):
+        print("Reset: Applying Save Template")
+
+        if not self.savegame_path or not os.path.exists(self.savegame_path):
+            return
+
+        with open(self.savegame_path, 'r', encoding='utf-8') as f:
+            text_data = f.read()
+        clean_text = re.sub(r'^\s*<\d+[^>]*/>.*\n?', '', text_data, flags=re.MULTILINE)
+
+        try:
+            with open(self.savegame_path, "w", encoding='utf-8') as f:
+                f.write(clean_text)
+
+            tree = ET.parse(self.savegame_path)
+            root = tree.getroot()
+
+            self.player_data = root.find("savegame/mod/steam-3708322400")
+            print(f"Reset: player_data found: {self.player_data is not None}")
+
+            if self.player_data is None:
+                mod_node = root.find("mod")
+                if mod_node is None:
+                    mod_node = ET.SubElement(root, "mod")
+                self.player_data = ET.SubElement(mod_node, "steam-3708322400")
+
+
+            for category, nodes in SAVE_TEMPLATE.items():
+
+                print(f"Reset: Processing Category: {category}")
+                cat_node = self.player_data.find(category)
+                if cat_node is None:
+                    print(f"Reset: Category '{category}' not found, creating new SubElement.")
+
+                cat_node = self.player_data.find(category)
+                if cat_node is None:
+                    cat_node = ET.SubElement(self.player_data, category)
+
+                for path, val in nodes.items():
+                    parts = path.split('/')
+                    current = cat_node
+                    for i, part in enumerate(parts):
+                        child = current.find(part)
+                        if child is None:
+                            child = ET.SubElement(current, part)
+                        if i == len(parts) - 1:
+                            #full_path = f"{category} -> {' -> '.join(parts)}"
+
+                            #print(f"Reset:  [{full_path}] to value: {val}")
+                            child.set("value", str(val))
+
+                        current = child
+            last_node = self.player_data.find("lastcompleted")
+            if last_node is None:
+                last_node = ET.SubElement(self.player_data, "lastcompleted")
+            last_node.set("value", "")
+
+            for message_node in self.player_data.findall("message"):
+                self.player_data.remove(message_node)
+                print(f"Reset: Pruned message node: {message_node.tag}")
+
+            for mission_node in self.player_data.findall("mission"):
+                self.player_data.remove(mission_node)
+                print(f"Reset: Pruned message node: {mission_node.tag}")
+
+            resetcash = self.player_data.find("cash")
+            if resetcash is None:
+                resetcash = ET.SubElement(self.player_data, "cash")
+
+            resetcash.set("value", "0")
+
+
+        except Exception as e:
+            print(f"Failed to initialize player_data: {e}")
+            traceback.print_exc()
+
+
+
+
+
+
+
+
+
+    async def applying_save(self, ):
+        print("Applying: Applying Progress to Save")
 
         if not self.savegame_path or not os.path.exists(self.savegame_path):
             return
@@ -182,50 +270,6 @@ class TeardownContext(CommonContext):
                     mod_node = ET.SubElement(root, "mod")
                 self.player_data = ET.SubElement(mod_node, "steam-3708322400")
 
-
-            for category, nodes in SAVE_TEMPLATE.items():
-
-                print(f"Initializing: Processing Category: {category}")
-                cat_node = self.player_data.find(category)
-                if cat_node is None:
-                    print(f"Initializing: Category '{category}' not found, creating new SubElement.")
-
-                cat_node = self.player_data.find(category)
-                if cat_node is None:
-                    cat_node = ET.SubElement(self.player_data, category)
-
-                for path, val in nodes.items():
-                    parts = path.split('/')
-                    current = cat_node
-                    for i, part in enumerate(parts):
-                        child = current.find(part)
-                        if child is None:
-                            child = ET.SubElement(current, part)
-                        if i == len(parts) - 1:
-                            #full_path = f"{category} -> {' -> '.join(parts)}"
-
-                            #print(f"Initializing:  [{full_path}] to value: {val}")
-                            child.set("value", str(val))
-
-                        current = child
-            last_node = self.player_data.find("lastcompleted")
-            if last_node is None:
-                last_node = ET.SubElement(self.player_data, "lastcompleted")
-            last_node.set("value", "")
-
-            for message_node in self.player_data.findall("message"):
-                self.player_data.remove(message_node)
-                print(f"Initializing: Pruned message node: {message_node.tag}")
-
-            for mission_node in self.player_data.findall("mission"):
-                self.player_data.remove(mission_node)
-                print(f"Initializing: Pruned message node: {mission_node.tag}")
-
-            resetcash = self.player_data.find("cash")
-            if resetcash is None:
-                resetcash = ET.SubElement(self.player_data, "cash")
-
-            resetcash.set("value", "0")
 
             await self.apply_server_state_to_xml(self.player_data)
 
@@ -449,25 +493,26 @@ class TeardownContext(CommonContext):
 
             if self.applied_cash_total is not None:
                 cash_to_add = total_received_cash - self.applied_cash_total
-
-                if cash_to_add > 0:
-                    self.current_cash += cash_to_add
-                    self.applied_cash_total = total_received_cash
-
-                    asyncio.create_task(self.send_msgs([{
-                        "cmd": "Set",
-                        "key": f"Teardown_Applied_Cash{self.team}_{self.slot}",
-                        "default": 0,
-                        "want_reply": True,
-                        "operations": [{"operation": "replace", "value": total_received_cash}]
-                    }]))
-
-                self.update_node("cash", self.current_cash)
-                self.last_cash = self.current_cash
-                print(f"Cash Counted: Cash XML node synchronized to {self.current_cash}")
-
             else:
                 print(f"Cash Counted: self.applied_cash_total is None")
+                cash_to_add = total_received_cash
+
+            if cash_to_add > 0:
+                self.current_cash += cash_to_add
+                self.applied_cash_total = total_received_cash
+
+                asyncio.create_task(self.send_msgs([{
+                    "cmd": "Set",
+                    "key": f"Teardown_Applied_Cash{self.team}_{self.slot}",
+                    "default": 0,
+                    "want_reply": True,
+                    "operations": [{"operation": "replace", "value": total_received_cash}]
+                }]))
+
+            self.update_node("cash", self.current_cash)
+            self.last_cash = self.current_cash
+            print(f"Cash Counted: Cash XML node synchronized to {self.current_cash}")
+
 
         cash_counted()
 
@@ -724,19 +769,53 @@ class TeardownContext(CommonContext):
             print("Cannot launch: Valid executable path not found.")
 
 
+    async def teardown_loop(self):
+
+        await asyncio.to_thread(self.checkgamepath)
+        print("Loop: Game path found")
+        await self.reset_save()
+        print("Loop: Save Reset")
+
+        await self.message_event1.wait()
+        print("Loop: Message 1 set")
+        await self.message_event2.wait()
+        print("Loop: Message 2 set")
+
+        await self.applying_save()
+        print("Loop: Save Applied")
+
+        #await self.launch_game()
+        print("Loop: Game Launched")
+        self.innit_event.set()
+
+        while self.innit_event.is_set():
+            print("Loop: Tick")
+            await self.sync_savegame()
+            await asyncio.sleep(3)
+
+
 
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
-            self.MissionAmount = args.get("slot_data", {}).get("MissionAmount", 20)
-            self.ToolUpgrades = args.get("slot_data", {}).get("ToolUpgrades", True)
-            self.ValuableSanity = args.get("slot_data", {}).get("ValuableSanity", False)
-            self.FastGoal = args.get("slot_data", {}).get("FastGoal", False)
-            self.EasyGoal = args.get("slot_data", {}).get("EasyGoal", False)
-            self.mission_count = args.get("keys", {}).get(f"Teardown_Missions{self.team}_{self.slot}") or 0
-            self.mission_bitmask = args.get("keys", {}).get(f"Teardown_Missions_Counter{self.team}_{self.slot}") or 0
-            self.applied_cash_total = args.get("keys", {}).get(f"Teardown_Applied_Cash{self.team}_{self.slot}")
-            self.cash = args.get("keys", {}).get(f"Teardown_Cash{self.team}_{self.slot}") or 0
+            print("Connected")
+
             self.game = self.slot_info[self.slot].game
+            self.last_connected_slot = self.slot
+
+            self.slot_data = args["slot_data"]
+            self.MissionAmount = self.slot_data.get("MissionAmount", 20)
+            print(self.MissionAmount)
+            self.ToolUpgrades = self.slot_data.get("ToolUpgrades", True)
+            print(self.ToolUpgrades)
+            self.ValuableSanity = self.slot_data.get("ValuableSanity", False)
+            print(self.ValuableSanity)
+            self.FastGoal = self.slot_data.get("FastGoal", False)
+            print(self.FastGoal)
+            self.EasyGoal = self.slot_data.get("EasyGoal", False)
+            print(self.EasyGoal)
+            self.message_event1.set()
+            print("Message Event 1 set")
+
 
             async def init_sequence():
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown_Missions{self.team}_{self.slot}"]}])
@@ -744,24 +823,10 @@ class TeardownContext(CommonContext):
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown_Missions_Counter{self.team}_{self.slot}"]}])
                 await self.send_msgs([{"cmd": "Get", "keys": [f"Teardown_Applied_Cash{self.team}_{self.slot}"]}])
 
-                await self.reset_and_initialize_save()
-                self.auth_event.set()
-                #await self.launch_game()
+                self.message_event2.set()
+                print("Message Event 2 set")
 
             asyncio.create_task(init_sequence())
-        elif cmd == "Retrieved":
-            if args.get("key") == f"Teardown_Missions{self.team}_{self.slot}":
-                self.mission_bitmask = args.get("value")
-
-            if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
-                self.mission_bitmask = args.get("value")
-
-            if args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
-                self.mission_bitmask = args.get("value")
-
-            if args.get("key") == f"Teardown_Cash{self.team}_{self.slot}":
-                self.mission_bitmask = args.get("value")
-
 
         elif cmd == "SetReply":
             if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
@@ -781,30 +846,22 @@ class TeardownContext(CommonContext):
     async def disconnect(self, allow_autoreconnect: bool = False):
         self.game = ""
         await super().disconnect(allow_autoreconnect)
-
+        self.message_event1.clear()
+        self.message_event2.clear()
+        self.innit_event.clear()
 
 
 async def main(args):
     ctx = TeardownContext(args.connect, args.password)
     ctx.auth = args.name
-    ctx.checkgamepath()
     ctx.server_task = asyncio.create_task(server_loop(ctx), name="server loop")
-
-    async def sync_loop():
-        await ctx.auth_event.wait()
-        print("DEBUG: Sync loop started!")
-        await asyncio.sleep(10)
-        while not ctx.exit_event.is_set():
-            print("DEBUG: Loop tick...")
-            if ctx.savegame_path and os.path.exists(ctx.savegame_path):
-                await ctx.sync_savegame()
-            await asyncio.sleep(3)
-
-    ctx.sync_task = asyncio.create_task(sync_loop(), name="save sync loop")
 
     if gui_enabled:
         ctx.run_gui()
     ctx.run_cli()
+
+
+    ctx.sync_task = asyncio.create_task(ctx.teardown_loop(), name="Teardown Loop")
 
     await ctx.exit_event.wait()
     await ctx.shutdown()
@@ -812,9 +869,9 @@ async def main(args):
 import colorama
 
 def launch():
-    parser = get_base_parser()
-
+    parser = get_base_parser(description="Teardown Archipelago Client")
     parser.add_argument('--name', default=None, help="Slot Name to connect as.")
+    parser.add_argument("url", nargs="?", help="Archipelago connection url")
 
     args = parser.parse_args()
     colorama.init()
