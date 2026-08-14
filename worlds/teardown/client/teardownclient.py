@@ -690,7 +690,7 @@ class TeardownContext(CommonContext):
 
         asyncio.create_task(self.send_msgs([{
             "cmd": "Set",
-            "key": f"Teardown-{self.auth}-Cash",
+            "key": f"Teardown_Cash{self.team}_{self.slot}",
             "default": 0,
             "want_reply": True,
             "operations": [{"operation": "replace", "value": self.current_cash}]
@@ -770,28 +770,29 @@ class TeardownContext(CommonContext):
 
 
     async def teardown_loop(self):
+        while True:
+            await asyncio.to_thread(self.checkgamepath)
+            print("Loop: Game path found")
+            await self.reset_save()
+            print("Loop: Save Reset")
 
-        await asyncio.to_thread(self.checkgamepath)
-        print("Loop: Game path found")
-        await self.reset_save()
-        print("Loop: Save Reset")
+            await self.message_event1.wait()
+            print("Loop: Message 1 set")
+            await self.message_event2.wait()
+            print("Loop: Message 2 set")
 
-        await self.message_event1.wait()
-        print("Loop: Message 1 set")
-        await self.message_event2.wait()
-        print("Loop: Message 2 set")
+            await self.applying_save()
+            print("Loop: Save Applied")
 
-        await self.applying_save()
-        print("Loop: Save Applied")
+            #await self.launch_game()
+            print("Loop: Game Launched")
+            self.innit_event.set()
 
-        #await self.launch_game()
-        print("Loop: Game Launched")
-        self.innit_event.set()
-
-        while self.innit_event.is_set():
-            print("Loop: Tick")
-            await self.sync_savegame()
-            await asyncio.sleep(3)
+            while self.innit_event.is_set():
+                print("Loop: Tick")
+                await self.sync_savegame()
+                await asyncio.sleep(3)
+            print("Loop: Innit_event Cleared")
 
 
 
@@ -827,6 +828,24 @@ class TeardownContext(CommonContext):
                 print("Message Event 2 set")
 
             asyncio.create_task(init_sequence())
+
+
+        elif cmd == "Retrieved":
+            retrieved_keys = args.get("keys", [])
+
+            if f"Teardown_Missions{self.team}_{self.slot}" in retrieved_keys:
+                self.mission_count = args.get("value")
+
+            if f"Teardown_Missions_Counter{self.team}_{self.slot}" in retrieved_keys:
+                self.mission_bitmask = args.get("value")
+
+            if f"Teardown_Applied_Cash{self.team}_{self.slot}" in retrieved_keys:
+                self.applied_cash_counts = args.get("value")
+
+            if f"Teardown_Cash{self.team}_{self.slot}" in retrieved_keys:
+                self.cash = args.get("value")
+                print(f"Retrieved: self.cash = {self.cash}")
+
 
         elif cmd == "SetReply":
             if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
