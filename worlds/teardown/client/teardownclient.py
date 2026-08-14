@@ -54,7 +54,6 @@ class TeardownContext(CommonContext):
         self.items_received_event = asyncio.Event()
         self.locations_found_event = asyncio.Event()
         self.locations_checked = []
-        self.applied_cash_counts = {ap_id: 0 for ap_id in Cash_Value.keys()}
         self.last_cash = 0
         self.current_cash = 0
         self.mission_bitmask = 0
@@ -373,6 +372,7 @@ class TeardownContext(CommonContext):
                 if count > 0:
                     modified_path = xml_path.replace("mission/", "message/")
                     self.update_node(modified_path, "2")
+                    print(modified_path)
 
         for ap_id, config in Tool_Items.items():
             count = self.received_counts.get(ap_id, 0)
@@ -508,6 +508,15 @@ class TeardownContext(CommonContext):
                     "want_reply": True,
                     "operations": [{"operation": "replace", "value": total_received_cash}]
                 }]))
+
+                asyncio.create_task(self.send_msgs([{
+                    "cmd": "Set",
+                    "key": f"Teardown_Cash{self.team}_{self.slot}",
+                    "default": 0,
+                    "want_reply": True,
+                    "operations": [{"operation": "replace", "value": self.current_cash}]
+                }]))
+                print(f"cash_counted: Updated cash on server to {self.current_cash}.")
 
             self.update_node("cash", self.current_cash)
             self.last_cash = self.current_cash
@@ -784,7 +793,7 @@ class TeardownContext(CommonContext):
             await self.applying_save()
             print("Loop: Save Applied")
 
-            #await self.launch_game()
+            await self.launch_game()
             print("Loop: Game Launched")
             self.innit_event.set()
 
@@ -832,18 +841,22 @@ class TeardownContext(CommonContext):
 
         elif cmd == "Retrieved":
             retrieved_keys = args.get("keys", [])
+            #print(f"Retrieved: retrieved_keys = {retrieved_keys}")
 
             if f"Teardown_Missions{self.team}_{self.slot}" in retrieved_keys:
-                self.mission_count = args.get("value")
+                self.mission_count = retrieved_keys.get(f"Teardown_Missions{self.team}_{self.slot}", 0)
+                print(f"Retrieved: self.mission_count = {self.mission_count}")
 
             if f"Teardown_Missions_Counter{self.team}_{self.slot}" in retrieved_keys:
-                self.mission_bitmask = args.get("value")
+                self.mission_bitmask = retrieved_keys.get(f"Teardown_Missions_Counter_{self.team}_{self.slot}", 0)
+                print(f"Retrieved: self.mission_bitmask = {self.mission_bitmask}")
 
             if f"Teardown_Applied_Cash{self.team}_{self.slot}" in retrieved_keys:
-                self.applied_cash_counts = args.get("value")
+                self.applied_cash_total = retrieved_keys.get(f"Teardown_Applied_Cash{self.team}_{self.slot}", 0)
+                print(f"Retrieved: self.applied_cash_total = {self.applied_cash_total}")
 
             if f"Teardown_Cash{self.team}_{self.slot}" in retrieved_keys:
-                self.cash = args.get("value")
+                self.cash = retrieved_keys.get(f"Teardown_Cash{self.team}_{self.slot}", 0)
                 print(f"Retrieved: self.cash = {self.cash}")
 
 
@@ -853,7 +866,7 @@ class TeardownContext(CommonContext):
                 self.handle_victory_unlock(args.get("value"))
 
             #elif args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
-                #self.applied_cash_counts = args.get("value")
+                #self.applied_cash_total = args.get("value")
 
 
     async def server_auth(self, password_requested: bool = False):
