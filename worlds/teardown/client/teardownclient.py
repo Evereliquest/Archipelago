@@ -231,11 +231,28 @@ class TeardownContext(CommonContext):
             resetcash.set("value", "0")
 
 
+            for i in range(5):  # Try 5 times
+                try:
+                    print(f"Initializing: Attempting initialization write {i + 1}/5")
+                    ET.indent(tree, space="          ", level=0)
+                    tree.write(self.savegame_path, encoding="UTF-8", xml_declaration=False)
+
+                    print("Teardown Save: Player Data initialized and globally set.")
+                    return True
+
+                except PermissionError:
+                    print("Initializing: File locked during init, retrying")
+                    await asyncio.sleep(0.2)
+                except Exception as e:
+                    print(f"Failed to initialize player_data: {e}")
+                    traceback.print_exc()
+                    break
+
+            return False
+
         except Exception as e:
             print(f"Failed to initialize player_data: {e}")
             traceback.print_exc()
-
-
 
 
 
@@ -272,13 +289,11 @@ class TeardownContext(CommonContext):
 
             await self.apply_server_state_to_xml(self.player_data)
 
-            bigint = getattr(self, "mission_bitmask", 0)
-            current_count = bigint.bit_count()
-            goal_required = getattr(self, 'MissionAmount', 20)
-            print(f"Archipelago: Current Missions Count {current_count} Goal Required Count {goal_required}")
+            current_count = self.mission_bitmask.bit_count()
+            print(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}")
 
             if not self.FastGoal:
-                if current_count >= goal_required:
+                if current_count >= self.MissionAmount:
                     if self.EasyGoal:
                         asyncio.create_task(self.send_msgs([{
                             "cmd": "StatusUpdate",
@@ -295,8 +310,9 @@ class TeardownContext(CommonContext):
                     cullington_path.set("value", "1")
                     print("Archipelago: Final Mission Unlocked.")
             else:
-                mission_count = sum(1 for mission_id in Mission_Enable if mission_id in self.items_received)
-                if mission_count >= goal_required:
+                received_item_ids = {network_item.item for network_item in self.items_received}
+                mission_count = sum(1 for mission_id in Mission_Enable if mission_id in received_item_ids)
+                if mission_count >= self.MissionAmount:
                     if self.EasyGoal:
                         asyncio.create_task(self.send_msgs([{
                             "cmd": "StatusUpdate",
@@ -372,7 +388,6 @@ class TeardownContext(CommonContext):
                 if count > 0:
                     modified_path = xml_path.replace("mission/", "message/")
                     self.update_node(modified_path, "2")
-                    print(modified_path)
 
         for ap_id, config in Tool_Items.items():
             count = self.received_counts.get(ap_id, 0)
@@ -712,7 +727,7 @@ class TeardownContext(CommonContext):
         print(f"Send Upgrade: Entering send_upgrade_check location {location_id}")
 
         if location_id not in self.locations_checked:
-            print(f"Sync Missions: Queuing Location ID {location_id}")
+            print(f"Send Upgrade: Queuing Location ID {location_id}")
 
             asyncio.create_task(self.check_locations({location_id}))
 
@@ -759,9 +774,8 @@ class TeardownContext(CommonContext):
                 print("Goal Sent!!")
 
         current_count = bitmask.bit_count()
-        goal_required = getattr(self, 'MissionAmount', 20)
-        print(f"Archipelago: Current Missions Count {current_count} Goal Required Count {goal_required}")
-        if current_count >= goal_required:
+        print(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}")
+        if current_count >= self.MissionAmount:
             if self.EasyGoal:
                 asyncio.create_task(self.send_msgs([{
                     "cmd": "StatusUpdate",
@@ -793,7 +807,7 @@ class TeardownContext(CommonContext):
             await self.applying_save()
             print("Loop: Save Applied")
 
-            await self.launch_game()
+            #await self.launch_game()
             print("Loop: Game Launched")
             self.innit_event.set()
 
@@ -845,25 +859,33 @@ class TeardownContext(CommonContext):
 
             if f"Teardown_Missions{self.team}_{self.slot}" in retrieved_keys:
                 self.mission_count = retrieved_keys.get(f"Teardown_Missions{self.team}_{self.slot}", 0)
+                if self.mission_count is None or self.mission_count < 0:
+                    self.mission_count = 0
                 print(f"Retrieved: self.mission_count = {self.mission_count}")
 
             if f"Teardown_Missions_Counter{self.team}_{self.slot}" in retrieved_keys:
-                self.mission_bitmask = retrieved_keys.get(f"Teardown_Missions_Counter_{self.team}_{self.slot}", 0)
+                self.mission_bitmask = retrieved_keys.get(f"Teardown_Missions_Counter{self.team}_{self.slot}", 0)
+                if self.mission_bitmask is None or self.mission_bitmask < 0:
+                    self.mission_bitmask = 0
                 print(f"Retrieved: self.mission_bitmask = {self.mission_bitmask}")
 
             if f"Teardown_Applied_Cash{self.team}_{self.slot}" in retrieved_keys:
                 self.applied_cash_total = retrieved_keys.get(f"Teardown_Applied_Cash{self.team}_{self.slot}", 0)
+                if self.applied_cash_total is None or self.applied_cash_total < 0:
+                    self.applied_cash_total = 0
                 print(f"Retrieved: self.applied_cash_total = {self.applied_cash_total}")
 
             if f"Teardown_Cash{self.team}_{self.slot}" in retrieved_keys:
                 self.cash = retrieved_keys.get(f"Teardown_Cash{self.team}_{self.slot}", 0)
+                if self.cash is None or self.cash < 0:
+                    self.cash = 0
                 print(f"Retrieved: self.cash = {self.cash}")
 
 
         elif cmd == "SetReply":
             if args.get("key") == f"Teardown_Missions_Counter{self.team}_{self.slot}":
                 self.mission_bitmask = args.get("value")
-                self.handle_victory_unlock(args.get("value"))
+                self.handle_victory_unlock(self.mission_bitmask)
 
             #elif args.get("key") == f"Teardown_Applied_Cash{self.team}_{self.slot}":
                 #self.applied_cash_total = args.get("value")
@@ -881,6 +903,7 @@ class TeardownContext(CommonContext):
         self.message_event1.clear()
         self.message_event2.clear()
         self.innit_event.clear()
+        self.locations_checked = []
 
 
 async def main(args):
