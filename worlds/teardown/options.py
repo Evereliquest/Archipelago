@@ -57,13 +57,13 @@ class ToolUpgrades(DefaultOnToggle):
    """
    display_name = "Tool Upgrades"
 
-class BundleTrack(Toggle):
-   """
-   Uses Cash Bundles for tool upgrade logic.
-   This will treat tool upgrades as only in-logic once you've received enough cash from the bundles, and ignore possible valuable collection.
-   Cash bundles with size above 20 will double to give you enough money for all upgrades.
-   """
-   display_name = "Cash Bundle Tracking"
+# class BundleTrack(Toggle):
+#    """
+#    Uses Cash Bundles for tool upgrade logic.
+#    This will treat tool upgrades as only in-logic once you've received enough cash from the bundles, and ignore possible valuable collection.
+#    Cash bundles with size above 20 will double to give you enough money for all upgrades.
+#    """
+#    display_name = "Cash Bundle Tracking"
 
 #---
 
@@ -100,7 +100,7 @@ class TeardownOptions(PerGameCommonOptions):
     AmountLevels: AmountLevels
 
     ToolUpgrades: ToolUpgrades
-    BundleTrack: BundleTrack
+    # BundleTrack: BundleTrack
 
     ValuableSanity: ValuableSanity
 
@@ -115,7 +115,9 @@ option_groups = [
     ),
     OptionGroup(
         "Gameplay Options",
-        [RandomizeStartingTools, AmountTools, RandomizeStartingLevel, AmountLevels, ToolUpgrades, BundleTrack, ValuableSanity],
+        [RandomizeStartingTools, AmountTools, RandomizeStartingLevel, AmountLevels, ToolUpgrades,
+         #BundleTrack,
+         ValuableSanity],
     ),
 ]
 

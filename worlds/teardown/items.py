@@ -386,6 +386,7 @@ item_name_groups = {
     ],
 
     "Door Breaking Tools": [
+        "Sledge Hammer Unlock"
         "Blowtorch Unlock",
         "Shotgun Unlock",
         "Gun Unlock",
@@ -394,6 +395,7 @@ item_name_groups = {
     ],
 
     "Wall Opening Tools": [
+        "Sledge Hammer Unlock"
         "Shotgun Unlock",
         "Pipe Bomb Unlock",
         "Bomb Unlock",

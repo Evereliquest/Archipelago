@@ -168,7 +168,7 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 
 
     if world.options.ToolUpgrades:
-        if world.options.BundleTrack:
+        #if world.options.BundleTrack:
 
             menu_to_blowtorchupgrade = world.get_entrance("Main Menu to Blowtorch Upgrades")
             menu_to_shotgunupgrade = world.get_entrance("Main Menu to Shotgun Upgrades")
@@ -284,4 +284,35 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 
 def set_completion_condition(world: TeardownWorld) -> None:
 
-    world.set_completion_rule(HasGroup("Levels", count=FromOption(MissionAmount)))
+    if not world.options.EasyGoal:
+
+        world.set_completion_rule(
+            HasGroup("Levels", count=FromOption(MissionAmount))
+            & Has("Sledge Hammer Unlock")
+            & HasGroup("Destruction Tools", count=5)
+            & HasGroup("Gun Tools", count=2)
+            & Has("Shotgun Rounds Upgrade", count=5)
+            & Has("Shotgun Damage Upgrade", count=1)
+            & Has("Pipe Bomb Rounds Upgrade", count=3)
+            & Has("Pipe Bomb Blast Upgrade", count=1)
+            & Has("Gun Rounds Upgrade", count=2)
+            & Has("Gun Damage Upgrade", count=1)
+            & Has("Bomb Rounds Upgrade", count=4)
+            & Has("Bomb Blast Upgrade", count=1)
+            & Has("Rocket Launcher Rounds Upgrade", count=3)
+            & Has("Nitroglycerin Rounds Upgrade", count=1)
+            & Has("Nitroglycerin Blast Upgrade", count=1)
+            & Has("Hunting Rifle Rounds Upgrade", count=1)
+        )
+
+    else:
+        world.set_completion_rule(
+            HasGroup("Levels", count=FromOption(MissionAmount))
+        )
+
+
+
+
+
+
+
