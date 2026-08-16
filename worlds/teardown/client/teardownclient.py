@@ -50,7 +50,6 @@ class TeardownContext(CommonContext):
         self.ValuableSanity = False
         self.FastGoal = False
         self.EasyGoal = False
-        self.mission_count = 0
         self.items_received_event = asyncio.Event()
         self.locations_found_event = asyncio.Event()
         self.locations_checked = []
@@ -807,7 +806,7 @@ class TeardownContext(CommonContext):
             await self.applying_save()
             print("Loop: Save Applied")
 
-            #await self.launch_game()
+            await self.launch_game()
             print("Loop: Game Launched")
             self.innit_event.set()
 
@@ -856,12 +855,6 @@ class TeardownContext(CommonContext):
         elif cmd == "Retrieved":
             retrieved_keys = args.get("keys", [])
             #print(f"Retrieved: retrieved_keys = {retrieved_keys}")
-
-            if f"Teardown_Missions{self.team}_{self.slot}" in retrieved_keys:
-                self.mission_count = retrieved_keys.get(f"Teardown_Missions{self.team}_{self.slot}", 0)
-                if self.mission_count is None or self.mission_count < 0:
-                    self.mission_count = 0
-                print(f"Retrieved: self.mission_count = {self.mission_count}")
 
             if f"Teardown_Missions_Counter{self.team}_{self.slot}" in retrieved_keys:
                 self.mission_bitmask = retrieved_keys.get(f"Teardown_Missions_Counter{self.team}_{self.slot}", 0)
