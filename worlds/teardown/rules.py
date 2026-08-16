@@ -285,25 +285,33 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 def set_completion_condition(world: TeardownWorld) -> None:
 
     if not world.options.EasyGoal:
+        if world.options.ToolUpgrades:
 
-        world.set_completion_rule(
-            HasGroup("Levels", count=FromOption(MissionAmount))
-            & Has("Sledge Hammer Unlock")
-            & HasGroup("Destruction Tools", count=5)
-            & HasGroup("Gun Tools", count=2)
-            & Has("Shotgun Rounds Upgrade", count=5)
-            & Has("Shotgun Damage Upgrade", count=1)
-            & Has("Pipe Bomb Rounds Upgrade", count=3)
-            & Has("Pipe Bomb Blast Upgrade", count=1)
-            & Has("Gun Rounds Upgrade", count=2)
-            & Has("Gun Damage Upgrade", count=1)
-            & Has("Bomb Rounds Upgrade", count=4)
-            & Has("Bomb Blast Upgrade", count=1)
-            & Has("Rocket Launcher Rounds Upgrade", count=3)
-            & Has("Nitroglycerin Rounds Upgrade", count=1)
-            & Has("Nitroglycerin Blast Upgrade", count=1)
-            & Has("Hunting Rifle Rounds Upgrade", count=1)
-        )
+            world.set_completion_rule(
+                HasGroup("Levels", count=FromOption(MissionAmount))
+                & Has("Sledge Hammer Unlock")
+                & HasGroup("Destruction Tools", count=5)
+                & HasGroup("Gun Tools", count=2)
+                & Has("Shotgun Rounds Upgrade", count=5)
+                & Has("Shotgun Damage Upgrade", count=1)
+                & Has("Pipe Bomb Rounds Upgrade", count=3)
+                & Has("Pipe Bomb Blast Upgrade", count=1)
+                & Has("Gun Rounds Upgrade", count=2)
+                & Has("Gun Damage Upgrade", count=1)
+                & Has("Bomb Rounds Upgrade", count=4)
+                & Has("Bomb Blast Upgrade", count=1)
+                & Has("Rocket Launcher Rounds Upgrade", count=3)
+                & Has("Nitroglycerin Rounds Upgrade", count=1)
+                & Has("Nitroglycerin Blast Upgrade", count=1)
+                & Has("Hunting Rifle Rounds Upgrade", count=1)
+            )
+        else:
+            world.set_completion_rule(
+                HasGroup("Levels", count=FromOption(MissionAmount))
+                & Has("Sledge Hammer Unlock")
+                & HasGroup("Destruction Tools", count=5)
+                & HasGroup("Gun Tools", count=2)
+            )
 
     else:
         world.set_completion_rule(
