@@ -9,10 +9,10 @@ from typing import Any
 import typing
 import re
 import traceback
-from items import Mission_Enable, Tool_Enable, Tool_Items, Cash_Value
-from template import SAVE_TEMPLATE
-from xml_path import Missionindex
-from locations import Mission_Locations, Mission_Checked_Locations, Tool_Locations, Valuables_Names
+from .items import Mission_Enable, Tool_Enable, Tool_Items, Cash_Value
+from .template import SAVE_TEMPLATE
+from .xml_path import Missionindex
+from .locations import Mission_Locations, Mission_Checked_Locations, Tool_Locations, Valuables_Names
 
 SETTINGS_PATH = user_path("teardownsettings.json")
 
