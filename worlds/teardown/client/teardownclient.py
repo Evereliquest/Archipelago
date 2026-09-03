@@ -9,6 +9,9 @@ from typing import Any
 import typing
 import re
 import traceback
+import logging
+from pathlib import Path
+
 try:
     from .items import Mission_Enable, Tool_Enable, Tool_Items, Cash_Value
     from .template import SAVE_TEMPLATE
@@ -28,6 +31,34 @@ Valuable_Locations = {
     name: Valuable_First_ID + index
     for index, name in enumerate(Valuables_Names)
 }
+
+current_dir = Path(__file__).resolve().parent
+
+archipelago_dir = None
+for parent in [current_dir] + list(current_dir.parents):
+    if parent.name.lower() == "archipelago":
+        archipelago_dir = parent
+        break
+
+if archipelago_dir is None:
+    archipelago_dir = current_dir.parent
+
+LOG_DIR = archipelago_dir / "logs"
+LOG_DIR.mkdir(parents=True, exist_ok=True)
+LOG_FILE = LOG_DIR / "teardownclient.log"
+
+print(f"Log file: {LOG_FILE}")
+
+
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='w',
+    format='%(asctime)s - [%(filename)s:%(lineno)d] - %(levelname)s - %(message)s',
+    level=logging.INFO,
+    force=True
+)
+
+logger = logging.getLogger(__name__)
 
 
 
@@ -78,7 +109,9 @@ class TeardownContext(CommonContext):
             with open(SETTINGS_PATH, "r") as f:
                 data = json.load(f)
                 self.game_exe_path = data.get("game_exe_path", "")
+                logger.info(f"Saved exe path{self.game_exe_path}")
                 self.savegame_path = data.get("savegame_path", "")
+                logger.info(f"Saved savegame path{self.savegame_path}")
 
     def checkgamepath(self):
         # Ask for exe if not found
@@ -87,6 +120,7 @@ class TeardownContext(CommonContext):
                 prompt_title = "Select Teardown Executable"
 
                 while True:
+                    logger.info("Exe not found")
                     new_path = open_filename(
                         title=prompt_title,
                         filetypes=(("Teardown Executable", ".exe"), ("All Files", "*"))
@@ -101,12 +135,14 @@ class TeardownContext(CommonContext):
                     else:
                         # Restarts the loop with new title
                         prompt_title = "INVALID: You must select 'teardown.exe'!"
+                        logger.info(f"Invalid exe selected {new_path}")
 
         if not self.savegame_path or not os.path.exists(self.savegame_path):
             if gui_enabled:
                 prompt_title = "Select Teardown savegame.xml"
 
                 while True:
+                    logger.info("Savegame not found")
                     new_save = open_filename(
                         title=prompt_title,
                         filetypes=(("Teardown Save File", ".xml"), ("All Files", "*"))
@@ -121,9 +157,10 @@ class TeardownContext(CommonContext):
                     else:
                         # Restarts the loop with new title
                         prompt_title = "INVALID: You must select 'savegame.xml'!"
+                        logger.info(f"Invalid savegame selected {new_save}")
 
     def savesettings(self):
-        # Save our settings to our json file
+        # Save our settings to teardownsettings.json
         data = {
             "game_exe_path": self.game_exe_path,
             "savegame_path": self.savegame_path
@@ -183,6 +220,8 @@ class TeardownContext(CommonContext):
 
             self.player_data = root.find("savegame/mod/steam-3708322400")
             print(f"Reset: player_data found: {self.player_data is not None}")
+            logger.info(f"Player Data Found {self.player_data}"),
+
 
             if self.player_data is None:
                 mod_node = root.find("mod")
@@ -248,6 +287,7 @@ class TeardownContext(CommonContext):
                 except PermissionError:
                     print("Initializing: File locked during init, retrying")
                     await asyncio.sleep(0.2)
+                    logger.error("PermissionError")
                 except Exception as e:
                     print(f"Failed to initialize player_data: {e}")
                     traceback.print_exc()
@@ -919,6 +959,8 @@ async def main(args):
 
     await ctx.exit_event.wait()
     await ctx.shutdown()
+    print("shutdown")
+    logging.shutdown()
 
 import colorama
 
