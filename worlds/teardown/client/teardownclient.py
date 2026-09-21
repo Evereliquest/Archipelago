@@ -76,7 +76,10 @@ class TeardownContext(CommonContext):
         self.game_exe_path = ""
         self.savegame_path = ""
         self.player_data = None
+        self.preWorldVersion = None
+        self.WorldVersion = None
         self.loadsettings()
+        self.loadworldversion()
         self.MissionAmount = 0
         self.ToolUpgrades = True
         self.ValuableSanity = False
@@ -969,6 +972,10 @@ class TeardownContext(CommonContext):
             self.EasyGoal = self.slot_data.get("EasyGoal", False)
             print(self.EasyGoal)
             logger.info(f"On Package: Easy Goal: {self.EasyGoal}"),
+
+            self.preWorldVersion = self.slot_data.get("WorldVersion", None)
+            print(self.preWorldVersion)
+            logger.info(f"On Package: Pre World Version: {self.preWorldVersion} Current World Version: {self.WorldVersion}"),
 
             self.message_event1.set()
             print("Message Event 1 set")

@@ -53,4 +53,4 @@ class TeardownWorld(World):
             "ValuableSanity",
             "FastGoal",
             "EasyGoal",
-        )
+        ) | {"WorldVersion": list(self.world_version)}
