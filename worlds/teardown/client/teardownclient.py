@@ -32,16 +32,10 @@ Valuable_Locations = {
     for index, name in enumerate(Valuables_Names)
 }
 
+IGNORED_FILES = {"__init__.py", "factory.py", "builder.py", "window_sdl2.py","CommonClient.py", "protocol.py"}
+
 current_dir = Path(__file__).resolve().parent
-
-archipelago_dir = None
-for parent in [current_dir] + list(current_dir.parents):
-    if parent.name.lower() == "archipelago":
-        archipelago_dir = parent
-        break
-
-if archipelago_dir is None:
-    archipelago_dir = current_dir.parent
+archipelago_dir = next((p for p in [current_dir] + list(current_dir.parents) if p.name.lower() == "archipelago"), current_dir.parent)
 
 LOG_DIR = archipelago_dir / "logs"
 LOG_DIR.mkdir(parents=True, exist_ok=True)
@@ -57,9 +51,10 @@ logging.basicConfig(
     level=logging.INFO,
     force=True
 )
-
 logger = logging.getLogger(__name__)
 
+for handler in logging.getLogger().handlers:
+    handler.addFilter(lambda record: record.filename not in IGNORED_FILES)
 
 
 class TeardownContext(CommonContext):
@@ -109,9 +104,9 @@ class TeardownContext(CommonContext):
             with open(SETTINGS_PATH, "r") as f:
                 data = json.load(f)
                 self.game_exe_path = data.get("game_exe_path", "")
-                logger.info(f"Saved exe path{self.game_exe_path}")
+                logger.info(f"Saved exe path {self.game_exe_path}")
                 self.savegame_path = data.get("savegame_path", "")
-                logger.info(f"Saved savegame path{self.savegame_path}")
+                logger.info(f"Saved savegame path {self.savegame_path}")
 
     def checkgamepath(self):
         # Ask for exe if not found
@@ -205,11 +200,20 @@ class TeardownContext(CommonContext):
         print("Reset: Applying Save Template")
 
         if not self.savegame_path or not os.path.exists(self.savegame_path):
-            return
+            return False
 
         with open(self.savegame_path, 'r', encoding='utf-8') as f:
             text_data = f.read()
         clean_text = re.sub(r'^\s*<\d+[^>]*/>.*\n?', '', text_data, flags=re.MULTILINE)
+
+        # Logs exception if mods have numbers that break ET
+        try:
+            if re.search(r'[\x00-\x08\x0B\x0C\x0E-\x1F]', clean_text):
+                raise ET.ParseError(f"Reset:Illegal characters detected in save data: {clean_text}")
+        except ET.ParseError as e:
+            logger.error(f"Reset:Savegame failed to load, Illegal characters found: {e}")
+            print(f"Reset: Could not parse XML: {e}")
+            return False
 
         try:
             with open(self.savegame_path, "w", encoding='utf-8') as f:
@@ -220,7 +224,7 @@ class TeardownContext(CommonContext):
 
             self.player_data = root.find("savegame/mod/steam-3708322400")
             print(f"Reset: player_data found: {self.player_data is not None}")
-            logger.info(f"Player Data Found {self.player_data}"),
+            logger.info(f"Reset: Player Data Found {self.player_data}"),
 
 
             if self.player_data is None:
@@ -232,6 +236,7 @@ class TeardownContext(CommonContext):
 
             for category, nodes in SAVE_TEMPLATE.items():
 
+                logger.info(f"Reset: Processing Category: {category}"),
                 print(f"Reset: Processing Category: {category}")
                 cat_node = self.player_data.find(category)
                 if cat_node is None:
@@ -255,6 +260,8 @@ class TeardownContext(CommonContext):
                             child.set("value", str(val))
 
                         current = child
+            logger.info(f"Save Template Applied"),
+
             last_node = self.player_data.find("lastcompleted")
             if last_node is None:
                 last_node = ET.SubElement(self.player_data, "lastcompleted")
@@ -273,6 +280,7 @@ class TeardownContext(CommonContext):
                 resetcash = ET.SubElement(self.player_data, "cash")
 
             resetcash.set("value", "0")
+            logger.info(f"Reset Finished"),
 
 
             for i in range(5):  # Try 5 times
@@ -282,21 +290,25 @@ class TeardownContext(CommonContext):
                     tree.write(self.savegame_path, encoding="UTF-8", xml_declaration=False)
 
                     print("Teardown Save: Player Data initialized and globally set.")
+                    logger.info("Reset Completed")
                     return True
 
                 except PermissionError:
                     print("Initializing: File locked during init, retrying")
                     await asyncio.sleep(0.2)
-                    logger.error("PermissionError")
+                    logger.error("File Locked, this is unusual")
                 except Exception as e:
                     print(f"Failed to initialize player_data: {e}")
                     traceback.print_exc()
+                    logger.error(f"Reset Failed for reason: {e}")
                     break
 
             return False
 
         except Exception as e:
             print(f"Failed to initialize player_data: {e}")
+            logger.error(f"Reset Failed to initialize player_data: {e}")
+
             traceback.print_exc()
 
 
@@ -309,11 +321,20 @@ class TeardownContext(CommonContext):
         print("Applying: Applying Progress to Save")
 
         if not self.savegame_path or not os.path.exists(self.savegame_path):
-            return
+            return False
 
         with open(self.savegame_path, 'r', encoding='utf-8') as f:
             text_data = f.read()
         clean_text = re.sub(r'^\s*<\d+[^>]*/>.*\n?', '', text_data, flags=re.MULTILINE)
+
+        # Logs exception if mods have numbers that break ET
+        try:
+            if re.search(r'[\x00-\x08\x0B\x0C\x0E-\x1F]', clean_text):
+                raise ET.ParseError(f"Apply: Illegal characters detected in save data: {clean_text}")
+        except ET.ParseError as e:
+            logger.error(f"Apply: Savegame failed to load, Illegal characters found: {e}")
+            print(f"Apply: Could not parse XML: {e}")
+            return False
 
         try:
             with open(self.savegame_path, "w", encoding='utf-8') as f:
@@ -324,6 +345,7 @@ class TeardownContext(CommonContext):
 
             self.player_data = root.find("savegame/mod/steam-3708322400")
             print(f"Initializing: player_data found: {self.player_data is not None}")
+            logger.info(f"Apply: Player Data Found {self.player_data}"),
 
             if self.player_data is None:
                 mod_node = root.find("mod")
@@ -333,9 +355,11 @@ class TeardownContext(CommonContext):
 
 
             await self.apply_server_state_to_xml(self.player_data)
+            logger.info(f"Server State Applied")
 
             current_count = self.mission_bitmask.bit_count()
             print(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}")
+            logger.info(f"mission_bitmask {self.mission_bitmask.bit_count}"),
 
             if not self.FastGoal:
                 if current_count >= self.MissionAmount:
@@ -345,6 +369,7 @@ class TeardownContext(CommonContext):
                             "status": 30,
                         }]))
                         print("Goal Sent Easy")
+                        logger.info(f"Goal Sent Easy")
 
                     message_path = self.player_data.find("message")
                     cullington_path = self.player_data.find("cullington_bomb")
@@ -354,6 +379,8 @@ class TeardownContext(CommonContext):
 
                     cullington_path.set("value", "1")
                     print("Archipelago: Final Mission Unlocked.")
+                    logger.info(f"Final Mission Unlocked")
+
             else:
                 received_item_ids = {network_item.item for network_item in self.items_received}
                 mission_count = sum(1 for mission_id in Mission_Enable if mission_id in received_item_ids)
@@ -364,6 +391,7 @@ class TeardownContext(CommonContext):
                             "status": 30,
                         }]))
                         print("Goal Sent Easy")
+                        logger.info(f"Goal Sent Easy")
 
                     message_path = self.player_data.find("message")
                     cullington_path = self.player_data.find("cullington_bomb")
@@ -373,6 +401,7 @@ class TeardownContext(CommonContext):
 
                     cullington_path.set("value", "1")
                     print("Archipelago: Final Mission Unlocked Fast.")
+                    logger.info(f"Final Mission Unlocked Fast")
 
             for i in range(5):  # Try 5 times
                 try:
@@ -381,6 +410,7 @@ class TeardownContext(CommonContext):
                     tree.write(self.savegame_path, encoding="UTF-8", xml_declaration=False)
 
                     print("Teardown Save: Player Data initialized and globally set.")
+                    logger.error("Reset Completed")
                     return True
 
                 except PermissionError:
@@ -389,31 +419,38 @@ class TeardownContext(CommonContext):
                 except Exception as e:
                     print(f"Failed to initialize player_data: {e}")
                     traceback.print_exc()
+                    logger.error(f"Reset Failed for reason: {e}")
                     break
 
             return False
 
         except Exception as e:
             print(f"Failed to initialize player_data: {e}")
+            logger.error(f"Reset Failed to initialize player_data: {e}")
+
             traceback.print_exc()
 
 
     # Smaller Worker function for Reset Save
     # Needs Cleanup
     async def apply_server_state_to_xml(self, player_data):
+        logger.info(f"Start of apply_server_state...")
 
         while not hasattr(self, 'items_received'):
             print("Initializing: Waiting for items to be received from server")
+            logger.info(f"Waiting for items to be received from server")
             await asyncio.sleep(0.5)
         await asyncio.sleep(0.5)
 
         while not hasattr(self, 'checked_locations'):
             print("Initializing: Waiting for found locations")
+            logger.info(f"Waiting for found locations from server")
             await asyncio.sleep(0.5)
         await asyncio.sleep(0.5)
 
         self.received_counts = {}
         print(f"First Apply: Total items in items_received: {len(self.items_received)}")
+        logger.info(f"Total items in items_received {len(self.items_received)}")
 
         for item in self.items_received:
             item_id = item.item
@@ -441,6 +478,7 @@ class TeardownContext(CommonContext):
             self.update_node(path, final_val)
 
         def missions_checked():
+            logger.info(f"Start of missions_checked")
             group_results = {}
             received_item_ids = {network_item.item for network_item in self.items_received}
 
@@ -466,7 +504,7 @@ class TeardownContext(CommonContext):
 
 
         print(f"First Apply: Total items in self.checked_locations: {len(self.checked_locations)}")
-        print(f"First Apply: Checking Mission Sent Locations")
+        logger.info(f"Total items in self.checked_locations: {len(self.checked_locations)}")
         current_loc = missions_checked()
         for mission_id, xml_path in Mission_Enable.items():
             new_path = xml_path + "/score"
@@ -474,8 +512,11 @@ class TeardownContext(CommonContext):
             if count > 0:
                 self.update_node(new_path, str(count))
 
+        logger.info(f"End of missions_checked")
 
         def tools_checked():
+            logger.info(f"Start of tools_checked")
+
             upgrade_results = {}
 
             for xml_path_tool, upgrades in Tool_Locations.items():
@@ -503,10 +544,12 @@ class TeardownContext(CommonContext):
             return upgrade_results
 
         print(f"First Apply: Checking Tool Sent Locations")
+        logger.info(f"Checking Tool Sent Locations{self.ToolUpgrades}")
         if self.ToolUpgrades:
             # Setting put in savegame for mod to know if to separate or give upgrade
             self.update_node("toolupgradeon", 1)
             current_upgrades = tools_checked()
+            logger.info(f"End of tools_checked")
             for xml_path, total_value in current_upgrades.items():
                 self.update_node(xml_path, str(total_value))
         else:
@@ -514,6 +557,7 @@ class TeardownContext(CommonContext):
 
 
         def valuables_checked():
+            logger.info(f"Start of valuables_checked")
             valuable_results = {}
 
             for index, item_name in enumerate(Valuables_Names):
@@ -533,8 +577,10 @@ class TeardownContext(CommonContext):
             return valuable_results
 
         print(f"First Apply: Checking Valuable Sent Locations")
+        logger.info(f"Checking Valuable Sent Locations{self.ValuableSanity}")
         if self.ValuableSanity:
             current_valuables = valuables_checked()
+            logger.info(f"End of valuables_checked")
             for xml_path, total_value in current_valuables.items():
                 self.update_node(xml_path, str(total_value))
 
@@ -544,6 +590,8 @@ class TeardownContext(CommonContext):
             self.current_cash = self.cash
             print(f"Cash Counted: Cash XML node synchronized to {self.cash}")
             print(f"Cash Counted: {self.applied_cash_total}")
+            logger.info(f"Start of cash_counted: Cash{self.cash} Applied Cash {self.applied_cash_total}")
+
 
 
             total_received_cash = sum(
@@ -555,11 +603,13 @@ class TeardownContext(CommonContext):
                 cash_to_add = total_received_cash - self.applied_cash_total
             else:
                 print(f"Cash Counted: self.applied_cash_total is None")
+                logger.info(f"self.applied_cash_total is None")
                 cash_to_add = total_received_cash
 
             if cash_to_add > 0:
                 self.current_cash += cash_to_add
                 self.applied_cash_total = total_received_cash
+                logger.info(f"New applied_cash {self.applied_cash_total}")
 
                 asyncio.create_task(self.send_msgs([{
                     "cmd": "Set",
@@ -584,6 +634,7 @@ class TeardownContext(CommonContext):
 
 
         cash_counted()
+        logger.info(f"End of apply_server_state...")
 
 
     async def sync_savegame(self):
@@ -655,6 +706,8 @@ class TeardownContext(CommonContext):
             start_id = Mission_Locations[mission_id]
 
             print("Sync Mission: Trigger mission_counter")
+            logger.info(f"Starting check_missions, lastcompleted: {mission_id}")
+
             self.mission_counter(mission_id)
 
             mission_container = self.player_data.find("mission")
@@ -670,7 +723,7 @@ class TeardownContext(CommonContext):
                         # Calculate the specific ID for this check
                         location_id = start_id + i
 
-                        # Send the ID directly to your check function
+                        logger.info(f"Sync Mission:  send_upgrade_check: {location_id}")
                         self.send_upgrade_check(location_id)
 
             # 4. Clear the trigger in the XML data so it doesn't fire again
@@ -693,6 +746,7 @@ class TeardownContext(CommonContext):
                             continue
                         if current_val >= threshold_val:
                             print(f"Sync Tools: {xml_path} reached {current_val} (Target: {threshold_val}). Sending ID {location_id}")
+                            logger.info(f"check_tools: {xml_path} reached {current_val} (Target: {threshold_val}). Sending ID {location_id}")
 
                             self.send_upgrade_check(location_id)
 
@@ -724,18 +778,16 @@ class TeardownContext(CommonContext):
             self.watch_cash()
 
             if self.ValuableSanity:
-                # 3. Locate the 'valuable' base block in the XML
                 valuable_base = self.player_data.find("valuable")
                 if valuable_base is None:
                     return
                 print(f"Sync Valuables: No Valuable Base")
-                # 4. Iterate over the valuable names and their sequential integer IDs
+
+                # Iterate over the valuable names and their sequential integer IDs
                 for xml_path, location_id in Valuable_Locations.items():
-                    # Skip if this location check was already completed/sent
                     if location_id in self.locations_checked:
                         continue
 
-                    # Look for the valuable item element inside the valuable block
                     node = valuable_base.find(xml_path)
                     if node is not None:
                         try:
@@ -744,6 +796,8 @@ class TeardownContext(CommonContext):
                             # If the valuable item has been collected (value is 1 or greater)
                             if current_val >= 1:
                                 print(f"Sync Valuables: {xml_path} collected. Sending ID {location_id}")
+                                logger.info(f"check_valuables: {xml_path} collected. Sending ID {location_id}")
+
                                 self.send_upgrade_check(location_id)
 
                         except (ValueError, TypeError) as e:
@@ -781,7 +835,6 @@ class TeardownContext(CommonContext):
 
 
     def mission_counter(self, mission_id: str):
-        # 1. Get the index (e.g., lee_login is 2)
         index = Missionindex.get(mission_id)
 
         if index is not None:
@@ -801,6 +854,7 @@ class TeardownContext(CommonContext):
             }]))
             self.mission_bitmask = current_mask | bit_to_set
             print(f"Archipelago: Flipped bit {index} to 1.")
+            logger.info(f"Flipped bit {index} to 1.")
 
     def handle_victory_unlock(self, bitmask):
         if self.player_data is None:
@@ -810,6 +864,8 @@ class TeardownContext(CommonContext):
         if final_mission is not None:
             final_score = final_mission.get("value")
             print(f"Final Score {final_score}")
+            logger.info(f"Final Score {final_score}")
+
 
             if final_score is not None and final_score == "1":
                 asyncio.create_task(self.send_msgs([{
@@ -817,6 +873,7 @@ class TeardownContext(CommonContext):
                     "status": 30,
                 }]))
                 print("Goal Sent!!")
+                logger.info(f"Goal Sent!!")
 
         current_count = bitmask.bit_count()
         print(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}")
@@ -827,6 +884,8 @@ class TeardownContext(CommonContext):
                     "status": 30,
                 }]))
                 print("Goal Sent Easy")
+                logger.info(f"Goal Sent Easy!!")
+
                 return None
         return None
 
@@ -834,26 +893,34 @@ class TeardownContext(CommonContext):
         if self.game_exe_path and os.path.exists(self.game_exe_path):
             subprocess.Popen([self.game_exe_path])
         else:
-            print("Cannot launch: Valid executable path not found.")
+            print("Cannot launch: Valid executable path not found")
+            logger.info(f"Cannot launch: Valid executable path not found"),
 
 
     async def teardown_loop(self):
         while True:
             await asyncio.to_thread(self.checkgamepath)
             print("Loop: Game path found")
+            logger.info(f"Loop: Game path found"),
+
             await self.reset_save()
             print("Loop: Save Reset")
+            logger.info(f"Loop: Save Reset"),
 
             await self.message_event1.wait()
             print("Loop: Message 1 set")
+            logger.info(f"Loop: Message 1 set"),
             await self.message_event2.wait()
             print("Loop: Message 2 set")
+            logger.info(f"Loop: Message 2 set"),
 
             await self.applying_save()
             print("Loop: Save Applied")
+            logger.info(f"Loop: Save Applied"),
 
             await self.launch_game()
             print("Loop: Game Launched")
+            logger.info(f"Loop: Game Launched"),
             self.innit_event.set()
 
             while self.innit_event.is_set():
@@ -861,12 +928,14 @@ class TeardownContext(CommonContext):
                 await self.sync_savegame()
                 await asyncio.sleep(3)
             print("Loop: Innit_event Cleared")
+            logger.info(f"Loop: Innit_event Cleared"),
 
 
 
     def on_package(self, cmd: str, args: dict):
         if cmd == "Connected":
             print("Connected")
+            logger.info(f"Connected"),
 
             self.game = self.slot_info[self.slot].game
             self.last_connected_slot = self.slot
@@ -874,16 +943,28 @@ class TeardownContext(CommonContext):
             self.slot_data = args["slot_data"]
             self.MissionAmount = self.slot_data.get("MissionAmount", 20)
             print(self.MissionAmount)
+            logger.info(f"On Package: Mission Amount: {self.MissionAmount}"),
+
             self.ToolUpgrades = self.slot_data.get("ToolUpgrades", True)
             print(self.ToolUpgrades)
+            logger.info(f"On Package: Tool Upgrades: {self.ToolUpgrades}"),
+
             self.ValuableSanity = self.slot_data.get("ValuableSanity", False)
             print(self.ValuableSanity)
+            logger.info(f"On Package: Valuable Sanity: {self.ValuableSanity}"),
+
             self.FastGoal = self.slot_data.get("FastGoal", False)
             print(self.FastGoal)
+            logger.info(f"On Package: Fast Goal: {self.FastGoal}"),
+
             self.EasyGoal = self.slot_data.get("EasyGoal", False)
             print(self.EasyGoal)
+            logger.info(f"On Package: Easy Goal: {self.EasyGoal}"),
+
             self.message_event1.set()
             print("Message Event 1 set")
+            logger.info(f"On Package: Message Event 1 set"),
+
 
 
             async def init_sequence():
@@ -894,6 +975,7 @@ class TeardownContext(CommonContext):
 
                 self.message_event2.set()
                 print("Message Event 2 set")
+                logger.info(f"On Package: Message Event 2 set"),
 
             asyncio.create_task(init_sequence())
 
@@ -907,18 +989,21 @@ class TeardownContext(CommonContext):
                 if self.mission_bitmask is None or self.mission_bitmask < 0:
                     self.mission_bitmask = 0
                 print(f"Retrieved: self.mission_bitmask = {self.mission_bitmask}")
+                logger.info(f"Retrieved: self.mission_bitmask = {self.mission_bitmask}"),
 
             if f"Teardown_Applied_Cash{self.team}_{self.slot}" in retrieved_keys:
                 self.applied_cash_total = retrieved_keys.get(f"Teardown_Applied_Cash{self.team}_{self.slot}", 0)
                 if self.applied_cash_total is None or self.applied_cash_total < 0:
                     self.applied_cash_total = 0
                 print(f"Retrieved: self.applied_cash_total = {self.applied_cash_total}")
+                logger.info(f"Retrieved: self.applied_cash_total = {self.applied_cash_total}"),
 
             if f"Teardown_Cash{self.team}_{self.slot}" in retrieved_keys:
                 self.cash = retrieved_keys.get(f"Teardown_Cash{self.team}_{self.slot}", 0)
                 if self.cash is None or self.cash < 0:
                     self.cash = 0
                 print(f"Retrieved: self.cash = {self.cash}")
+                logger.info(f"Retrieved: self.cash = {self.cash}"),
 
 
         elif cmd == "SetReply":
@@ -943,6 +1028,7 @@ class TeardownContext(CommonContext):
         self.message_event2.clear()
         self.innit_event.clear()
         self.locations_checked = []
+        logger.info(f"Disconnecting"),
 
 
 async def main(args):
