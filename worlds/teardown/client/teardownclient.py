@@ -108,6 +108,15 @@ class TeardownContext(CommonContext):
                 self.savegame_path = data.get("savegame_path", "")
                 logger.info(f"Saved savegame path {self.savegame_path}")
 
+    def loadworldversion(self):
+        json_path = Path(__file__).parent.parent / "archipelago.json"
+
+        if json_path.exists():
+            with open(json_path, "r", encoding="utf-8") as f:
+                data = json.load(f)
+                self.WorldVersion = data.get("world_version", "0.0.0")
+                print(f"World Version {self.WorldVersion}")
+
     def checkgamepath(self):
         # Ask for exe if not found
         if not self.game_exe_path or not os.path.exists(self.game_exe_path):
