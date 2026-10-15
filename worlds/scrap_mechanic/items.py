@@ -9,6 +9,7 @@ if TYPE_CHECKING:
 
 ITEM_NAME_TO_ID = {
 
+    # Schematics
     "Connect Tool Schematic": 11,
     "Paint Tool Schematic": 12,
     "Weld Tool Schematic": 13,
@@ -68,6 +69,7 @@ ITEM_NAME_TO_ID = {
     "Large Windshield Schematic": 69,
     "Small Windshield Schematic": 70,
 
+    # Growlabs
     "GrowLab Key 1": 101,
     "GrowLab Key 2": 102,
     "GrowLab Key 3": 103,
@@ -76,6 +78,37 @@ ITEM_NAME_TO_ID = {
     "GrowLab Key 6": 106,
     "GrowLab Key 7": 107,
 
+    # Tools
+    "Sledge Hammer Unlock": 121,
+    "Lift Unlock": 122,
+    "Scrap Spudgun Unlock": 123,
+    "Spudgun Unlock": 124,
+    #"Spudgun": 125,
+    #"Spudgun": 126,
+    #"Spudgun": 127,
+    #"Spudgun": 128,
+    #"Spudgun": 129,
+
+    # Bots
+    "Craftbot Unlock": 151,
+    "Refinebot Unlock": 152,
+    "Cookbot Unlock": 153,
+    "Dressbot Unlock": 154,
+    "Resource Collector Unlock": 155,
+
+    # Plants
+    "Cotton Seed Unlock": 171,
+    "Pigment Flower Seed Unlock": 172,
+    "Potato Seed Unlock": 173,
+    "Tomato Seed Unlock": 174,
+    "Carrot Seed Unlock": 175,
+    "Redbeet Seed Unlock": 176,
+    "Banana Seed Unlock": 177,
+    "Chili Seed Unlock": 178,
+    "Blueberry Seed Unlock": 179,
+    "Orange Seed Unlock": 180,
+    "Broccoli Seed Unlock": 181,
+    "Pineapple Seed Unlock": 182,
 
 
 
@@ -85,35 +118,36 @@ ITEM_NAME_TO_ID = {
 
 DEFAULT_ITEM_CLASSIFICATIONS = {
 
+    # Schematics
     "Connect Tool Schematic": ItemClassification.progression| ItemClassification.useful,
     "Paint Tool Schematic": ItemClassification.useful,
-    "Weld Tool Schematic": ItemClassification.progression,
+    "Weld Tool Schematic": ItemClassification.progression| ItemClassification.useful,
     "Cardboard Block Schematic": ItemClassification.useful,
     "Wood Block Level 1 Schematic": ItemClassification.progression,
     "Wood Block Level 2 Schematic": ItemClassification.useful,
     "Metal Block Level 1 Schematic": ItemClassification.progression,
     "Metal Block Level 2 Schematic": ItemClassification.progression,
-    "Sand Block Schematic": ItemClassification.useful,
-    "Concrete Block Level 1 Schematic": ItemClassification.useful,
+    "Sand Block Schematic": ItemClassification.progression,
+    "Concrete Block Level 1 Schematic": ItemClassification.progression,
     "Concrete Block Level 2 Schematic": ItemClassification.useful,
-    "Glass Block Schematic": ItemClassification.useful,
-    "Bearing Schematic": ItemClassification.progression,
-    "Switch Schematic": ItemClassification.progression,
-    "Button Schematic": ItemClassification.progression,
+    "Glass Block Schematic": ItemClassification.progression,
+    "Bearing Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Switch Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Button Schematic": ItemClassification.progression| ItemClassification.useful,
     "Sport Suspension Schematic": ItemClassification.progression,
     "Off-Road Suspension Schematic": ItemClassification.progression,
-    "Gas Engine Schematic": ItemClassification.progression,
-    "Driver's Seat Schematic": ItemClassification.progression,
+    "Gas Engine Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Driver's Seat Schematic": ItemClassification.progression| ItemClassification.useful,
     "Seat Schematic": ItemClassification.useful,
-    "Controller Schematic": ItemClassification.progression,
+    "Controller Schematic": ItemClassification.progression| ItemClassification.useful,
     "Small Digital Sign Schematic": ItemClassification.useful,
     "Medium Digital Sign Schematic": ItemClassification.useful,
     "Large Digital Sign Schematic": ItemClassification.useful,
     "Radio Schematic": ItemClassification.useful,
     "Horn Schematic": ItemClassification.useful,
-    "Scrap Chest Schematic": ItemClassification.progression,
-    "Small Chest Schematic": ItemClassification.progression,
-    "Vacuum Pump Schematic": ItemClassification.useful,
+    "Scrap Chest Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Small Chest Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Vacuum Pump Schematic": ItemClassification.progression| ItemClassification.useful,
     "Vacuum Pipe Schematic": ItemClassification.useful,
     "Vacuum Pipe Corner Schematic": ItemClassification.useful,
     "Vacuum Pipe T Schematic": ItemClassification.useful,
@@ -122,15 +156,15 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Water Schematic": ItemClassification.progression,
     "Chemical Schematic": ItemClassification.progression,
     "Crude Oil Schematic": ItemClassification.progression,
-    "Gasoline Schematic": ItemClassification.progression,
+    "Gasoline Schematic": ItemClassification.progression| ItemClassification.useful,
     "Glue Schematic": ItemClassification.progression,
     "Paint Ammo Schematic": ItemClassification.progression,
     "Ember Schematic": ItemClassification.useful,
-    "Wheel Schematic": ItemClassification.progression,
-    "Big Wheel Schematic": ItemClassification.progression,
+    "Wheel Schematic": ItemClassification.progression| ItemClassification.useful,
+    "Big Wheel Schematic": ItemClassification.progression| ItemClassification.useful,
     "Beacon Schematic": ItemClassification.useful,
-    "Portable Craftbot Schematic": ItemClassification.progression,
-    "Headlight Schematic": ItemClassification.progression,
+    "Portable Craftbot Schematic": ItemClassification.useful,
+    "Headlight Schematic": ItemClassification.useful,
     "Solid Net Block Schematic": ItemClassification.useful,
     "Small Pipe Short Schematic": ItemClassification.useful,
     "Small Pipe Long Schematic": ItemClassification.useful,
@@ -144,10 +178,24 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Large Windshield Schematic": ItemClassification.filler,
     "Small Windshield Schematic": ItemClassification.filler,
 
+    # Growlabs
+    "GrowLab Key 1": ItemClassification.progression,
+    "GrowLab Key 2": ItemClassification.progression,
+    "GrowLab Key 3": ItemClassification.progression,
+    "GrowLab Key 4": ItemClassification.progression,
+    "GrowLab Key 5": ItemClassification.progression,
+    "GrowLab Key 6": ItemClassification.progression,
+    "GrowLab Key 7": ItemClassification.progression,
+
+
+
+
+
+    "Extra Nothing": ItemClassification.filler,
 }
 
 item_name_groups = {
-    "Craftbot Items": [
+    "Craftbot Schematics": [
         "Connect Tool Schematic",
         "Paint Tool Schematic",
         "Weld Tool Schematic",
@@ -210,6 +258,17 @@ item_name_groups = {
         "Small Windshield Schematic",
     ],
 
+    "Growlab Keys": [
+
+        "GrowLab Key 1",
+        "GrowLab Key 2",
+        "GrowLab Key 3",
+        "GrowLab Key 4",
+        "GrowLab Key 5",
+        "GrowLab Key 6",
+        "GrowLab Key 7",
+    ],
+
 }
 
 
@@ -231,14 +290,106 @@ def get_random_filler_item_name(world: ScrapMechanicWorld) -> str:
 def create_all_items(world: ScrapMechanicWorld) -> None:
     itempool: list[Item] = [
 
-        world.create_item("Cash Bundle 50"),
+        world.create_item("GrowLab Key 1"),
     ]
 
 
-    #if world.options.StartingTool:
-        #world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+    if world.options.GrowlabAmount == 2:
+        itempool.append(world.create_item("GrowLab Key 2"))
+    elif world.options.GrowlabAmount == 3:
+        itempool.append(world.create_item("GrowLab Key 2"))
+        itempool.append(world.create_item("GrowLab Key 3"))
+    elif world.options.GrowlabAmount == 4:
+        itempool.append(world.create_item("GrowLab Key 2"))
+        itempool.append(world.create_item("GrowLab Key 3"))
+        itempool.append(world.create_item("GrowLab Key 4"))
+    elif world.options.GrowlabAmount == 5:
+        itempool.append(world.create_item("GrowLab Key 2"))
+        itempool.append(world.create_item("GrowLab Key 3"))
+        itempool.append(world.create_item("GrowLab Key 4"))
+        itempool.append(world.create_item("GrowLab Key 5"))
+    elif world.options.GrowlabAmount == 6:
+        itempool.append(world.create_item("GrowLab Key 2"))
+        itempool.append(world.create_item("GrowLab Key 3"))
+        itempool.append(world.create_item("GrowLab Key 4"))
+        itempool.append(world.create_item("GrowLab Key 5"))
+        itempool.append(world.create_item("GrowLab Key 6"))
+    elif world.options.GrowlabAmount == 7:
+        itempool.append(world.create_item("GrowLab Key 2"))
+        itempool.append(world.create_item("GrowLab Key 3"))
+        itempool.append(world.create_item("GrowLab Key 4"))
+        itempool.append(world.create_item("GrowLab Key 5"))
+        itempool.append(world.create_item("GrowLab Key 6"))
+        itempool.append(world.create_item("GrowLab Key 7"))
 
-        #itempool.append(world.create_item("Blowtorch Unlock"))
+    if world.options.RandomizePlantUnlocks:
+        itempool.append(world.create_item("Cotton Seed Unlock"))
+        itempool.append(world.create_item("Pigment Flower Seed Unlock"))
+        itempool.append(world.create_item("Potato Seed Unlock"))
+        itempool.append(world.create_item("Tomato Seed Unlock"))
+        itempool.append(world.create_item("Carrot Seed Unlock"))
+        itempool.append(world.create_item("Redbeet Seed Unlock"))
+        itempool.append(world.create_item("Banana Seed Unlock"))
+        itempool.append(world.create_item("Chili Seed Unlock"))
+        itempool.append(world.create_item("Blueberry Seed Unlock"))
+        itempool.append(world.create_item("Orange Seed Unlock"))
+        itempool.append(world.create_item("Broccoli Seed Unlock"))
+        itempool.append(world.create_item("Pineapple Seed Unlock"))
+    else:
+        world.push_precollected(world.create_item("Cotton Seed Unlock"))
+        world.push_precollected(world.create_item("Pigment Flower Seed Unlock"))
+        world.push_precollected(world.create_item("Potato Seed Unlock"))
+        world.push_precollected(world.create_item("Tomato Seed Unlock"))
+        world.push_precollected(world.create_item("Carrot Seed Unlock"))
+        world.push_precollected(world.create_item("Redbeet Seed Unlock"))
+        world.push_precollected(world.create_item("Banana Seed Unlock"))
+        world.push_precollected(world.create_item("Chili Seed Unlock"))
+        world.push_precollected(world.create_item("Blueberry Seed Unlock"))
+        world.push_precollected(world.create_item("Orange Seed Unlock"))
+        world.push_precollected(world.create_item("Broccoli Seed Unlock"))
+        world.push_precollected(world.create_item("Pineapple Seed Unlock"))
+
+    if world.options.TraderSanity:
+        world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+
+    if world.options.SchematicSanity:
+        world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+
+    if world.options.SchematicIntensity:
+        world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+
+    if world.options.BotSanity:
+        itempool.append(world.create_item("Craftbot Unlock"))
+        itempool.append(world.create_item("Refinebot Unlock"))
+        itempool.append(world.create_item("Cookbot Unlock"))
+        itempool.append(world.create_item("Dressbot Unlock"))
+        itempool.append(world.create_item("Resource Collector Unlock"))
+    else:
+        world.push_precollected(world.create_item("Craftbot Unlock"))
+        world.push_precollected(world.create_item("Refinebot Unlock"))
+        world.push_precollected(world.create_item("Cookbot Unlock"))
+        world.push_precollected(world.create_item("Dressbot Unlock"))
+        world.push_precollected(world.create_item("Resource Collector Unlock"))
+
+    if world.options.SpudGunSanity:
+        itempool.append(world.create_item("Scrap Spudgun Unlock"))
+        itempool.append(world.create_item("Spudgun Unlock"))
+    else:
+        world.push_precollected(world.create_item("Scrap Spudgun Unlock"))
+        world.push_precollected(world.create_item("Spudgun Unlock"))
+
+    if world.options.LiftSanity:
+        itempool.append(world.create_item("Lift Unlock"))
+    else:
+        world.push_precollected(world.create_item("Lift Unlock"))
+
+    if world.options.HammerSanity:
+        itempool.append(world.create_item("Sledge Hammer Unlock"))
+    else:
+        world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+
+
+
 
 
 

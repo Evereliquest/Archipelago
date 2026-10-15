@@ -45,26 +45,40 @@ class GarmentSanity(Range):
     default = 5
 
 
-class PartSanity(Toggle):
-   """
-   Creates items for all initially unlocked recipes available at the Craftbot.
-   Does not include the Mini Craftbot or recipes given other ways.
-   """
-   display_name = "Part Sanity"
-
-
 class SchematicSanity(Toggle):
    """
-   Randomizes all Schematic boxes and their rewards
+   Randomizes Schematics with an option below to control which
    """
-   display_name = "Schematic Box Sanity"
+   display_name = "Schematic Sanity"
+
+
+class SchematicIntensity(Range):
+    """
+    Which Schematics get Randomized
+    Has No Effect if Schematic Sanity is disabled
+    1 is Initial Craftbot Schematics
+    2 is Schematic-box Schematics
+    3 is All Schematics
+    """
+    display_name = "Schematic Intensity"
+
+    range_start = 1
+    range_end = 3
+    default = 1
 
 
 class BotSanity(Toggle):
    """
-   Randomizes the Craft bot and similar bots
+   Randomizes the Craftbot and similar bots (and resource collector)
    """
    display_name = "Bot Sanity"
+
+
+class SpudGunSanity(Toggle):
+   """
+   Randomizes Spud Guns
+   """
+   display_name = "Spud Gun Sanity"
 
 
 class LiftSanity(Toggle):
@@ -74,6 +88,13 @@ class LiftSanity(Toggle):
    display_name = "Lift Sanity"
 
 
+class HammerSanity(Toggle):
+   """
+   Randomizes your Hammer, not a good idea, probably worse then your lift
+   """
+   display_name = "Tool Sanity"
+
+
 @dataclass
 class TeardownOptions(PerGameCommonOptions):
     GrowlabAmount: GrowlabAmount
@@ -81,8 +102,10 @@ class TeardownOptions(PerGameCommonOptions):
     TraderSanity: TraderSanity
     QuestPlatform: QuestPlatform
     GarmentSanity: GarmentSanity
-    PartSanity: PartSanity
     SchematicSanity: SchematicSanity
+    SchematicIntensity: SchematicIntensity
     BotSanity: BotSanity
+    SpudGunSanity: SpudGunSanity
     LiftSanity: LiftSanity
+    HammerSanity: HammerSanity
 
