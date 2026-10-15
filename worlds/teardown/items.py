@@ -325,6 +325,18 @@ item_name_groups = {
 
     ],
 
+    "Cash Bundle": [
+        "Cash Bundle 20",
+        "Cash Bundle 50",
+        "Cash Bundle 100",
+        "Cash Bundle 250",
+        "Cash Bundle 500",
+        "Cash Bundle 750",
+        "Cash Bundle 1000",
+        "Cash Bundle 3000",
+
+    ],
+
     "Lee Chemicals Unlock": [
         "Lee Computers Unlock",
         "Login Devices Unlock",
