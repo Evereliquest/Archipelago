@@ -71,13 +71,13 @@ LOCATION_NAME_TO_ID = {
     "Build: Small Windshield": 70,
 
     # Growlab Locations
-    "Growlab Completion 1": 100,
-    "Growlab Completion 2": 101,
-    "Growlab Completion 3": 102,
-    "Growlab Completion 4": 103,
-    "Growlab Completion 5": 104,
-    "Growlab Completion 6": 105,
-    "Growlab Completion 7": 106,
+    "Growlab Completion 1": 101,
+    "Growlab Completion 2": 102,
+    "Growlab Completion 3": 103,
+    "Growlab Completion 4": 104,
+    "Growlab Completion 5": 105,
+    "Growlab Completion 6": 106,
+    "Growlab Completion 7": 107,
 
     # Quest Locations
     "Tutorial Quest": 121,
@@ -104,12 +104,39 @@ LOCATION_NAME_TO_ID = {
     "Build Saw Blade Arm Quest": 165,
     "Build Steel Bridge Quest": 166,
 
-    "Craftbot Construction": 21,
-    "Cookbot Construction": 22,
-    "Refinebot Construction": 23,
-    "Dressbot Construction": 24,
-    "Resource Collector Construction": 25,
+    "Craftbot Construction": 191,
+    "Cookbot Construction": 192,
+    "Refinebot Construction": 193,
+    "Dressbot Construction": 194,
+    "Resource Collector Construction": 195,
 
+    # Plant Locations
+    "Cotton Seed Unlock": 221,
+    "Pigment Flower Seed Unlock": 222,
+    "Potato Seed Unlock": 223,
+    "Tomato Seed Unlock": 224,
+    "Carrot Seed Unlock": 225,
+    "Redbeet Seed Unlock": 226,
+    "Banana Seed Unlock": 227,
+    "Chili Seed Unlock": 228,
+    "Blueberry Seed Unlock": 229,
+    "Orange Seed Unlock": 230,
+    "Broccoli Seed Unlock": 231,
+    "Pineapple Seed Unlock": 232,
+
+    # Hostile Bots
+    "Green Totebot Kill": 251,
+    "Red Totebot Kill": 252,
+    "Blue Totebot Kill": 253,
+    "Yellow Totebot Kill": 254,
+    "Haybot Kill": 255,
+    "Blue Tapebot Kill": 256,
+    "Red Tapebot Kill": 257,
+    "Green Tapebot Kill": 258,
+    "Yellow Tapebot Kill": 259,
+    "Farmbot Kill": 260,
+    "Cablebot Kill": 261,
+    "Minerbot Kill": 262,
 
 }
 

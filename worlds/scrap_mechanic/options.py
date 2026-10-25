@@ -57,8 +57,8 @@ class SchematicIntensity(Range):
     Which Schematics get Randomized
     Has No Effect if Schematic Sanity is disabled
     1 is Initial Craftbot Schematics
-    2 is Schematic-box Schematics
-    3 is All Schematics
+    2 is Schematic-box Schematics (+ 1)
+    3 is All Schematics (1 + 2 + Quests)
     """
     display_name = "Schematic Intensity"
 
@@ -67,16 +67,21 @@ class SchematicIntensity(Range):
     default = 1
 
 
-class BotSanity(Toggle):
+class BuildBotSanity(Toggle):
    """
    Randomizes the Craftbot and similar bots (and resource collector)
    """
-   display_name = "Bot Sanity"
+   display_name = "Build Bot Sanity"
 
+class BadBotSanity(Toggle):
+   """
+   Makes locations for killing each hostile bot type
+   """
+   display_name = "Hostile Bot Sanity"
 
 class SpudGunSanity(Toggle):
    """
-   Randomizes Spud Guns
+   Randomizes Spud Guns (Makes the schematic pickups locations)
    """
    display_name = "Spud Gun Sanity"
 
@@ -86,11 +91,11 @@ class LiftSanity(Toggle):
    Randomizes your lift... Not Recommended, it won't be fun
    """
    display_name = "Lift Sanity"
-
+#Not Doing logic for up 1 down 1 yet
 
 class HammerSanity(Toggle):
    """
-   Randomizes your Hammer, not a good idea, probably worse then your lift
+   Randomizes your Hammer, not a good idea, probably worse than your lift
    """
    display_name = "Tool Sanity"
 
@@ -104,7 +109,8 @@ class TeardownOptions(PerGameCommonOptions):
     GarmentSanity: GarmentSanity
     SchematicSanity: SchematicSanity
     SchematicIntensity: SchematicIntensity
-    BotSanity: BotSanity
+    BuildBotSanity: BuildBotSanity
+    BadBotSanity: BadBotSanity
     SpudGunSanity: SpudGunSanity
     LiftSanity: LiftSanity
     HammerSanity: HammerSanity

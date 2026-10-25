@@ -17,7 +17,6 @@ def set_all_rules(world: ScrapMechanicWorld) -> None:
 
 
 def set_all_entrance_rules(world: ScrapMechanicWorld) -> None:
-    # First, we need to actually grab our entrances. Luckily, there is a helper method for this.
     menu_to_oldbuildingproblem = world.get_entrance("Main Menu to Old Building Problem")
 
 
@@ -39,4 +38,4 @@ def set_all_entrance_rules(world: ScrapMechanicWorld) -> None:
 
 def set_completion_condition(world: ScrapMechanicWorld) -> None:
 
-    world.set_completion_rule(HasGroup("levels", count=FromOption(GrowlabAmount)))
+    world.set_completion_rule(HasGroup("Growlab Keys", count=FromOption(GrowlabAmount)))
