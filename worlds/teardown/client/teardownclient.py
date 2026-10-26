@@ -371,7 +371,7 @@ class TeardownContext(CommonContext):
 
             current_count = self.mission_bitmask.bit_count()
             print(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}")
-            logger.info(f"mission_bitmask {self.mission_bitmask.bit_count}"),
+            logger.info(f"Handle Victory: Current Count {current_count} Goal Count {self.MissionAmount}"),
 
             if not self.FastGoal:
                 if current_count >= self.MissionAmount:
