@@ -153,7 +153,7 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
 
         world.set_rule(menu_to_truckloadoftrouble,  Has("Truckload Of Trouble Unlock") &   (Has("Plank Unlock") | Has("Cable Unlock")))
         world.set_rule(menu_to_ornamentordeal,      Has("Ornament Ordeal Unlock") &         HasGroup("Wall Opening Tools", count=3) & HasGroup("Gun Tools", count=1))
-        world.set_rule(menu_to_quileztools,         Has("The Quilez Tools Unlock") &        HasGroup("Wall Opening Tools", count=2) & HasGroup("Destruction Tools", count=1)&   Has("Plank Unlock"))
+        world.set_rule(menu_to_quileztools,         Has("The Quilez Tools Unlock") &        HasGroup("Wall Opening Tools", count=2) & HasGroup("Destruction Tools", count=2)&   Has("Plank Unlock")&   Has("Plank Amount Upgrade", count=2)&   Has("BlueTide Unlock")&   Has("BlueTide Bottles Upgrade"))
         world.set_rule(menu_to_connectingthedots,   Has("Connecting The Dots Unlock") &     HasGroup("Wall Opening Tools", count=2) & HasGroup("Destruction Tools", count=3))
         world.set_rule(menu_to_pawnshop,            Has("The Pawn Shop Unlock") &           HasGroup("Wall Opening Tools", count=2) & Has("Plank Unlock"))
         world.set_rule(menu_to_droidabduction,      Has("The Droid Abduction Unlock") &     HasGroup("Wall Opening Tools", count=2) & HasGroup("Destruction Tools", count=2))
