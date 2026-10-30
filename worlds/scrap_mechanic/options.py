@@ -15,23 +15,61 @@ class GrowlabAmount(Range):
 
 class RandomizePlantUnlocks(DefaultOnToggle):
     """
-    If enabled, plant unlocks from Growlabs will be randomized
+    If enabled, plant unlocks are randomized
     """
     display_name = "Randomize Plant Unlocks"
 
 
-class TraderSanity(Toggle):
+class InitialSchematics(Toggle):
    """
-   Randomizes schematics bought from the trader and introduces locations there instead
+   Randomizes Initial Schematics (excluding Mini Craftbot recipes)
    """
-   display_name = "Trader Sanity"
+   display_name = "Inital Schematics Sanity"
 
+
+class SchematicBoxes(Toggle):
+   """
+   Randomizes the Schematics from Schematic Boxes
+   """
+   display_name = "Inital Schematics Sanity"
+
+
+class QuestSanity(Toggle):
+   """
+   Randomizes All Quests, including the rewards for said quests
+   """
+   display_name = "Quest Sanity"
+
+# Then if something like quests are off and spud guns are rewards, and they are turned off (not random)
+# then reward them as normal, quests on reward as normal, no locations. Guns on quests off give Location
+# If both on give one location
 
 class QuestPlatform(Toggle):
    """
    Creates a location for all Quest Platforms
    """
    display_name = "Quest Platform Sanity"
+
+
+class BuildBotSanity(Toggle):
+   """
+   Randomizes the Craftbot and similar bots (and resource collector)
+   """
+   display_name = "Build Bot Sanity"
+
+
+class BadBotSanity(Toggle):
+   """
+   Makes locations for killing each hostile bot type
+   """
+   display_name = "Hostile Bot Sanity"
+
+
+class TraderSanity(Toggle):
+   """
+   Adds Locations to the trader
+   """
+   display_name = "Trader Sanity"
 
 
 class GarmentSanity(Range):
@@ -44,40 +82,6 @@ class GarmentSanity(Range):
     range_end = 50
     default = 5
 
-
-class SchematicSanity(Toggle):
-   """
-   Randomizes Schematics with an option below to control which
-   """
-   display_name = "Schematic Sanity"
-
-
-class SchematicIntensity(Range):
-    """
-    Which Schematics get Randomized
-    Has No Effect if Schematic Sanity is disabled
-    1 is Initial Craftbot Schematics
-    2 is Schematic-box Schematics (+ 1)
-    3 is All Schematics (1 + 2 + Quests)
-    """
-    display_name = "Schematic Intensity"
-
-    range_start = 1
-    range_end = 3
-    default = 1
-
-
-class BuildBotSanity(Toggle):
-   """
-   Randomizes the Craftbot and similar bots (and resource collector)
-   """
-   display_name = "Build Bot Sanity"
-
-class BadBotSanity(Toggle):
-   """
-   Makes locations for killing each hostile bot type
-   """
-   display_name = "Hostile Bot Sanity"
 
 class SpudGunSanity(Toggle):
    """
@@ -101,16 +105,17 @@ class HammerSanity(Toggle):
 
 
 @dataclass
-class TeardownOptions(PerGameCommonOptions):
+class ScrapMechanicOptions(PerGameCommonOptions):
     GrowlabAmount: GrowlabAmount
     RandomizePlantUnlocks: RandomizePlantUnlocks
-    TraderSanity: TraderSanity
+    InitialSchematics: InitialSchematics
+    SchematicBoxes: SchematicBoxes
+    QuestSanity: QuestSanity
     QuestPlatform: QuestPlatform
-    GarmentSanity: GarmentSanity
-    SchematicSanity: SchematicSanity
-    SchematicIntensity: SchematicIntensity
     BuildBotSanity: BuildBotSanity
     BadBotSanity: BadBotSanity
+    TraderSanity: TraderSanity
+    GarmentSanity: GarmentSanity
     SpudGunSanity: SpudGunSanity
     LiftSanity: LiftSanity
     HammerSanity: HammerSanity
