@@ -1,5 +1,6 @@
 import asyncio
 import subprocess
+import sys
 import os
 import json
 import xml.etree.ElementTree as ET
@@ -902,11 +903,18 @@ class TeardownContext(CommonContext):
         return None
 
     async def launch_game(self):
-        if self.game_exe_path and os.path.exists(self.game_exe_path):
-            subprocess.Popen([self.game_exe_path])
-        else:
-            print("Cannot launch: Valid executable path not found")
-            logger.info(f"Cannot launch: Valid executable path not found"),
+        try:
+            if sys.platform != "win32":
+                subprocess.Popen(["xdg-open", "steam://rungameid/1167630"],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            elif self.game_exe_path and os.path.exists(self.game_exe_path):
+                subprocess.Popen([self.game_exe_path])
+            else:
+                print("Cannot launch: Valid executable path not found")
+                logger.info(f"Cannot launch: Valid executable path not found"),
+        except Exception as e:
+            print(f"Cannot launch game: {e}")
+            logger.error(f"Launch failed: {e}")
 
 
     async def teardown_loop(self):
