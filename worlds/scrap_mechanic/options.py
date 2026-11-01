@@ -1,7 +1,6 @@
 from dataclasses import dataclass
 
 from Options import PerGameCommonOptions, Range, Toggle, DefaultOnToggle
-
 class GrowlabAmount(Range):
     """
     Amount of Growlabs required to goal
@@ -15,7 +14,7 @@ class GrowlabAmount(Range):
 
 class RandomizePlantUnlocks(DefaultOnToggle):
     """
-    If enabled, plant unlocks are randomized
+    Randomizes Plants
     """
     display_name = "Randomize Plant Unlocks"
 
@@ -34,28 +33,56 @@ class SchematicBoxes(Toggle):
    display_name = "Inital Schematics Sanity"
 
 
-class QuestSanity(Toggle):
+class MainQuestSanity(Toggle):
    """
-   Randomizes All Quests, including the rewards for said quests
+   Creates locations for all Main Quests
    """
-   display_name = "Quest Sanity"
+   display_name = "Main Quest Sanity"
+
+
+class SupplyQuestSanity(Toggle):
+   """
+   Creates locations for all Farmer Supply Quests
+   """
+   display_name = "Supply Quest Sanity"
+
+
+class SideQuestSanity(Toggle):
+   """
+   Creates locations for all Side Quests
+   """
+   display_name = "Side Quest Sanity"
+
+
+class FarmerQuestSanity(Toggle):
+   """
+   Creates locations for all Farmer Quests
+   """
+   display_name = "Farmer Quest Sanity"
+
+
+class ScrapperQuestSanity(Toggle):
+   """
+   Creates locations for all Scrapper Quests
+   """
+   display_name = "Scrapper Quest Sanity"
 
 # Then if something like quests are off and spud guns are rewards, and they are turned off (not random)
 # then reward them as normal, quests on reward as normal, no locations. Guns on quests off give Location
 # If both on give one location
-
-class QuestPlatform(Toggle):
-   """
-   Creates a location for all Quest Platforms
-   """
-   display_name = "Quest Platform Sanity"
-
 
 class BuildBotSanity(Toggle):
    """
    Randomizes the Craftbot and similar bots (and resource collector)
    """
    display_name = "Build Bot Sanity"
+
+
+class Schembot(Toggle):
+   """
+   Makes the Schematic box bot an item (reduces sphere 1)
+   """
+   display_name = "Randomize Schematic Bot"
 
 
 class BadBotSanity(Toggle):
@@ -79,13 +106,13 @@ class GarmentSanity(Range):
     display_name = "Garment Sanity"
 
     range_start = 0
-    range_end = 50
-    default = 5
+    range_end = 30
+    default = 0
 
 
 class SpudGunSanity(Toggle):
    """
-   Randomizes Spud Guns (Makes the schematic pickups locations)
+   Randomizes Spud Guns
    """
    display_name = "Spud Gun Sanity"
 
@@ -103,6 +130,7 @@ class HammerSanity(Toggle):
    """
    display_name = "Tool Sanity"
 
+ # Cook bot sanity
 
 @dataclass
 class ScrapMechanicOptions(PerGameCommonOptions):
@@ -110,9 +138,13 @@ class ScrapMechanicOptions(PerGameCommonOptions):
     RandomizePlantUnlocks: RandomizePlantUnlocks
     InitialSchematics: InitialSchematics
     SchematicBoxes: SchematicBoxes
-    QuestSanity: QuestSanity
-    QuestPlatform: QuestPlatform
+    MainQuestSanity: MainQuestSanity
+    SupplyQuestSanity: SupplyQuestSanity
+    SideQuestSanity: SideQuestSanity
+    FarmerQuestSanity: FarmerQuestSanity
+    ScrapperQuestSanity: ScrapperQuestSanity
     BuildBotSanity: BuildBotSanity
+    Schembot: Schembot
     BadBotSanity: BadBotSanity
     TraderSanity: TraderSanity
     GarmentSanity: GarmentSanity

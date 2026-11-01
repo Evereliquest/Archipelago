@@ -19,140 +19,94 @@ def create_all_regions(world: ScrapMechanicWorld) -> None:
     ship = Region("Crashed Ship", world.player, world.multiworld) # Sphere 1 Locations
     mechanic_station = Region("Mechanic Station", world.player, world.multiworld) # Sphere 2
     basicfarm = Region("Basic Farm", world.player, world.multiworld)
+    startingvehicle = Region("Starting Vehicle", world.player, world.multiworld)
     basicvehicle = Region("Basic Vehicle", world.player, world.multiworld)
+    goodvechicle = Region("Good Vehicle", world.player, world.multiworld)
+    earlytrader = Region("Early Trader", world.player, world.multiworld)
+    trader = Region("Trader", world.player, world.multiworld)
 
-    # Schematics
-    build_connect_tool = Region("Build: Connect Tool", world.player, world.multiworld)
-    build_paint_tool = Region("Build: Paint Tool", world.player, world.multiworld)
-    build_weld_tool = Region("Build: Weld Tool", world.player, world.multiworld)
-    build_cardboard_block = Region("Build: Cardboard Block", world.player, world.multiworld)
-    build_wood_block_level_1 = Region("Build: Wood Block Level 1", world.player, world.multiworld)
-    build_wood_block_level_2 = Region("Build: Wood Block Level 2", world.player, world.multiworld)
-    build_metal_block_level_1 = Region("Build: Metal Block Level 1", world.player, world.multiworld)
-    build_metal_block_level_2 = Region("Build: Metal Block Level 2", world.player, world.multiworld)
-    build_sand_block = Region("Build: Sand Block", world.player, world.multiworld)
-    build_concrete_block_level_1 = Region("Build: Concrete Block Level 1", world.player, world.multiworld)
-    build_concrete_block_level_2 = Region("Build: Concrete Block Level 2", world.player, world.multiworld)
-    build_glass_block = Region("Build: Glass Block", world.player, world.multiworld)
-    build_bearing = Region("Build: Bearing", world.player, world.multiworld)
-    build_switch = Region("Build: Switch", world.player, world.multiworld)
-    build_button = Region("Build: Button", world.player, world.multiworld)
-    build_sport_suspension = Region("Build: Sport Suspension", world.player, world.multiworld)
-    build_off_road_suspension = Region("Build: Off-Road Suspension", world.player, world.multiworld)
-    build_gas_engine = Region("Build: Gas Engine", world.player, world.multiworld)
-    build_drivers_seat = Region("Build: Driver's Seat", world.player, world.multiworld)
-    build_seat = Region("Build: Seat", world.player, world.multiworld)
-    build_controller = Region("Build: Controller", world.player, world.multiworld)
-    build_small_digital_sign = Region("Build: Small Digital Sign", world.player, world.multiworld)
-    build_medium_digital_sign = Region("Build: Medium Digital Sign", world.player, world.multiworld)
-    build_large_digital_sign = Region("Build: Large Digital Sign", world.player, world.multiworld)
-    build_radio = Region("Build: Radio", world.player, world.multiworld)
-    build_horn = Region("Build: Horn", world.player, world.multiworld)
-    build_scrap_chest = Region("Build: Scrap Chest", world.player, world.multiworld)
-    build_small_chest = Region("Build: Small Chest", world.player, world.multiworld)
-    build_vacuum_pump = Region("Build: Vacuum Pump", world.player, world.multiworld)
-    build_vacuum_pipe = Region("Build: Vacuum Pipe", world.player, world.multiworld)
-    build_vacuum_pipe_corner = Region("Build: Vacuum Pipe Corner", world.player, world.multiworld)
-    build_vacuum_pipe_t = Region("Build: Vacuum Pipe T", world.player, world.multiworld)
-    build_water_bucket = Region("Build: Water Bucket", world.player, world.multiworld)
-    build_soil_bag = Region("Build: Soil Bag", world.player, world.multiworld)
-    build_water = Region("Build: Water", world.player, world.multiworld)
-    build_chemical = Region("Build: Chemical", world.player, world.multiworld)
-    build_crude_oil = Region("Build: Crude Oil", world.player, world.multiworld)
-    build_gasoline = Region("Build: Gasoline", world.player, world.multiworld)
-    build_glue = Region("Build: Glue", world.player, world.multiworld)
-    build_paint_ammo = Region("Build: Paint Ammo", world.player, world.multiworld)
-    build_ember = Region("Build: Ember", world.player, world.multiworld)
-    build_wheel = Region("Build: Wheel", world.player, world.multiworld)
-    build_big_wheel = Region("Build: Big Wheel", world.player, world.multiworld)
-    build_beacon = Region("Build: Beacon", world.player, world.multiworld)
-    build_portable_craftbot = Region("Build: Portable Craftbot", world.player, world.multiworld)
-    build_headlight = Region("Build: Headlight", world.player, world.multiworld)
-    build_solid_net_block = Region("Build: Solid Net Block", world.player, world.multiworld)
-    build_small_pipe_short = Region("Build: Small Pipe Short", world.player, world.multiworld)
-    build_small_pipe_long = Region("Build: Small Pipe Long", world.player, world.multiworld)
-    build_small_pipe_bend = Region("Build: Small Pipe Bend", world.player, world.multiworld)
-    build_small_pipe_tee = Region("Build: Small Pipe Tee", world.player, world.multiworld)
-    build_small_pipe_corner = Region("Build: Small Pipe Corner", world.player, world.multiworld)
-    build_small_pipe_four_way = Region("Build: Small Pipe Four Way", world.player, world.multiworld)
-    build_small_pipe_four_way_tee = Region("Build: Small Pipe Four Way Tee", world.player, world.multiworld)
-    build_small_pipe_five_way = Region("Build: Small Pipe Five Way", world.player, world.multiworld)
-    build_small_pipe_six_way = Region("Build: Small Pipe Six Way", world.player, world.multiworld)
-    build_large_windshield = Region("Build: Large Windshield", world.player, world.multiworld)
-    build_small_windshield = Region("Build: Small Windshield", world.player, world.multiworld)
+    craftbot = Region("Craftbot", world.player, world.multiworld)
+    refinebot = Region("Refinebot", world.player, world.multiworld)
+    cookbot = Region("Cookbot", world.player, world.multiworld)
+    dressbot = Region("Dressbot", world.player, world.multiworld)
+    schematicbot = Region("Schematicbot", world.player, world.multiworld)
 
-    # Quests
-    #mechanic_station = Region("Mechanic", world.player, world.multiworld)
+    lift = Region("Lift", world.player, world.multiworld)
+    sledgehammer = Region("Sledge Hammer", world.player, world.multiworld)
+    scrapspudgun = Region("Scrap Spud Gun", world.player, world.multiworld)
+    spudgun = Region("Spud Gun", world.player, world.multiworld)
+    bettergun = Region("Better Gun", world.player, world.multiworld)
 
+    metal1 = Region("Metal 1", world.player, world.multiworld)
+    metal2 = Region("Metal 2", world.player, world.multiworld)
+    metal3 = Region("Metal 3", world.player, world.multiworld)
+    wood1 = Region("Wood 1", world.player, world.multiworld)
+    wood2 = Region("Wood 2", world.player, world.multiworld)
+    wood3 = Region("Wood 3", world.player, world.multiworld)
 
+    glass = Region("Glass", world.player, world.multiworld)
+    ember = Region("Ember", world.player, world.multiworld)
+    honeycomb = Region("Honeycomb", world.player, world.multiworld)
+    crudeoil = Region("Crude Oil", world.player, world.multiworld)
+    chemicals = Region("Chemicals", world.player, world.multiworld)
 
-# Lists all regions
+    mainquest1 = Region("Main Quest 1", world.player, world.multiworld)
+    mainquest2 = Region("Main Quest 2", world.player, world.multiworld)
+    mainquest3 = Region("Main Quest 3", world.player, world.multiworld)
+    mainquest4 = Region("Main Quest 4", world.player, world.multiworld)
+    mainquest5 = Region("Main Quest 5", world.player, world.multiworld)
+    mainquest6 = Region("Main Quest 6", world.player, world.multiworld)
+    mainquest7 = Region("Main Quest 7", world.player, world.multiworld)
+    mainquest8 = Region("Main Quest 8", world.player, world.multiworld)
+    mainquest9 = Region("Main Quest 9", world.player, world.multiworld)
+
+    # Lists all regions
     regions = [
 
         ship,
         mechanic_station,
         basicfarm,
+        startingvehicle,
         basicvehicle,
+        goodvechicle,
+        earlytrader,
+        trader,
 
- # Delete these???
-        build_connect_tool,
-        build_paint_tool,
-        build_weld_tool,
-        build_cardboard_block,
-        build_wood_block_level_1,
-        build_wood_block_level_2,
-        build_metal_block_level_1,
-        build_metal_block_level_2,
-        build_sand_block,
-        build_concrete_block_level_1,
-        build_concrete_block_level_2,
-        build_glass_block,
-        build_bearing,
-        build_switch,
-        build_button,
-        build_sport_suspension,
-        build_off_road_suspension,
-        build_gas_engine,
-        build_drivers_seat,
-        build_seat,
-        build_controller,
-        build_small_digital_sign,
-        build_medium_digital_sign,
-        build_large_digital_sign,
-        build_radio,
-        build_horn,
-        build_scrap_chest,
-        build_small_chest,
-        build_vacuum_pump,
-        build_vacuum_pipe,
-        build_vacuum_pipe_corner,
-        build_vacuum_pipe_t,
-        build_water_bucket,
-        build_soil_bag,
-        build_water,
-        build_chemical,
-        build_crude_oil,
-        build_gasoline,
-        build_glue,
-        build_paint_ammo,
-        build_ember,
-        build_wheel,
-        build_big_wheel,
-        build_beacon,
-        build_portable_craftbot,
-        build_headlight,
-        build_solid_net_block,
-        build_small_pipe_short,
-        build_small_pipe_long,
-        build_small_pipe_bend,
-        build_small_pipe_tee,
-        build_small_pipe_corner,
-        build_small_pipe_four_way,
-        build_small_pipe_four_way_tee,
-        build_small_pipe_five_way,
-        build_small_pipe_six_way,
-        build_large_windshield,
-        build_small_windshield,
+        craftbot,
+        refinebot,
+        cookbot,
+        dressbot,
+        schematicbot,
+
+        lift,
+        sledgehammer,
+        scrapspudgun,
+        spudgun,
+        bettergun,
+
+        metal1,
+        metal2,
+        metal3,
+        wood1,
+        wood2,
+        wood3,
+
+        glass,
+        ember,
+        honeycomb,
+        crudeoil,
+        chemicals,
+
+        mainquest1,
+        mainquest2,
+        mainquest3,
+        mainquest4,
+        mainquest5,
+        mainquest6,
+        mainquest7,
+        mainquest8,
+        mainquest9,
+
     ]
 
 # Creates region if option is enabled
@@ -161,107 +115,82 @@ def create_all_regions(world: ScrapMechanicWorld) -> None:
         regions.append(growlab)
 
 
-    if world.options.RandomizePlantUnlocks:
-        cottonplant = Region("Cotton Plant", world.player, world.multiworld)
-        pigmentflowerplant = Region("Pigment Flower Plant", world.player, world.multiworld)
-        potatoplant = Region("Potato Plant", world.player, world.multiworld)
-        tomatoplant = Region("Tomato Plant", world.player, world.multiworld)
-        carrotplant = Region("Carrot Plant", world.player, world.multiworld)
-        redbeetplant = Region("Redbeet Plant", world.player, world.multiworld)
-        bananaplant = Region("Banana Plant", world.player, world.multiworld)
-        chiliplant = Region("Chili Plant", world.player, world.multiworld)
-        blueberryplant = Region("Blueberry Plant", world.player, world.multiworld)
-        orangeplant = Region("Orange Plant", world.player, world.multiworld)
-        broccoliplant = Region("Broccoli Plant", world.player, world.multiworld)
-        pineappleplant = Region("Pineapple Plant", world.player, world.multiworld)
-
-        regions.append(cottonplant)
-        regions.append(pigmentflowerplant)
-        regions.append(potatoplant)
-        regions.append(tomatoplant)
-        regions.append(carrotplant)
-        regions.append(redbeetplant)
-        regions.append(bananaplant)
-        regions.append(chiliplant)
-        regions.append(blueberryplant)
-        regions.append(orangeplant)
-        regions.append(broccoliplant)
-        regions.append(pineappleplant)
-
-
     # Not Setup!!!!
-    #if world.options.TraderSanity:
+    #if world.options.SchematicBoxes:
         #cottonplant = Region("Cotton Plant", world.player, world.multiworld)
+# Check new save, write down all items, erase blocks/quest items?
+
+    if world.options.SupplyQuestSanity:
+        supplyquest1 = Region("Supply Quest 1", world.player, world.multiworld)
+        supplyquest2 = Region("Supply Quest 2", world.player, world.multiworld)
+        supplyquest3 = Region("Supply Quest 3", world.player, world.multiworld)
+        supplyquest4 = Region("Supply Quest 4", world.player, world.multiworld)
+        supplyquest5 = Region("Supply Quest 5", world.player, world.multiworld)
+        supplyquest6 = Region("Supply Quest 6", world.player, world.multiworld)
+        supplyquest7 = Region("Supply Quest 7", world.player, world.multiworld)
+        supplyquest8 = Region("Supply Quest 8", world.player, world.multiworld)
+
+        regions.append(supplyquest1)
+        regions.append(supplyquest2)
+        regions.append(supplyquest3)
+        regions.append(supplyquest4)
+        regions.append(supplyquest5)
+        regions.append(supplyquest6)
+        regions.append(supplyquest7)
+        regions.append(supplyquest8)
 
 
-    # Not Setup!!!!
-    #if world.options.QuestPlatform:
-        #cottonplant = Region("Cotton Plant", world.player, world.multiworld)
+    if world.options.FarmerQuestSanity:
+        farmquestearly = Region("Farmer Quests Early", world.player, world.multiworld)
+        farmquestlate = Region("Farmer Quests Late", world.player, world.multiworld)
+
+        regions.append(farmquestearly)
+        regions.append(farmquestlate)
 
 
-    # Not Setup!!!!
-    #if world.options.GarmentSanity:
-        #cottonplant = Region("Cotton Plant", world.player, world.multiworld)
+    if world.options.ScrapperQuestSanity:
+        scrapperquest = Region("Scrapper Quests", world.player, world.multiworld)
 
-
-    if world.options.SchematicSanity:
-
-        if world.options.SchematicIntensity == 1:
-            initialschematics = Region("Initial Schematics", world.player, world.multiworld)
-            regions.append(initialschematics)
-
-        # More Work!!!!
-        if world.options.SchematicIntensity == 2:
-            schematicboxes = Region("Schematic Boxes", world.player, world.multiworld)
-            regions.append(schematicboxes)
-
-        # More Work!!!!
-        if world.options.SchematicIntensity == 3:
-            questschematics = Region("Quest Schematics", world.player, world.multiworld)
-            regions.append(questschematics)
-
-
-    if world.options.BuildBotSanity:
-        craftbotbuild = Region("Craftbot Build", world.player, world.multiworld)
-        cookbotbuild = Region("Cookbot Build", world.player, world.multiworld)
-        refinebotbuild = Region("Refinebot Build", world.player, world.multiworld)
-        dressbotbuild = Region("Dressbot Build", world.player, world.multiworld)
-        resourcecollectorbuild = Region("Resource Collector Build", world.player, world.multiworld)
-
-        regions.append(craftbotbuild)
-        regions.append(cookbotbuild)
-        regions.append(refinebotbuild)
-        regions.append(dressbotbuild)
-        regions.append(resourcecollectorbuild)
+        regions.append(scrapperquest)
 
 
     if world.options.BadBotSanity:
         earlybots= Region("Early Bots", world.player, world.multiworld)
-        redtotebot= Region("Red Totebot", world.player, world.multiworld)
-        yellowtotebot= Region("Yellow Totebot", world.player, world.multiworld)
-        bluetapebot= Region("Blue Tapebot", world.player, world.multiworld)
-        redtapebot= Region("Red Tapebot", world.player, world.multiworld)
-        greentapebot= Region("Green Tapebot", world.player, world.multiworld)
-        yellowtapebot= Region("Yellow Tapebot", world.player, world.multiworld)
+        totebots= Region("Totebots", world.player, world.multiworld)
+        tapebots= Region("Tapebots", world.player, world.multiworld)
         farmbot= Region("Farmbot", world.player, world.multiworld)
-        cablebot= Region("Cablebot", world.player, world.multiworld)
-        minerbot= Region("Minerbot", world.player, world.multiworld)
+        undergroundbots= Region("Under Ground Bots", world.player, world.multiworld)
 
         regions.append(earlybots)
-        regions.append(redtotebot)
-        regions.append(yellowtotebot)
-        regions.append(bluetapebot)
-        regions.append(redtapebot)
-        regions.append(greentapebot)
-        regions.append(yellowtapebot)
+        regions.append(totebots)
+        regions.append(tapebots)
         regions.append(farmbot)
-        regions.append(cablebot)
-        regions.append(minerbot)
+        regions.append(undergroundbots)
 
 
-    # Not Setup!!!!
-    #if world.options.SpudGunSanity:
-        #cottonplant = Region("Cotton Plant", world.player, world.multiworld)
+    if world.options.TraderSanity:
+        tradefarmers = Region("Trade Farmers", world.player, world.multiworld)
+        tradetomatoes = Region("Trade Tomatoes", world.player, world.multiworld)
+        tradecarrots = Region("Trade Carrots", world.player, world.multiworld)
+        traderedbeets = Region("Trade Redbeets", world.player, world.multiworld)
+        tradebananas = Region("Trade Bananas", world.player, world.multiworld)
+        tradeblueberries = Region("Trade Blueberries", world.player, world.multiworld)
+        tradeoranges = Region("Trade Oranges", world.player, world.multiworld)
+        tradebroccoli = Region("Trade Broccoli", world.player, world.multiworld)
+        tradepineapples = Region("Trade Pineapples", world.player, world.multiworld)
+
+        regions.append(tradefarmers)
+        regions.append(tradetomatoes)
+        regions.append(tradecarrots)
+        regions.append(traderedbeets)
+        regions.append(tradebananas)
+        regions.append(tradeblueberries)
+        regions.append(tradeoranges)
+        regions.append(tradebroccoli)
+        regions.append(tradepineapples)
+
+
+# -------------
 
 
 # Adds all regions to list
@@ -273,13 +202,77 @@ def connect_regions(world: ScrapMechanicWorld) -> None:
     ship = world.get_region("Crashed Ship")
     mechanic_station = world.get_region("Mechanic Station")
     basicfarm = world.get_region("Basic Farm")
+    startingvehicle = world.get_region("Starting Vehicle")
     basicvehicle = world.get_region("Basic Vehicle")
+    goodvechicle = world.get_region("Good Vehicle")
+    earlytrader = world.get_region("Early Trader")
+    trader = world.get_region("Trader")
+
+    craftbot = world.get_region("Craftbot")
+    refinebot = world.get_region("Refinebot")
+    cookbot = world.get_region("Cookbot")
+    dressbot = world.get_region("Dressbot")
+    schematicbot = world.get_region("Schematicbot")
+
+    lift = world.get_region("Lift")
+    sledgehammer = world.get_region("Sledge Hammer")
+    scrapspudgun = world.get_region("Scrap Spud Gun")
+    spudgun = world.get_region("Spud Gun")
+    bettergun = world.get_region("Better Gun")
+
+    metal1 = world.get_region("Metal 1")
+    metal2 = world.get_region("Metal 2")
+    metal3 = world.get_region("Metal 1")
+    wood1 = world.get_region("Wood 1")
+    wood2 = world.get_region("Wood 2")
+    wood3 = world.get_region("Wood 3")
+
+    glass = world.get_region("Metal 1")
+    ember = world.get_region("Metal 1")
+    honeycomb = world.get_region("Metal 1")
+    crudeoil = world.get_region("Metal 1")
+    chemicals = world.get_region("Metal 1")
+
+    mainquest1 = world.get_region("Main Quest 1")
+    mainquest2 = world.get_region("Main Quest 2")
+    mainquest3 = world.get_region("Main Quest 3")
+    mainquest4 = world.get_region("Main Quest 4")
+    mainquest5 = world.get_region("Main Quest 5")
+    mainquest6 = world.get_region("Main Quest 6")
+    mainquest7 = world.get_region("Main Quest 7")
+    mainquest8 = world.get_region("Main Quest 8")
+    mainquest9 = world.get_region("Main Quest 9")
 
 
     # Connects the regions
     ship.connect(mechanic_station, "Crashed Ship to Mechanic Station")
     mechanic_station.connect(basicfarm, "Mechanic Station to Basic Farm")
-    mechanic_station.connect(basicvehicle, "Mechanic Station to Basic Vehicle")
+    ship.connect(startingvehicle, "Crashed Ship to Starting Vehicle")
+    startingvehicle.connect(basicvehicle, "Starting Vehicle to Basic Vehicle")
+    basicvehicle.connect(goodvechicle, "Basic Vehicle to Good Vehicle")
+    startingvehicle.connect(earlytrader, "Starting Vehicle to Early Trader")
+    basicvehicle.connect(trader, "Basic Vehicle to Trader")
+
+    mechanic_station.connect(craftbot, "Mechanic Station to Craftbot")
+    metal1.connect(refinebot, "Metal 1 to Refinebot")
+    metal2.connect(cookbot, "Metal 2 to Cookbot")
+    mechanic_station.connect(dressbot, "Metal 2 to Dressbot")
+    basicvehicle.connect(schematicbot, "Basic Vehicle to Schematicbot")
+
+    ship.connect(lift, "Crashed Ship to Lift")
+    ship.connect(sledgehammer, "Crashed Ship to Sledge Hammer")
+
+    craftbot.connect(mainquest1, "Craftbot to Main Quest 1")
+    mainquest1.connect(mainquest2, "Main Quest 1 to Main Quest 2")
+    mainquest2.connect(mainquest3, "Main Quest 2 to Main Quest 3")
+    mainquest3.connect(mainquest4, "Main Quest 3 to Main Quest 4")
+    mainquest4.connect(mainquest5, "Main Quest 4 to Main Quest 5")
+    mainquest5.connect(mainquest6, "Main Quest 5 to Main Quest 6")
+    mainquest6.connect(mainquest7, "Main Quest 6 to Main Quest 7")
+    mainquest7.connect(mainquest8, "Main Quest 7 to Main Quest 8")
+    mainquest8.connect(mainquest9, "Main Quest 8 to Main Quest 9")
+
+
 
 
     for i in range(1, world.options.GrowlabAmount + 1):
@@ -297,113 +290,93 @@ def connect_regions(world: ScrapMechanicWorld) -> None:
         growlab_1.connect(growlab_2, f"Growlab {i} to Growlab {i+1}")
 
 
-    if world.options.RandomizePlantUnlocks:
-        cottonplant = world.get_region("Cotton Plant")
-        pigmentflowerplant = world.get_region("Pigment Flower Plant")
-        potatoplant = world.get_region("Potato Plant")
-        tomatoplant = world.get_region("Tomato Plant")
-        carrotplant = world.get_region("Carrot Plant")
-        redbeetplant = world.get_region("Redbeet Plant")
-        bananaplant = world.get_region("Banana Plant")
-        chiliplant = world.get_region("Chili Plant")
-        blueberryplant = world.get_region("Blueberry Plant")
-        orangeplant = world.get_region("Orange Plant")
-        broccoliplant = world.get_region("Broccoli Plant")
-        pineappleplant = world.get_region("Pineapple Plant")
-
-        basicfarm.connect(cottonplant, "Basic Farm to Cotton Plant")
-        basicfarm.connect(pigmentflowerplant, "Basic Farm to Pigment Flower Plant")
-        basicfarm.connect(potatoplant, "Basic Farm to Potato Plant")
-        basicfarm.connect(tomatoplant, "Basic Farm to Tomato Plant")
-        basicfarm.connect(carrotplant, "Basic Farm to Carrot Plant")
-        basicfarm.connect(redbeetplant, "Basic Farm to Redbeet Plant")
-        basicfarm.connect(bananaplant, "Basic Farm to Banana Plant")
-        basicfarm.connect(chiliplant, "Basic Farm to Chili Plant")
-        basicfarm.connect(blueberryplant, "Basic Farm to Blueberry Plant")
-        basicfarm.connect(orangeplant, "Basic Farm to Orange Plant")
-        basicfarm.connect(broccoliplant, "Basic Farm to Broccoli Plant")
-        basicfarm.connect(pineappleplant, "Basic Farm to Pineapple Plant")
-
-
     # Not Setup!!!!
-    #if world.options.TraderSanity:
+    #if world.options.SchematicBoxes:
         #cottonplant = world.get_region("Cotton Plant")
         #basicfarm.connect(cottonplant, "Basic Farm to Cotton Plant")
 
 
-    # Not Setup!!!!
-    #if world.options.QuestPlatform:
-        #cottonplant = world.get_region("Cotton Plant")
-        #basicfarm.connect(cottonplant, "Basic Farm to Cotton Plant")
+    if world.options.SupplyQuestSanity:
+        supplyquest1 = world.get_region("Supply Quest 1")
+        supplyquest2 = world.get_region("Supply Quest 2")
+        supplyquest3 = world.get_region("Supply Quest 3")
+        supplyquest4 = world.get_region("Supply Quest 4")
+        supplyquest5 = world.get_region("Supply Quest 5")
+        supplyquest6 = world.get_region("Supply Quest 6")
+        supplyquest7 = world.get_region("Supply Quest 7")
+        supplyquest8 = world.get_region("Supply Quest 8")
+
+        mainquest2.connect(supplyquest1, "Main Quest 2 to Supply Quest 1")
+        supplyquest1.connect(supplyquest2, "Main Quest 1 to Supply Quest 2")
+        supplyquest2.connect(supplyquest3, "Main Quest 2 to Supply Quest 3")
+        supplyquest3.connect(supplyquest4, "Main Quest 3 to Supply Quest 4")
+        supplyquest4.connect(supplyquest5, "Main Quest 4 to Supply Quest 5")
+        supplyquest5.connect(supplyquest6, "Main Quest 5 to Supply Quest 6")
+        supplyquest6.connect(supplyquest7, "Main Quest 6 to Supply Quest 7")
+        supplyquest7.connect(supplyquest8, "Main Quest 7 to Supply Quest 8")
 
 
-    # Not Setup!!!!
-    #if world.options.GarmentSanity:
-        #cottonplant = world.get_region("Cotton Plant")
-        #basicfarm.connect(cottonplant, "Basic Farm to Cotton Plant")
+    if world.options.FarmerQuestSanity:
+        farmquestearly = world.get_region("Farmer Quests Early")
+        farmquestlate = world.get_region("Farmer Quests Late")
+
+        basicvehicle.connect(farmquestearly, "Basic Vehicle to Farmer Quests Early")
+        mainquest5.connect(farmquestlate, "Main Quest 5 to Farmer Quests Late")
+        # Return Later
 
 
-    if world.options.BuildBotSanity:
-        craftbotbuild = world.get_region("Craftbot Build")
-        cookbotbuild = world.get_region("Cookbot Build")
-        refinebotbuild = world.get_region("Refinebot Build")
-        dressbotbuild = world.get_region("Dressbot Build")
-        resourcecollectorbuild = world.get_region("Resource Collector Build")
+    if world.options.ScrapperQuestSanity:
+        scrapperquest = world.get_region("Scrapper Quests")
 
-        mechanic_station.connect(craftbotbuild, "Mechanic Station to Craftbot Build")
-        mechanic_station.connect(cookbotbuild, "Mechanic Station to Cookbot Build")
-        mechanic_station.connect(refinebotbuild, "Mechanic Station to Refinebot Build")
-        mechanic_station.connect(dressbotbuild, "Mechanic Station to Dressbot Build")
-        mechanic_station.connect(resourcecollectorbuild, "Mechanic Station to Resource Collector Build")
-
-
-    if world.options.SchematicSanity:
-        initialschematics = world.get_region("Initial Schematics")
-
-        if world.options.BuildBotSanity:
-            craftbotbuild = world.get_region("Craftbot Build")
-            craftbotbuild.connect(initialschematics, "Craftbot Build to Initial Schematics")
-
-            # More Work!!!!
-            if world.options.SchematicIntensity > 1:
-                schematicboxes = world.get_region("Schematic Boxes")
-
-                # More Work!!!!
-                if world.options.SchematicIntensity > 2:
-                    questschematics = world.get_region("Quest Schematics")
-
-        if not world.options.BuildBotSanity:
-            mechanic_station.connect(initialschematics, "Mechanic Station to Initial Schematics")
-
-            # More Work!!!!
-            if world.options.SchematicIntensity > 1:
-                schematicboxes = world.get_region("Schematic Boxes")
-
-                # More Work!!!!
-                if world.options.SchematicIntensity > 2:
-                    questschematics = world.get_region("Quest Schematics")
+        mainquest5.connect(scrapperquest, "Main Quest 5 to Scrapper Quests")
+        # Return Later
 
 
     if world.options.BadBotSanity:
         earlybots = world.get_region("Early Bots")
-        redtotebot = world.get_region("Red Totebot")
-        yellowtotebot = world.get_region("Yellow Totebot")
-        bluetapebot = world.get_region("Blue Tapebot")
-        redtapebot = world.get_region("Red Tapebot")
-        greentapebot = world.get_region("Green Tapebot")
-        yellowtapebot = world.get_region("Yellow Tapebot")
+        totebots = world.get_region("Totebots")
+        tapebots = world.get_region("Tapebots")
         farmbot = world.get_region("Farmbot")
-        cablebot = world.get_region("Cablebot")
-        minerbot = world.get_region("Minerbot")
+        undergroundbots = world.get_region("Under Ground Bots")
 
         ship.connect(earlybots, "Crashed Ship to Early Bots")
-        # More Setup!!!!
+        ship.connect(totebots, "Crashed Ship to Early Bots")
+        ship.connect(tapebots, "Crashed Ship to Early Bots")
+        ship.connect(farmbot, "Crashed Ship to Early Bots")
+        ship.connect(undergroundbots, "Crashed Ship to Early Bots")
 
-    # Not Setup!!!!
-    #if world.options.SpudGunSanity:
-        #cottonplant = world.get_region("Cotton Plant")
-        #basicfarm.connect(cottonplant, "Basic Farm to Cotton Plant")
 
+    if world.options.TraderSanity:
+        tradefarmers = world.get_region("Trade Farmers")
+        tradetomatoes = world.get_region("Trade Tomatoes")
+        tradecarrots = world.get_region("Trade Carrots")
+        traderedbeets = world.get_region("Trade Redbeets")
+        tradebananas = world.get_region("Trade Bananas")
+        tradeblueberries = world.get_region("Trade Blueberries")
+        tradeoranges = world.get_region("Trade Oranges")
+        tradebroccoli = world.get_region("Trade Broccoli")
+        tradepineapples = world.get_region("Trade Pineapples")
+
+        trader.connect(tradefarmers, "Trader to Trade Farmers")
+        trader.connect(tradetomatoes, "Trader to Trade Tomatoes")
+        trader.connect(tradecarrots, "Trader to Trade Carrots")
+        trader.connect(traderedbeets, "Trader to Trade Redbeets")
+        trader.connect(tradebananas, "Trader to Trade Bananas")
+        trader.connect(tradeblueberries, "Trader to Trade Blueberries")
+        trader.connect(tradeoranges, "Trader to Trade Oranges")
+        trader.connect(tradebroccoli, "Trader to Trade Broccoli")
+        trader.connect(tradepineapples, "Trader to Trade Pineapples")
+
+
+    if world.options.SpudGunSanity:
+        ship.connect(scrapspudgun, "Crashed Ship to Scrap Spud Gun")
+        ship.connect(spudgun, "Crashed Ship to Spud Gun")
+        ship.connect(bettergun, "Crashed Ship to Better Gun")
+
+    if not world.options.SpudGunSanity:
+        sledgehammer.connect(scrapspudgun, "Sledge Hammer to Scrap Spud Gun")
+        scrapspudgun.connect(spudgun, "Scrap Spud Gun to Spud Gun")
+        spudgun.connect(bettergun, "Spud Gun to Better Gun")
 
 
 
