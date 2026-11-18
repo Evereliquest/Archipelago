@@ -6,10 +6,14 @@ class BasicTestLogic(TeardownTestBase):
     # WorldTestBase takes a dict of options and sets up a multiworld for you with a single world of your game.
     # The world will have the options you specified.
     options = {
-        "Mission Amount": 40,
-        "Randomize Starting Tools": False,
-        "Randomize Starting Level": False,
-        "Tool Upgrades": True,
-        "Valuable Sanity": False,
+        "MissionAmount": 39,
+        "StartingTool": False,
+        "AmountTools": 3,
+        "StartingLevel": False,
+        "AmountLevels": 1,
+        "OptionalObjectives": True,
+        "ToolUpgrades": True,
+        "BundleTrack": False,
+        "ValuableSanity": False,
 
     }
