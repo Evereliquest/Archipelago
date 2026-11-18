@@ -1,6 +1,7 @@
 from collections.abc import Mapping
 from typing import Any
 
+from BaseClasses import CollectionState, Item
 from worlds.AutoWorld import World
 
 from . import items, locations, regions, rules, web_world
@@ -10,8 +11,8 @@ from.items import item_name_groups
 
 class TeardownWorld(World):
     """
-    Teardown is a demolition and heist planning game where you work for clients doing jobs to get each other.
-    You're the one working for both sides, doing missions for one after destroying their stuff.
+    Teardown is a demolition and heist planning game where you work for clients doing jobs to get at one another.
+    You're the one working for both sides, doing missions for one after stealing their own stuff.
     """
 
     game = "Teardown"
@@ -54,3 +55,19 @@ class TeardownWorld(World):
             "FastGoal",
             "EasyGoal",
         ) | {"WorldVersion": list(self.world_version)}
+
+    def collect(self, state: "CollectionState", item: "Item") -> bool:
+        change = super().collect(state, item)
+        if change and "Cash Bundle" in item.name:
+            state.add_item("Cash", self.player, int(item.name.strip("Cash Bundle ")))
+        return change
+
+    def remove(self, state: "CollectionState", item: "Item") -> bool:
+        change = super().remove(state, item)
+        if change and "Cash Bundle" in item.name:
+            state.remove_item("Cash", self.player, int(item.name.strip("Cash Bundle ")))
+        return change
+
+
+
+
