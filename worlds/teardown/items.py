@@ -455,6 +455,7 @@ def create_item_with_correct_classification(world: TeardownWorld, name: str) -> 
 def create_all_items(world: TeardownWorld) -> None:
     itempool: list[Item] = [
 
+        #This makes $24,250
         world.create_item("Cash Bundle 50"),
         world.create_item("Cash Bundle 50"),
         world.create_item("Cash Bundle 50"),
@@ -708,7 +709,9 @@ def create_all_items(world: TeardownWorld) -> None:
         itempool.append(world.create_item("BlueTide Duration Upgrade"))
         itempool.append(world.create_item("BlueTide Duration Upgrade"))
 
-    if world.options.StartingTool:
+    if world.options.BundleTrack:
+
+        #This makes $31,500
         itempool.append(world.create_item("Cash Bundle 50"))
         itempool.append(world.create_item("Cash Bundle 50"))
         itempool.append(world.create_item("Cash Bundle 50"))
