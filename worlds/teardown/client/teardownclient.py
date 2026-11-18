@@ -59,7 +59,7 @@ for handler in logging.getLogger().handlers:
 
 class TeardownContext(CommonContext):
     game = "Teardown"
-    tags = CommonContext.tags | {"AP"}
+    tags = []
     items_handling = 0b111
     want_slot_data = True
     slot_data: dict[str, Any]
