@@ -5,7 +5,7 @@ from Options import PerGameCommonOptions, OptionGroup, Range, Toggle, DefaultOnT
 
 class MissionAmount(Range):
     """
-    Amount of levels required to complete goal
+    Amount of Missions required to complete goal
     """
     display_name = "Mission Amount"
 
@@ -35,7 +35,7 @@ class AmountTools(Range):
 
 class RandomizeStartingLevel(DefaultOnToggle):
     """
-    If enabled, the starting level is randomized, if not it is Old Building Problem.
+    If enabled, the starting level is randomized, if not it is Old Building Problem (the first level).
     """
     display_name = "Randomize Starting Level"
 
@@ -49,6 +49,12 @@ class AmountLevels(Range):
     range_end = 39
     default = 1
 
+class OptionalObjectives(DefaultOnToggle):
+    """
+    Randomize Optional Objectives
+    """
+    display_name = "Randomize Optional Objectives"
+
 #---
 
 class ToolUpgrades(DefaultOnToggle):
@@ -61,7 +67,7 @@ class ToolUpgrades(DefaultOnToggle):
 #    """
 #    Uses Cash Bundles for tool upgrade logic.
 #    This will treat tool upgrades as only in-logic once you've received enough cash from the bundles, and ignore possible valuable collection.
-#    Cash bundles with size above 20 will double to give you enough money for all upgrades.
+#    Cash bundles with size above 20 will double to give you excess money for all upgrades.
 #    """
 #    display_name = "Cash Bundle Tracking"
 
@@ -77,7 +83,7 @@ class ValuableSanity(Toggle):
 
 class FastGoal(Toggle):
    """
-   Unlocks the final level when you receive the required amount of mission unlocks, not when you complete the required amount of missions.
+   Unlocks the goal level when you receive the required amount of mission unlocks, not when you complete the required amount of missions.
    """
    display_name = "Fast Goal"
 
@@ -98,6 +104,7 @@ class TeardownOptions(PerGameCommonOptions):
 
     StartingLevel: RandomizeStartingLevel
     AmountLevels: AmountLevels
+    OptionalObjectives: OptionalObjectives
 
     ToolUpgrades: ToolUpgrades
     # BundleTrack: BundleTrack
@@ -115,7 +122,7 @@ option_groups = [
     ),
     OptionGroup(
         "Gameplay Options",
-        [RandomizeStartingTools, AmountTools, RandomizeStartingLevel, AmountLevels, ToolUpgrades,
+        [RandomizeStartingTools, AmountTools, RandomizeStartingLevel, AmountLevels, OptionalObjectives, ToolUpgrades,
          #BundleTrack,
          ValuableSanity],
     ),
