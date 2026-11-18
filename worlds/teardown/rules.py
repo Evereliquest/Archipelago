@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from BaseClasses import CollectionState
 from rule_builder.field_resolvers import FromOption
 from rule_builder.rules import Has, HasGroup
 from .options import MissionAmount
@@ -163,45 +164,6 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_finaldiversion,      HasGroup("Levels", count=FromOption(MissionAmount)) & HasGroup("Destruction Tools", count=3))
 
 
-
-
-
-
-    if world.options.ToolUpgrades:
-        #if world.options.BundleTrack:
-
-            menu_to_blowtorchupgrade = world.get_entrance("Main Menu to Blowtorch Upgrades")
-            menu_to_shotgunupgrade = world.get_entrance("Main Menu to Shotgun Upgrades")
-            menu_to_plankupgrade = world.get_entrance("Main Menu to Plank Upgrades")
-            menu_to_pipebombupgrade = world.get_entrance("Main Menu to Pipe Bomb Upgrades")
-            menu_to_gunupgrade = world.get_entrance("Main Menu to Gun Upgrades")
-            menu_to_bombupgrade = world.get_entrance("Main Menu to Bomb Upgrades")
-            menu_to_rocketlauncherupgrade = world.get_entrance("Main Menu to Rocket Launcher Upgrades")
-            menu_to_rocketboosterupgrade = world.get_entrance("Main Menu to Rocket Booster Upgrades")
-            menu_to_leafblowerupgrade = world.get_entrance("Main Menu to Leaf Blower Upgrades")
-            menu_to_cableupgrade = world.get_entrance("Main Menu to Cable Upgrades")
-            menu_to_vehiclethrusterupgrade = world.get_entrance("Main Menu to Vehicle Thruster Upgrades")
-            menu_to_nitroglycerinupgrade = world.get_entrance("Main Menu to Nitroglycerin Upgrades")
-            menu_to_huntingrifleupgrade = world.get_entrance("Main Menu to Hunting Rifle Upgrades")
-            menu_to_bluetideupgrade = world.get_entrance("Main Menu to BlueTide Upgrades")
-
-            world.set_rule(menu_to_blowtorchupgrade, Has("Blowtorch Unlock"))
-            world.set_rule(menu_to_shotgunupgrade, Has("Shotgun Unlock"))
-            world.set_rule(menu_to_plankupgrade, Has("Plank Unlock"))
-            world.set_rule(menu_to_pipebombupgrade, Has("Pipe Bomb Unlock"))
-            world.set_rule(menu_to_gunupgrade, Has("Gun Unlock"))
-            world.set_rule(menu_to_bombupgrade, Has("Bomb Unlock"))
-            world.set_rule(menu_to_rocketlauncherupgrade, Has("Rocket Launcher Unlock"))
-            world.set_rule(menu_to_rocketboosterupgrade, Has("Rocket Booster Unlock"))
-            world.set_rule(menu_to_leafblowerupgrade, Has("Leaf Blower Unlock"))
-            world.set_rule(menu_to_cableupgrade, Has("Cable Unlock"))
-            world.set_rule(menu_to_vehiclethrusterupgrade, Has("Vehicle Thruster Unlock"))
-            world.set_rule(menu_to_nitroglycerinupgrade, Has("Nitroglycerin Unlock"))
-            world.set_rule(menu_to_huntingrifleupgrade, Has("Hunting Rifle Unlock"))
-            world.set_rule(menu_to_bluetideupgrade, Has("BlueTide Unlock"))
-
-
-
     if world.options.ValuableSanity:
         menu_to_leevaluable = world.get_entrance("Main Menu to Lee Valuables")
         leevaluable_to_leevaluablehard = world.get_entrance("Lee Valuables to Lee Valuables Harder")
@@ -280,6 +242,246 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         hollowrockvaluable_to_hollowrockvaluableevenharder = world.get_entrance("Hollowrock Valuables to Hollowrock Valuables Even Harder")
         world.set_rule(hollowrockvaluable_to_hollowrockvaluableevenharder, HasGroup("Hollowrock Island Unlock", count=1))
 
+
+def set_all_location_rules(world: TeardownWorld) -> None:
+
+    if world.options.ToolUpgrades:
+        if world.options.BundleTrack:
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 1"), Has("Cash", 100))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 2"), Has("Cash", 200))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 3"), Has("Cash", 300))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 4"), Has("Cash", 400))
+
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 1"), Has("Cash", 600))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 2"), Has("Cash", 800))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 3"), Has("Cash", 1000))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 4"), Has("Cash", 1200))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 5"), Has("Cash", 1400))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 6"), Has("Cash", 1600))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 7"), Has("Cash", 1800))
+
+            world.set_rule(world.get_location("Shotgun Range Upgrade 1"), Has("Cash", 2100))
+            world.set_rule(world.get_location("Shotgun Range Upgrade 2"), Has("Cash", 2400))
+
+            world.set_rule(world.get_location("Shotgun Damage Upgrade 1"), Has("Cash", 2800))
+            world.set_rule(world.get_location("Shotgun Damage Upgrade 2"), Has("Cash", 3200))
+
+            world.set_rule(world.get_location("Plank Amount Upgrade 1"), Has("Cash", 3350))
+            world.set_rule(world.get_location("Plank Amount Upgrade 2"), Has("Cash", 3500))
+            world.set_rule(world.get_location("Plank Amount Upgrade 3"), Has("Cash", 3650))
+            world.set_rule(world.get_location("Plank Amount Upgrade 4"), Has("Cash", 3800))
+            world.set_rule(world.get_location("Plank Amount Upgrade 5"), Has("Cash", 3950))
+            world.set_rule(world.get_location("Plank Amount Upgrade 6"), Has("Cash", 4100))
+            world.set_rule(world.get_location("Plank Amount Upgrade 7"), Has("Cash", 4250))
+
+            world.set_rule(world.get_location("Plank Width Upgrade 1"), Has("Cash", 4450))
+            world.set_rule(world.get_location("Plank Width Upgrade 2"), Has("Cash", 4650))
+
+            world.set_rule(world.get_location("Plank Max Length Upgrade 1"), Has("Cash", 4950))
+            world.set_rule(world.get_location("Plank Max Length Upgrade 2"), Has("Cash", 5250))
+            world.set_rule(world.get_location("Plank Max Length Upgrade 3"), Has("Cash", 5550))
+
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 1"), Has("Cash", 5750))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 2"), Has("Cash", 5950))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 3"), Has("Cash", 6150))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 4"), Has("Cash", 6350))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 5"), Has("Cash", 6550))
+
+            world.set_rule(world.get_location("Pipe Bomb Blast Upgrade 1"), Has("Cash", 7050))
+            world.set_rule(world.get_location("Pipe Bomb Blast Upgrade 2"), Has("Cash", 7550))
+
+            world.set_rule(world.get_location("Gun Rounds Upgrade 1"), Has("Cash", 7750))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 2"), Has("Cash", 7950))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 3"), Has("Cash", 8150))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 4"), Has("Cash", 8350))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 5"), Has("Cash", 8550))
+
+            world.set_rule(world.get_location("Gun Range Upgrade 1"), Has("Cash", 8850))
+            world.set_rule(world.get_location("Gun Range Upgrade 2"), Has("Cash", 9150))
+            world.set_rule(world.get_location("Gun Range Upgrade 3"), Has("Cash", 9450))
+
+            world.set_rule(world.get_location("Gun Damage Upgrade 1"), Has("Cash", 9750))
+            world.set_rule(world.get_location("Gun Damage Upgrade 2"), Has("Cash", 10050))
+
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 1"), Has("Cash", 10450))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 2"), Has("Cash", 10850))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 3"), Has("Cash", 11250))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 4"), Has("Cash", 11650))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 5"), Has("Cash", 12050))
+
+            world.set_rule(world.get_location("Bomb Blast Upgrade 1"), Has("Cash", 12550))
+            world.set_rule(world.get_location("Bomb Blast Upgrade 2"), Has("Cash", 13050))
+
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 1"), Has("Cash", 13550))
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 2"), Has("Cash", 14050))
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 3"), Has("Cash", 14550))
+
+            world.set_rule(world.get_location("Rocket Launcher Blast Upgrade 1"), Has("Cash", 15300))
+            world.set_rule(world.get_location("Rocket Launcher Blast Upgrade 2"), Has("Cash", 16050))
+
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 1"), Has("Cash", 16550))
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 2"), Has("Cash", 17050))
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 3"), Has("Cash", 17550))
+
+            world.set_rule(world.get_location("Rocket Booster Power Upgrade 1"), Has("Cash", 18300))
+            world.set_rule(world.get_location("Rocket Booster Power Upgrade 2"), Has("Cash", 19050))
+
+            world.set_rule(world.get_location("Rocket Booster Time Upgrade 1"), Has("Cash", 19800))
+            world.set_rule(world.get_location("Rocket Booster Time Upgrade 2"), Has("Cash", 20550))
+
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 1"), Has("Cash", 20750))
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 2"), Has("Cash", 20950))
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 3"), Has("Cash", 21150))
+
+            world.set_rule(world.get_location("Cable Amount Upgrade 1"), Has("Cash", 21450))
+            world.set_rule(world.get_location("Cable Amount Upgrade 2"), Has("Cash", 21750))
+            world.set_rule(world.get_location("Cable Amount Upgrade 3"), Has("Cash", 22050))
+
+            world.set_rule(world.get_location("Cable Stretch Upgrade 1"), Has("Cash", 22450))
+            world.set_rule(world.get_location("Cable Stretch Upgrade 2"), Has("Cash", 22850))
+
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 1"), Has("Cash", 23350))
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 2"), Has("Cash", 23850))
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 3"), Has("Cash", 24350))
+
+            world.set_rule(world.get_location("Vehicle Thruster Power Upgrade 1"), Has("Cash", 25100))
+            world.set_rule(world.get_location("Vehicle Thruster Power Upgrade 2"), Has("Cash", 25850))
+
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 1"), Has("Cash", 26250))
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 2"), Has("Cash", 26650))
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 3"), Has("Cash", 27050))
+
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 1"), Has("Cash", 27650))
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 2"), Has("Cash", 28250))
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 3"), Has("Cash", 28850))
+
+            world.set_rule(world.get_location("Hunting Rifle Rounds Upgrade 1"), Has("Cash", 29250))
+            world.set_rule(world.get_location("Hunting Rifle Rounds Upgrade 2"), Has("Cash", 29650))
+
+            world.set_rule(world.get_location("BlueTide Bottles Upgrade 1"), Has("Cash", 30250))
+            world.set_rule(world.get_location("BlueTide Bottles Upgrade 2"), Has("Cash", 30850))
+
+            world.set_rule(world.get_location("BlueTide Duration Upgrade 1"), Has("Cash", 31650))
+            world.set_rule(world.get_location("BlueTide Duration Upgrade 2"), Has("Cash", 32450))
+
+
+        else:
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 1"), Has("Blowtorch Fuel Upgrade", count=1))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 2"), Has("Blowtorch Fuel Upgrade", count=2))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 3"), Has("Blowtorch Fuel Upgrade", count=3))
+            world.set_rule(world.get_location("Blowtorch Fuel Upgrade 4"), Has("Blowtorch Fuel Upgrade", count=4))
+
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 1"), Has("Shotgun Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 2"), Has("Shotgun Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 3"), Has("Shotgun Rounds Upgrade", count=3))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 4"), Has("Shotgun Rounds Upgrade", count=4))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 5"), Has("Shotgun Rounds Upgrade", count=5))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 6"), Has("Shotgun Rounds Upgrade", count=6))
+            world.set_rule(world.get_location("Shotgun Rounds Upgrade 7"), Has("Shotgun Rounds Upgrade", count=7))
+
+            world.set_rule(world.get_location("Shotgun Range Upgrade 1"), Has("Shotgun Range Upgrade", count=1))
+            world.set_rule(world.get_location("Shotgun Range Upgrade 2"), Has("Shotgun Range Upgrade", count=2))
+
+            world.set_rule(world.get_location("Shotgun Damage Upgrade 1"), Has("Shotgun Damage Upgrade", count=1))
+            world.set_rule(world.get_location("Shotgun Damage Upgrade 2"), Has("Shotgun Damage Upgrade", count=2))
+
+            world.set_rule(world.get_location("Plank Amount Upgrade 1"), Has("Plank Amount Upgrade", count=1))
+            world.set_rule(world.get_location("Plank Amount Upgrade 2"), Has("Plank Amount Upgrade", count=2))
+            world.set_rule(world.get_location("Plank Amount Upgrade 3"), Has("Plank Amount Upgrade", count=3))
+            world.set_rule(world.get_location("Plank Amount Upgrade 4"), Has("Plank Amount Upgrade", count=4))
+            world.set_rule(world.get_location("Plank Amount Upgrade 5"), Has("Plank Amount Upgrade", count=5))
+            world.set_rule(world.get_location("Plank Amount Upgrade 6"), Has("Plank Amount Upgrade", count=6))
+            world.set_rule(world.get_location("Plank Amount Upgrade 7"), Has("Plank Amount Upgrade", count=7))
+
+            world.set_rule(world.get_location("Plank Width Upgrade 1"), Has("Plank Width Upgrade", count=1))
+            world.set_rule(world.get_location("Plank Width Upgrade 2"), Has("Plank Width Upgrade", count=2))
+
+            world.set_rule(world.get_location("Plank Max Length Upgrade 1"), Has("Plank Max Length Upgrade", count=1))
+            world.set_rule(world.get_location("Plank Max Length Upgrade 2"), Has("Plank Max Length Upgrade", count=2))
+            world.set_rule(world.get_location("Plank Max Length Upgrade 3"), Has("Plank Max Length Upgrade", count=3))
+
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 1"), Has("Pipe Bomb Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 2"), Has("Pipe Bomb Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 3"), Has("Pipe Bomb Rounds Upgrade", count=3))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 4"), Has("Pipe Bomb Rounds Upgrade", count=4))
+            world.set_rule(world.get_location("Pipe Bomb Rounds Upgrade 5"), Has("Pipe Bomb Rounds Upgrade", count=5))
+
+            world.set_rule(world.get_location("Pipe Bomb Blast Upgrade 1"), Has("Pipe Bomb Blast Upgrade", count=1))
+            world.set_rule(world.get_location("Pipe Bomb Blast Upgrade 2"), Has("Pipe Bomb Blast Upgrade", count=2))
+
+            world.set_rule(world.get_location("Gun Rounds Upgrade 1"), Has("Gun Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 2"), Has("Gun Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 3"), Has("Gun Rounds Upgrade", count=3))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 4"), Has("Gun Rounds Upgrade", count=4))
+            world.set_rule(world.get_location("Gun Rounds Upgrade 5"), Has("Gun Rounds Upgrade", count=5))
+
+            world.set_rule(world.get_location("Gun Range Upgrade 1"), Has("Gun Range Upgrade", count=1))
+            world.set_rule(world.get_location("Gun Range Upgrade 2"), Has("Gun Range Upgrade", count=2))
+            world.set_rule(world.get_location("Gun Range Upgrade 3"), Has("Gun Range Upgrade", count=3))
+
+            world.set_rule(world.get_location("Gun Damage Upgrade 1"), Has("Gun Damage Upgrade", count=1))
+            world.set_rule(world.get_location("Gun Damage Upgrade 2"), Has("Gun Damage Upgrade", count=2))
+
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 1"), Has("Bomb Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 2"), Has("Bomb Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 3"), Has("Bomb Rounds Upgrade", count=3))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 4"), Has("Bomb Rounds Upgrade", count=4))
+            world.set_rule(world.get_location("Bomb Rounds Upgrade 5"), Has("Bomb Rounds Upgrade", count=5))
+
+            world.set_rule(world.get_location("Bomb Blast Upgrade 1"), Has("Bomb Blast Upgrade", count=1))
+            world.set_rule(world.get_location("Bomb Blast Upgrade 2"), Has("Bomb Blast Upgrade", count=2))
+
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 1"), Has("Rocket Launcher Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 2"), Has("Rocket Launcher Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Rocket Launcher Rounds Upgrade 3"), Has("Rocket Launcher Rounds Upgrade", count=3))
+
+            world.set_rule(world.get_location("Rocket Launcher Blast Upgrade 1"), Has("Rocket Launcher Blast Upgrade", count=1))
+            world.set_rule(world.get_location("Rocket Launcher Blast Upgrade 2"), Has("Rocket Launcher Blast Upgrade", count=2))
+
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 1"), Has("Rocket Booster Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 2"), Has("Rocket Booster Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Rocket Booster Rounds Upgrade 3"), Has("Rocket Booster Rounds Upgrade", count=3))
+
+            world.set_rule(world.get_location("Rocket Booster Power Upgrade 1"), Has("Rocket Booster Power Upgrade", count=1))
+            world.set_rule(world.get_location("Rocket Booster Power Upgrade 2"), Has("Rocket Booster Power Upgrade", count=2))
+
+            world.set_rule(world.get_location("Rocket Booster Time Upgrade 1"), Has("Rocket Booster Time Upgrade", count=1))
+            world.set_rule(world.get_location("Rocket Booster Time Upgrade 2"), Has("Rocket Booster Time Upgrade", count=2))
+
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 1"), Has("Leaf Blower Power Upgrade", count=1))
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 2"), Has("Leaf Blower Power Upgrade", count=2))
+            world.set_rule(world.get_location("Leaf Blower Power Upgrade 3"), Has("Leaf Blower Power Upgrade", count=3))
+
+            world.set_rule(world.get_location("Cable Amount Upgrade 1"), Has("Cable Amount Upgrade", count=1))
+            world.set_rule(world.get_location("Cable Amount Upgrade 2"), Has("Cable Amount Upgrade", count=2))
+            world.set_rule(world.get_location("Cable Amount Upgrade 3"), Has("Cable Amount Upgrade", count=3))
+
+            world.set_rule(world.get_location("Cable Stretch Upgrade 1"), Has("Cable Stretch Upgrade", count=1))
+            world.set_rule(world.get_location("Cable Stretch Upgrade 2"), Has("Cable Stretch Upgrade", count=2))
+
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 1"), Has("Vehicle Thruster Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 2"), Has("Vehicle Thruster Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Vehicle Thruster Rounds Upgrade 3"), Has("Vehicle Thruster Rounds Upgrade", count=3))
+
+            world.set_rule(world.get_location("Vehicle Thruster Power Upgrade 1"), Has("Vehicle Thruster Power Upgrade", count=1))
+            world.set_rule(world.get_location("Vehicle Thruster Power Upgrade 2"), Has("Vehicle Thruster Power Upgrade", count=2))
+
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 1"), Has("Nitroglycerin Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 2"), Has("Nitroglycerin Rounds Upgrade", count=2))
+            world.set_rule(world.get_location("Nitroglycerin Rounds Upgrade 3"), Has("Nitroglycerin Rounds Upgrade", count=3))
+
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 1"), Has("Nitroglycerin Blast Upgrade", count=1))
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 2"), Has("Nitroglycerin Blast Upgrade", count=2))
+            world.set_rule(world.get_location("Nitroglycerin Blast Upgrade 3"), Has("Nitroglycerin Blast Upgrade", count=3))
+
+            world.set_rule(world.get_location("Hunting Rifle Rounds Upgrade 1"), Has("Hunting Rifle Rounds Upgrade", count=1))
+            world.set_rule(world.get_location("Hunting Rifle Rounds Upgrade 2"), Has("Hunting Rifle Rounds Upgrade", count=2))
+
+            world.set_rule(world.get_location("BlueTide Bottles Upgrade 1"), Has("BlueTide Bottles Upgrade", count=1))
+            world.set_rule(world.get_location("BlueTide Bottles Upgrade 2"), Has("BlueTide Bottles Upgrade", count=2))
+
+            world.set_rule(world.get_location("BlueTide Duration Upgrade 1"), Has("BlueTide Duration Upgrade", count=1))
+            world.set_rule(world.get_location("BlueTide Duration Upgrade 2"), Has("BlueTide Duration Upgrade", count=2))
 
 
 def set_completion_condition(world: TeardownWorld) -> None:
