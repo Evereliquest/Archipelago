@@ -519,7 +519,6 @@ class TeardownContext(CommonContext):
 
             # Cycle through ALL groups automatically
             for group_name, location_ids in Mission_Checked_Locations.items():
-
                 prereq_id = location_ids["prereq_id"]
                 location_ids = location_ids["locations"]
 
@@ -527,14 +526,26 @@ class TeardownContext(CommonContext):
                 if prereq_id not in received_item_ids:
                     group_results[prereq_id] = 0
                     continue
+
                 # Count the checked locations
                 found_count = 0
                 for loc_id in location_ids:
                     if loc_id in self.checked_locations:
                         found_count += 1
 
+                m_index = prereq_id - 1
+                if m_index is not None:
+                    bit_to_check = 1 << m_index
+                    is_completed_server = (self.mission_bitmask & bit_to_check) != 0
+
+                    # If not completed server-side, reduce the objective count by 1
+                    if not is_completed_server and found_count > 0:
+                        found_count -= 1
+
                 # Save the final tally
                 group_results[prereq_id] = found_count
+                print(f"Missions Checked: Group Name {group_name}, Found Count {found_count}, M Index {m_index}")#, Completed Server side {is_completed_server}")
+
             return group_results
 
 
