@@ -298,10 +298,6 @@ item_name_groups = {
         "Covert Chaos Unlock",
         "The Chase Unlock",
         "Roborazzi Unlock",
-        "The Alarm System Unlock",
-        "Moving The Goods Unlock",
-        "Havoc In Paradise Unlock",
-        "Elena's Revenge Unlock",
     ],
 
     "Tools": [
@@ -446,7 +442,8 @@ def get_random_filler_item_name(world: TeardownWorld) -> str:
 
 def create_item_with_correct_classification(world: TeardownWorld, name: str) -> TeardownItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
-    if name == "Elena's Revenge Unlock":
+
+    if name in item_name_groups["Cash Bundle"] and world.options.BundleTrack:
         classification = ItemClassification.progression
 
     return TeardownItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
@@ -455,12 +452,7 @@ def create_item_with_correct_classification(world: TeardownWorld, name: str) -> 
 def create_all_items(world: TeardownWorld) -> None:
     itempool: list[Item] = [
 
-        #This makes $24,250
-        world.create_item("Cash Bundle 50"),
-        world.create_item("Cash Bundle 50"),
-        world.create_item("Cash Bundle 50"),
-        world.create_item("Cash Bundle 50"),
-        world.create_item("Cash Bundle 50"),
+        #This makes $21,000
         world.create_item("Cash Bundle 50"),
         world.create_item("Cash Bundle 50"),
         world.create_item("Cash Bundle 50"),
@@ -477,11 +469,6 @@ def create_all_items(world: TeardownWorld) -> None:
         world.create_item("Cash Bundle 50"),
         world.create_item("Cash Bundle 50"),
 
-        world.create_item("Cash Bundle 100"),
-        world.create_item("Cash Bundle 100"),
-        world.create_item("Cash Bundle 100"),
-        world.create_item("Cash Bundle 100"),
-        world.create_item("Cash Bundle 100"),
         world.create_item("Cash Bundle 100"),
         world.create_item("Cash Bundle 100"),
         world.create_item("Cash Bundle 100"),
@@ -523,6 +510,7 @@ def create_all_items(world: TeardownWorld) -> None:
         world.create_item("Cash Bundle 1000"),
         world.create_item("Cash Bundle 1000"),
 
+        world.create_item("Cash Bundle 3000"),
         world.create_item("Cash Bundle 3000"),
     ]
 
@@ -711,79 +699,7 @@ def create_all_items(world: TeardownWorld) -> None:
 
     if world.options.BundleTrack:
 
-        #This makes $31,500
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-        itempool.append(world.create_item("Cash Bundle 50"))
-
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-        itempool.append(world.create_item("Cash Bundle 100"))
-
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-        itempool.append(world.create_item("Cash Bundle 250"))
-
-        itempool.append(world.create_item("Cash Bundle 500"))
-        itempool.append(world.create_item("Cash Bundle 500"))
-        itempool.append(world.create_item("Cash Bundle 500"))
-        itempool.append(world.create_item("Cash Bundle 500"))
+        #This makes $20,750
         itempool.append(world.create_item("Cash Bundle 500"))
         itempool.append(world.create_item("Cash Bundle 500"))
         itempool.append(world.create_item("Cash Bundle 500"))
@@ -791,8 +707,6 @@ def create_all_items(world: TeardownWorld) -> None:
         itempool.append(world.create_item("Cash Bundle 500"))
         itempool.append(world.create_item("Cash Bundle 500"))
 
-        itempool.append(world.create_item("Cash Bundle 750"))
-        itempool.append(world.create_item("Cash Bundle 750"))
         itempool.append(world.create_item("Cash Bundle 750"))
         itempool.append(world.create_item("Cash Bundle 750"))
         itempool.append(world.create_item("Cash Bundle 750"))
