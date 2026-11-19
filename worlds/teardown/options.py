@@ -67,7 +67,7 @@ class BundleTrack(Toggle):
    """
    Uses Cash Bundles for tool upgrade logic.
    This will treat tool upgrades as only in-logic once you've received enough cash from the bundles, and ignore possible valuable collection.
-   Cash bundles with size above 20 will double to give you excess money for all upgrades.
+   There is roughly twice as much cash included to make logic easier for generation. ($41,000~ with $33,000~ Needed)
    """
    display_name = "Cash Bundle Tracking"
 
