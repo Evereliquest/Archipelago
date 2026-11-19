@@ -50,7 +50,7 @@ class TeardownWorld(World):
         return self.options.as_dict(
             "MissionAmount",
             "ToolUpgrades",
-            #"BundleTrack",
+            "BundleTrack",
             "ValuableSanity",
             "FastGoal",
             "EasyGoal",
