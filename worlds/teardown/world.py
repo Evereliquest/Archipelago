@@ -48,12 +48,25 @@ class TeardownWorld(World):
     def fill_slot_data(self) -> Mapping[str, Any]:
         # If you need access to the player's chosen options on the client side, there is a helper for that.
         return self.options.as_dict(
+
+            "CampaignSelection",
+            "GoalSelection",
             "MissionAmount",
+            "CampaignAmount",
+            "ItemPercentage",
+            "FastGoal"
+             #"EasyGoal",
+
             "ToolUpgrades",
             "BundleTrack",
             "ValuableSanity",
-            "FastGoal",
-            "EasyGoal",
+
+            "StartingTool",
+            "AmountTools",
+            "StartingLevel",
+            "AmountLevels",
+            "OptionalObjectives",
+
         ) | {"WorldVersion": list(self.world_version)}
 
     def collect(self, state: "CollectionState", item: "Item") -> bool:
