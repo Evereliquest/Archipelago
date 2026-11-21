@@ -158,7 +158,7 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         menu_to_leevaluable = world.get_entrance("Main Menu to Lee Valuables")
         leevaluable_to_leevaluablehard = world.get_entrance("Lee Valuables to Lee Valuables Harder")
         leevaluable_to_leevaluablecomputers = world.get_entrance("Lee Valuables to Lee Valuables Computers")
-        leevaluable_to_leevaluablewoonderland = world.get_entrance("Lee Valuables to Lee Valuables Woonderland")
+        menu_to_leevaluablewoonderland = world.get_entrance("Main Menu to Lee Valuables Woonderland")
 
         menu_to_marinavaluable = world.get_entrance("Main Menu to Marina Valuables")
         marinavaluable_to_marinavaluablehard = world.get_entrance("Marina Valuables to Marina Valuables Harder")
@@ -191,7 +191,7 @@ def set_all_entrance_rules(world: TeardownWorld) -> None:
         world.set_rule(menu_to_leevaluable, HasGroup("Lee Chemicals Unlock", count=1))
         world.set_rule(leevaluable_to_leevaluablehard, HasGroup("Wall Opening Tools", count=1) & HasGroup("Destruction Tools", count=1))
         world.set_rule(leevaluable_to_leevaluablecomputers, Has("Lee Computers Unlock"))
-        world.set_rule(leevaluable_to_leevaluablewoonderland, Has("Malice In Woonderland Unlock") & HasGroup("Wall Opening Tools", count=1))
+        world.set_rule(menu_to_leevaluablewoonderland, Has("Malice In Woonderland Unlock") & HasGroup("Wall Opening Tools", count=1))
 
         world.set_rule(menu_to_marinavaluable, HasGroup("West Point Marina Unlock", count=1))
         world.set_rule(marinavaluable_to_marinavaluablehard, HasGroup("West Point Marina Unlock", count=1) & HasGroup("Wall Opening Tools", count=1) & HasGroup("Destruction Tools", count=1))
