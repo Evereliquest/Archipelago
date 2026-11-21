@@ -183,6 +183,14 @@ class ValuableSanity(Toggle):
    """
    display_name = "Valuable Sanity"
 
+#---
+
+class TimeValuableSanity(Toggle):
+   """
+   Creates a location for every souvenir in the Time Campers campaign (----).
+   """
+   display_name = "Time Campers Souvenir Sanity"
+
 
 
 @dataclass
@@ -204,6 +212,8 @@ class TeardownOptions(PerGameCommonOptions):
     ToolUpgrades: ToolUpgrades
     BundleTrack: BundleTrack
     ValuableSanity: ValuableSanity
+
+    TimeValuableSanity: TimeValuableSanity
 
 
 option_groups = [
@@ -230,8 +240,9 @@ option_groups = [
         ValuableSanity,
     ], ),
 
-    #OptionGroup("Time Campers Options", [
-    #], ),
+    OptionGroup("Time Campers Options", [
+        TimeValuableSanity,
+    ], ),
 ]
 
 
