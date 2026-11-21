@@ -340,7 +340,6 @@ item_name_groups = {
         "The Tower Unlock",
         "Power Outage Unlock",
         "Flooding Unlock",
-        "Malice In Woonderland Unlock",
     ],
 
     "West Point Marina Unlock": [
