@@ -81,6 +81,8 @@ def create_all_regions(world: TeardownWorld) -> None:
             regions.append(Region("BlueTide Upgrades", world.player, world.multiworld))
 
         if world.options.ValuableSanity:
+            regions.append(Region("Base Game Hub Valuables", world.player, world.multiworld))
+
             regions.append(Region("Lee Valuables", world.player, world.multiworld))
             regions.append(Region("Lee Valuables Harder", world.player, world.multiworld))
             regions.append(Region("Lee Valuables Computers", world.player, world.multiworld))
@@ -122,9 +124,18 @@ def create_all_regions(world: TeardownWorld) -> None:
         regions.append(Region("Preemptive Prohibition", world.player, world.multiworld))
         regions.append(Region("Tumbling Around", world.player, world.multiworld))
         regions.append(Region("Greasing the Gears", world.player, world.multiworld))
-        regions.append(Region("Motivational Reminder", world.player, world.multiworld))
+        regions.append(Region("Time Motivational Reminder", world.player, world.multiworld))
         regions.append(Region("Four Stolen Hooves", world.player, world.multiworld))
         regions.append(Region("Cho-Choosing Path", world.player, world.multiworld))
+
+        if world.options.TimeValuableSanity:
+            regions.append(Region("Hub Valuables", world.player, world.multiworld))
+            regions.append(Region("Hub Valuables Hard", world.player, world.multiworld))
+
+            regions.append(Region("Combustown Valuables", world.player, world.multiworld))
+
+            regions.append(Region("Mineral Ravine Valuables", world.player, world.multiworld))
+
 
 
     # Adds all regions to list
@@ -194,6 +205,7 @@ def connect_regions(world: TeardownWorld) -> None:
             menu.connect(world.get_region("BlueTide Upgrades"), "Main Menu to BlueTide Upgrades")
 
         if world.options.ValuableSanity:
+            basehubvaluables = world.get_region("Base Game Hub Valuables")
             leevaluable = world.get_region("Lee Valuables")
             leevaluablewoonderland = world.get_region("Lee Valuables Woonderland")
             marinavaluable = world.get_region("Marina Valuables")
@@ -205,6 +217,7 @@ def connect_regions(world: TeardownWorld) -> None:
             islavaluable = world.get_region("Isla Valuables")
 
 
+            menu.connect(basehubvaluables, "Main Menu to Base Game Hub Valuables")
             menu.connect(leevaluable, "Main Menu to Lee Valuables")
             menu.connect(leevaluablewoonderland, "Main Menu to Lee Valuables Woonderland")
             menu.connect(marinavaluable, "Main Menu to Marina Valuables")
@@ -241,3 +254,23 @@ def connect_regions(world: TeardownWorld) -> None:
 
             islavaluable.connect(world.get_region("Isla Valuables Harder"), "Isla Valuables to Isla Valuables Harder")
 
+    if "Time Campers" in world.options.CampaignSelection:
+        menu.connect(world.get_region("Stocking Up"), "Main Menu to Stocking Up")
+        menu.connect(world.get_region("Going Volatile"), "Main Menu to Going Volatile")
+        menu.connect(world.get_region("Hiding Traces"), "Main Menu to Hiding Traces")
+        menu.connect(world.get_region("Preemptive Prohibition"), "Main Menu to Stocking Up")
+        menu.connect(world.get_region("Tumbling Around"), "Main Menu to Tumbling Around")
+        menu.connect(world.get_region("Greasing the Gears"), "Main Menu to Greasing the Gears")
+        menu.connect(world.get_region("Time Motivational Reminder"), "Main Menu to Time Motivational Reminder")
+        menu.connect(world.get_region("Four Stolen Hooves"), "Main Menu to Four Stolen Hooves")
+        menu.connect(world.get_region("Cho-Choosing Path"), "Main Menu to Cho-Choosing Path")
+
+        if world.options.TimeValuableSanity:
+            timehubvaluable = world.get_region("Hub Valuables")
+
+            menu.connect(timehubvaluable, "Main Menu to Hub Valuables")
+            timehubvaluable.connect(world.get_region("Hub Valuables Hard"), "Hub Valuables to Hub Valuables Hard")
+
+            menu.connect(world.get_region("Combustown Valuables"), "Main Menu to Combustown Valuables")
+
+            menu.connect(world.get_region("Mineral Ravine Valuables"), "Main Menu to Mineral Ravine Valuables")
