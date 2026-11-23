@@ -12,6 +12,7 @@ import re
 import traceback
 import logging
 from pathlib import Path
+from logging.handlers import RotatingFileHandler
 
 try:
     from .items import Mission_Enable, Tool_Enable, Tool_Items, Cash_Value
@@ -36,48 +37,31 @@ Valuable_Locations = {
 
 
 IGNORED_FILES = {"__init__.py", "factory.py", "builder.py", "window_sdl2.py","CommonClient.py", "protocol.py"}
-
-current_dir = Path(__file__).resolve().parent
-archipelago_dir = next((p for p in [current_dir] + list(current_dir.parents) if p.name.lower() == "archipelago"), current_dir.parent)
-
-LOG_DIR = archipelago_dir / "logs"
-LOG_DIR.mkdir(parents=True, exist_ok=True)
-
-Log_File_1 = LOG_DIR / "teardownclient1.log"
-Log_File_2 = LOG_DIR / "teardownclient2.log"
-Log_File_3 = LOG_DIR / "teardownclient3.log"
-#Remove in a couple of months 11/18/26
-Log_File_Old = LOG_DIR / "teardownclient.log"
-
-
-if Log_File_Old.exists():
-    Log_File_Old.unlink()
-
-if Log_File_3.exists():
-    Log_File_3.unlink()
-
-if Log_File_2.exists():
-    Log_File_2.rename(Log_File_3)
-    print(f"Log file: {Log_File_3}")
-
-if Log_File_1.exists():
-    Log_File_1.rename(Log_File_2)
-    print(f"Log file: {Log_File_2}")
-
-print(f"Log file: {Log_File_1}")
-
-
-logging.basicConfig(
-    filename=Log_File_1,
-    filemode='w',
-    format='%(asctime)s - [%(filename)s:%(lineno)d] - %(levelname)s - %(message)s',
-    level=logging.INFO,
-    force=True
-)
 logger = logging.getLogger(__name__)
 
-for handler in logging.getLogger().handlers:
+def setup_logging():
+    current_dir = Path(__file__).resolve().parent
+    archipelago_dir = next((p for p in [current_dir] + list(current_dir.parents) if p.name.lower() == "archipelago"), current_dir.parent)
+
+    LOG_DIR = archipelago_dir / "logs"
+    LOG_DIR.mkdir(parents=True, exist_ok=True)
+    log_path = LOG_DIR / "teardownclient.log"
+
+    # backupCount=2 keeps teardownclient.log, teardownclient.log.1, and teardownclient.log.2 (3 files total)
+    handler = RotatingFileHandler(log_path, maxBytes=0, backupCount=2, encoding="utf-8")
     handler.addFilter(lambda record: record.filename not in IGNORED_FILES)
+    handler.setFormatter(logging.Formatter('%(asctime)s - [%(filename)s:%(lineno)d] - %(levelname)s - %(message)s'))
+
+    # Force a rotation right now if the previous log file isn't empty
+    if log_path.exists() and log_path.stat().st_size > 0:
+        try:
+            handler.doRollover()
+        except PermissionError:
+            pass
+
+    logging.basicConfig(level=logging.INFO, handlers=[handler], force=True)
+    print(f"Log file: {log_path}")
+
 
 
 
