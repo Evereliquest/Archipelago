@@ -4,10 +4,33 @@ from typing import TYPE_CHECKING
 
 from BaseClasses import Item, ItemClassification
 
+try:
+    from .lists import item_group_list
+except (ImportError, ValueError):
+    from lists import item_group_list
+
+
 if TYPE_CHECKING:
     from .world import TeardownWorld
 
 ITEM_NAME_TO_ID = {
+
+#   Miscellaneous
+
+    "Cash Bundle 20": 251,
+    "Cash Bundle 50": 252,
+    "Cash Bundle 100": 253,
+    "Cash Bundle 250": 254,
+    "Cash Bundle 500": 255,
+    "Cash Bundle 750": 256,
+    "Cash Bundle 1000": 257,
+    "Cash Bundle 3000": 258,
+
+    "Golden Banana": 271,
+
+    "Extra Nothing": 281,
+
+#   Base Game Campaign Unlocks
 
     "Old Building Problem Unlock": 1,
     "Lee Computers Unlock": 2,
@@ -27,7 +50,7 @@ ITEM_NAME_TO_ID = {
     "The Speed Deal Unlock": 16,
     "A Wet Affair Unlock": 17,
     "Power Outage Unlock": 18,
-    "Motivational Reminder Unlock": 19,
+    "(Base Game) Motivational Reminder Unlock": 19,
     "An Assortment Of Dishes Unlock": 20,
     "Flooding Unlock": 21,
     "The Chase Unlock": 22,
@@ -50,15 +73,15 @@ ITEM_NAME_TO_ID = {
     "Droid Dismount Unlock": 39,
     "The Final Diversion Unlock": 40,
 
-#   Progressive Tool Upgrades
+#   Base Game Tools
 
-    "Sledge Hammer Unlock": 41,
-    "Spraycan Unlock": 42,
-    "Extinguisher Unlock": 43,
+    "(Base Game) Sledge Hammer Unlock": 41,
+    "(Base Game) Spraycan Unlock": 42,
+    "(Base Game) Extinguisher Unlock": 43,
 
     "Blowtorch Unlock": 51,
-    "Shotgun Unlock": 52,
-    "Plank Unlock": 53,
+    "(Base Game) Shotgun Unlock": 52,
+    "(Base Game) Plank Unlock": 53,
     "Pipe Bomb Unlock": 54,
     "Gun Unlock": 55,
     "Bomb Unlock": 56,
@@ -114,16 +137,36 @@ ITEM_NAME_TO_ID = {
     "BlueTide Bottles Upgrade": 201,
     "BlueTide Duration Upgrade": 202,
 
-    "Cash Bundle 20": 251,
-    "Cash Bundle 50": 252,
-    "Cash Bundle 100": 253,
-    "Cash Bundle 250": 254,
-    "Cash Bundle 500": 255,
-    "Cash Bundle 750": 256,
-    "Cash Bundle 1000": 257,
-    "Cash Bundle 3000": 258,
+#   Time Campers Campaign Unlocks
 
-    "Extra Nothing": 300,
+    "Stocking Up Unlock": 301,
+    "Going Volatile Unlock": 302,
+    "Hiding Traces Unlock": 303,
+    "Preemptive Prohibition Unlock": 304,
+    "Tumbling Around Unlock": 305,
+    "Greasing the Gears Unlock": 306,
+    "(Time Campers) Motivational Reminder Unlock": 407,
+    "Four Stolen Hooves Unlock": 308,
+    "Cho-Choosing Path Unlock": 309,
+
+#   Time Camper Tools
+
+    "(Time Campers) Sledge Hammer Unlock": 41,
+    "(Time Campers) Spraycan Unlock": 42,
+    "(Time Campers) Extinguisher Unlock": 43,
+    "Gunpowder Barrel Unlock": 58,
+
+    "Blow Lamp Unlock": 51,
+    "(Time Campers) Shotgun Unlock": 52,
+    "(Time Campers) Plank Unlock": 53,
+    "Rope Unlock": 60,
+    "Dynamite Unlock": 54,
+    "Dynamite Bundle Unlock": 56,
+    "Revolver Unlock": 55,
+    "TNT Unlock": 57,
+    "Rifle Unlock": 63,
+    "Horse Punch Unlock": 64,
+
 
 }
 
@@ -146,7 +189,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "The Speed Deal Unlock": ItemClassification.progression,
     "A Wet Affair Unlock": ItemClassification.progression,
     "Power Outage Unlock": ItemClassification.progression,
-    "Motivational Reminder Unlock": ItemClassification.progression,
+    "(Base Game) Motivational Reminder Unlock": ItemClassification.progression,
     "An Assortment Of Dishes Unlock": ItemClassification.progression,
     "Flooding Unlock": ItemClassification.progression,
     "The Chase Unlock": ItemClassification.progression,
@@ -169,13 +212,13 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Droid Dismount Unlock": ItemClassification.progression,
     "The Final Diversion Unlock": ItemClassification.progression,
 
-    "Sledge Hammer Unlock": ItemClassification.progression,
-    "Spraycan Unlock": ItemClassification.useful,
-    "Extinguisher Unlock": ItemClassification.progression,
+    "(Base Game) Sledge Hammer Unlock": ItemClassification.progression| ItemClassification.useful,
+    "(Base Game) Spraycan Unlock": ItemClassification.useful,
+    "(Base Game) Extinguisher Unlock": ItemClassification.progression| ItemClassification.useful,
 
     "Blowtorch Unlock": ItemClassification.progression,
-    "Shotgun Unlock": ItemClassification.progression,
-    "Plank Unlock": ItemClassification.progression,
+    "(Base Game) Shotgun Unlock": ItemClassification.progression,
+    "(Base Game) Plank Unlock": ItemClassification.progression,
     "Pipe Bomb Unlock": ItemClassification.progression,
     "Gun Unlock": ItemClassification.progression,
     "Bomb Unlock": ItemClassification.progression,
@@ -232,6 +275,33 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "BlueTide Duration Upgrade": ItemClassification.progression| ItemClassification.useful,
 
 
+    "Stocking Up Unlock": ItemClassification.progression,
+    "Going Volatile Unlock": ItemClassification.progression,
+    "Hiding Traces Unlock": ItemClassification.progression,
+    "Preemptive Prohibition Unlock": ItemClassification.progression,
+    "Tumbling Around Unlock": ItemClassification.progression,
+    "Greasing the Gears Unlock": ItemClassification.progression,
+    "(Time Campers) Motivational Reminder Unlock": ItemClassification.progression,
+    "Four Stolen Hooves Unlock": ItemClassification.progression,
+    "Cho-Choosing Path Unlock": ItemClassification.progression,
+
+    "(Time Campers) Sledge Hammer Unlock": ItemClassification.progression| ItemClassification.useful,
+    "(Time Campers) Spraycan Unlock": ItemClassification.useful,
+    "(Time Campers) Extinguisher Unlock": ItemClassification.progression| ItemClassification.useful,
+    "Gunpowder Barrel Unlock": ItemClassification.progression,
+
+    "Blow Lamp Unlock": ItemClassification.progression,
+    "(Time Campers) Shotgun Unlock": ItemClassification.progression,
+    "(Time Campers) Plank Unlock": ItemClassification.progression,
+    "Rope Unlock": ItemClassification.progression,
+    "Dynamite Unlock": ItemClassification.progression,
+    "Dynamite Bundle Unlock": ItemClassification.progression,
+    "Revolver Unlock": ItemClassification.progression,
+    "TNT Unlock": ItemClassification.progression,
+    "Rifle Unlock": ItemClassification.progression,
+    "Horse Punch Unlock": ItemClassification.progression,
+
+
     "Cash Bundle 20": ItemClassification.filler,
     "Cash Bundle 50": ItemClassification.filler,
     "Cash Bundle 100": ItemClassification.filler,
@@ -240,197 +310,13 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Cash Bundle 750": ItemClassification.useful,
     "Cash Bundle 1000": ItemClassification.useful,
     "Cash Bundle 3000": ItemClassification.useful,
+
+
+    "Golden Banana": ItemClassification.progression,
 }
 
-item_name_groups = {
-    "Levels": [
-        "Old Building Problem Unlock",
-        "Lee Computers Unlock",
-        "Login Devices Unlock",
-        "Making Space Unlock",
-        "Classic Cars Unlock",
-        "The GPS Devices Unlock",
-        "The Car Wash Unlock",
-        "Heavy Lifting Unlock",
-        "The Tower Unlock",
-        "Fine Arts Unlock",
-        "Tool Up Unlock",
-        "Art Return Unlock",
-        "Covert Chaos Unlock",
-        "Insurance Fraud Unlock",
-        "The BlueTide Computers Unlock",
-        "The Speed Deal Unlock",
-        "A Wet Affair Unlock",
-        "Power Outage Unlock",
-        "Motivational Reminder Unlock",
-        "An Assortment Of Dishes Unlock",
-        "Flooding Unlock",
-        "The Chase Unlock",
-        "Roborazzi Unlock",
-        "The Secret Ingredients Unlock",
-        "The BlueTide Shortage Unlock",
-        "The Shipping Logs Unlock",
-        "The Alarm System Unlock",
-        "Moving The Goods Unlock",
-        "Havoc In Paradise Unlock",
-        "Elena's Revenge Unlock",
-        "Truckload Of Trouble Unlock",
-        "Ornament Ordeal Unlock",
-        "The Quilez Tools Unlock",
-        "Connecting The Dots Unlock",
-        "The Pawn Shop Unlock",
-        "The Droid Abduction Unlock",
-        "Malice In Woonderland Unlock",
-        "Handle With Care Unlock",
-        "Droid Dismount Unlock",
-    ],
 
-    "Easy Levels": [
-        "Old Building Problem Unlock",
-        "Lee Computers Unlock",
-        "Login Devices Unlock",
-        "Making Space Unlock",
-        "Classic Cars Unlock",
-        "The GPS Devices Unlock",
-        "The Car Wash Unlock",
-        "The Tower Unlock",
-        "Fine Arts Unlock",
-        "Covert Chaos Unlock",
-        "The Chase Unlock",
-        "Roborazzi Unlock",
-    ],
-
-    "Tools": [
-        "Sledge Hammer Unlock",
-        "Spraycan Unlock",
-        "Extinguisher Unlock",
-        "Blowtorch Unlock",
-        "Shotgun Unlock",
-        "Plank Unlock",
-        "Pipe Bomb Unlock",
-        "Gun Unlock",
-        "Bomb Unlock",
-        "Rocket Launcher Unlock",
-        "Rocket Booster Unlock",
-        "Leaf Blower Unlock",
-        "Cable Unlock",
-        "Vehicle Thruster Unlock",
-        "Nitroglycerin Unlock",
-        "Hunting Rifle Unlock",
-        "BlueTide Unlock",
-
-    ],
-
-    "Cash Bundle": [
-        "Cash Bundle 20",
-        "Cash Bundle 50",
-        "Cash Bundle 100",
-        "Cash Bundle 250",
-        "Cash Bundle 500",
-        "Cash Bundle 750",
-        "Cash Bundle 1000",
-        "Cash Bundle 3000",
-
-    ],
-
-    "Lee Chemicals Unlock": [
-        "Lee Computers Unlock",
-        "Login Devices Unlock",
-        "Heavy Lifting Unlock",
-        "The Tower Unlock",
-        "Power Outage Unlock",
-        "Flooding Unlock",
-    ],
-
-    "West Point Marina Unlock": [
-        "Making Space Unlock",
-        "Classic Cars Unlock",
-        "The GPS Devices Unlock",
-        "Tool Up Unlock",
-        "Art Return Unlock",
-    ],
-
-    "Villa Gordon Unlock": [
-        "Classic Cars Unlock",
-        "Fine Arts Unlock",
-        "Insurance Fraud Unlock",
-        "The Speed Deal Unlock",
-        "A Wet Affair Unlock",
-    ],
-
-    "Hollowrock Island Unlock": [
-        "The BlueTide Computers Unlock",
-        "Motivational Reminder Unlock",
-        "An Assortment Of Dishes Unlock",
-        "The Secret Ingredients Unlock",
-        "Droid Dismount Unlock",
-    ],
-
-    "Evertides Mall Unlock": [
-        "Covert Chaos Unlock",
-        "The Shipping Logs Unlock",
-        "Ornament Ordeal Unlock",
-        "Connecting The Dots Unlock",
-    ],
-
-    "Frustrum Unlock": [
-        "The BlueTide Shortage Unlock",
-        "Truckload Of Trouble Unlock",
-        "The Pawn Shop Unlock",
-    ],
-
-    "Quilez Security Unlock": [
-        "The Quilez Tools Unlock",
-        "The Droid Abduction Unlock",
-        "Handle With Care Unlock",
-    ],
-
-    "Isla Estocastica Unlock": [
-        "The Alarm System Unlock",
-        "Moving The Goods Unlock",
-        "Havoc In Paradise Unlock",
-        "Elena's Revenge Unlock",
-    ],
-
-    "Door Breaking Tools": [
-        "Sledge Hammer Unlock"
-        "Blowtorch Unlock",
-        "Shotgun Unlock",
-        "Gun Unlock",
-        "Pipe Bomb Unlock",
-        "Hunting Rifle Unlock",
-    ],
-
-    "Wall Opening Tools": [
-        "Sledge Hammer Unlock"
-        "Shotgun Unlock",
-        "Pipe Bomb Unlock",
-        "Bomb Unlock",
-        "Rocket Launcher Unlock",
-    ],
-
-    "Destruction Tools": [
-        "Shotgun Unlock",
-        "Pipe Bomb Unlock",
-        "Bomb Unlock",
-        "Rocket Launcher Unlock",
-        "Nitroglycerin Unlock",
-    ],
-
-    "Gun Tools": [
-        "Gun Unlock",
-        "Rocket Launcher Unlock",
-        "Hunting Rifle Unlock",
-
-    ],
-
-    "Plank/Cable Unlock": [
-        "Plank Unlock",
-        "Cable Unlock",
-    ],
-
-}
-
+item_name_groups = item_group_list
 
 class TeardownItem(Item):
     game = "Teardown"
@@ -513,46 +399,48 @@ def create_all_items(world: TeardownWorld) -> None:
         world.create_item("Cash Bundle 3000"),
     ]
 
+#   Start of if's after all always created items
 
-    if world.options.StartingTool:
-        amount = world.options.AmountTools.value
-        startingtools = list(item_name_groups["Tools"])
+    if "Base Campaign" in world.options.CampaignSelection:
 
-        for number in range(amount):
-            chosentool = world.random.choice(startingtools)
+        if world.options.StartingTool:
+            amount = world.options.AmountTools.value
+            startingtools = list(item_name_groups["Tools"])
 
-            startingtools.remove(chosentool)
+            for number in range(amount):
+                chosentool = world.random.choice(startingtools)
 
-            world.push_precollected(world.create_item(chosentool))
+                startingtools.remove(chosentool)
 
-        for leftover in startingtools:
-            itempool.append(world.create_item(leftover))
+                world.push_precollected(world.create_item(chosentool))
+
+            for leftover in startingtools:
+                itempool.append(world.create_item(leftover))
 
 
-    else:
-        world.push_precollected(world.create_item("Sledge Hammer Unlock"))
-        world.push_precollected(world.create_item("Spraycan Unlock"))
-        world.push_precollected(world.create_item("Extinguisher Unlock"))
+        else:
+            world.push_precollected(world.create_item("Sledge Hammer Unlock"))
+            world.push_precollected(world.create_item("Spraycan Unlock"))
+            world.push_precollected(world.create_item("Extinguisher Unlock"))
 
-        itempool.append(world.create_item("Blowtorch Unlock"))
-        itempool.append(world.create_item("Shotgun Unlock"))
-        itempool.append(world.create_item("Plank Unlock"))
-        itempool.append(world.create_item("Pipe Bomb Unlock"))
-        itempool.append(world.create_item("Gun Unlock"))
-        itempool.append(world.create_item("Bomb Unlock"))
-        itempool.append(world.create_item("Rocket Launcher Unlock"))
-        itempool.append(world.create_item("Rocket Booster Unlock"))
-        itempool.append(world.create_item("Leaf Blower Unlock"))
-        itempool.append(world.create_item("Cable Unlock"))
-        itempool.append(world.create_item("Vehicle Thruster Unlock"))
-        itempool.append(world.create_item("Nitroglycerin Unlock"))
-        itempool.append(world.create_item("Hunting Rifle Unlock"))
-        itempool.append(world.create_item("BlueTide Unlock"))
-
+            itempool.append(world.create_item("Blowtorch Unlock"))
+            itempool.append(world.create_item("Shotgun Unlock"))
+            itempool.append(world.create_item("Plank Unlock"))
+            itempool.append(world.create_item("Pipe Bomb Unlock"))
+            itempool.append(world.create_item("Gun Unlock"))
+            itempool.append(world.create_item("Bomb Unlock"))
+            itempool.append(world.create_item("Rocket Launcher Unlock"))
+            itempool.append(world.create_item("Rocket Booster Unlock"))
+            itempool.append(world.create_item("Leaf Blower Unlock"))
+            itempool.append(world.create_item("Cable Unlock"))
+            itempool.append(world.create_item("Vehicle Thruster Unlock"))
+            itempool.append(world.create_item("Nitroglycerin Unlock"))
+            itempool.append(world.create_item("Hunting Rifle Unlock"))
+            itempool.append(world.create_item("BlueTide Unlock"))
 
     amountlevels = world.options.AmountLevels.value
     startinglevels = list(item_name_groups["Easy Levels"])
-    totallevels = list(item_name_groups["Levels"])
+    totallevels = list(item_name_groups["All Levels"])
     totallevels = [level for level in totallevels if level not in startinglevels]
 
     if not world.options.StartingLevel:
